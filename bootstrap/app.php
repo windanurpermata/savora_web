@@ -16,8 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectGuestsTo('/masuk');
         $middleware->alias([
-            'role'     => RoleMiddleware::class,
-            'admin.ip' => AdminIpWhitelist::class,
+            'role'       => RoleMiddleware::class,
+            'admin.ip'   => AdminIpWhitelist::class,
+            'admin.role' => \App\Http\Middleware\AdminRoleMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

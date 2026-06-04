@@ -81,7 +81,8 @@
                     Dashboard
                 </a>
 
-                {{-- Kelola User --}}
+                {{-- Kelola User (Super Admin Only) --}}
+                @if(auth()->user()->email === 'admin@savora.com' || auth()->user()->email === 'windanur337@gmail.com' || str_contains(strtolower(auth()->user()->name), 'super'))
                 <a href="{{ route('admin.users.index') }}"
                     class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm transition-colors
                       {{ request()->routeIs('admin.users.*')
@@ -93,6 +94,7 @@
                     </svg>
                     Kelola User
                 </a>
+                @endif
 
                 {{-- Kelola Resep --}}
                 <a href="{{ route('admin.recipes.index') }}"
@@ -107,7 +109,8 @@
                     Kelola Resep
                 </a>
 
-                {{-- Kategori --}}
+                {{-- Kategori (Super Admin Only) --}}
+                @if(auth()->user()->email === 'admin@savora.com' || auth()->user()->email === 'windanur337@gmail.com' || str_contains(strtolower(auth()->user()->name), 'super'))
                 <a href="{{ route('admin.categories.index') }}"
                     class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm transition-colors
                       {{ request()->routeIs('admin.categories.*')
@@ -119,6 +122,7 @@
                     </svg>
                     Kategori
                 </a>
+                @endif
 
                 {{-- Pesan Masuk --}}
                 <a href="{{ route('admin.messages.index') }}"

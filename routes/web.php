@@ -77,9 +77,13 @@ Route::middleware(['auth', 'role:chef'])
 Route::middleware(['auth', 'role:admin', 'admin.ip'])
     ->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-        Route::resource('users', \App\Http\Controllers\Admin\AdminUserController::class);
         Route::resource('recipes', \App\Http\Controllers\Admin\AdminRecipeController::class);
-        Route::resource('categories', \App\Http\Controllers\Admin\AdminCategoryController::class);
+
+        // Super Admin Only
+        Route::middleware(['admin.role:super'])->group(function () {
+            Route::resource('users', \App\Http\Controllers\Admin\AdminUserController::class);
+            Route::resource('categories', \App\Http\Controllers\Admin\AdminCategoryController::class);
+        });
 
         // Messages
         Route::get('/messages', [AdminMessageController::class, 'index'])->name('messages.index');
