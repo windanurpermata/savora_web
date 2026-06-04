@@ -5,9 +5,10 @@
     <div class="min-h-screen bg-cokelat-50 flex items-center justify-center px-4 py-8">
         <div class="w-full max-w-sm">
 
-            <div class="text-center mb-6">
-                <a href="{{ route('home') }}" class="font-serif text-2xl text-cokelat-800">
-                    Dapur<span class="text-cokelat-500">Nusantara</span>
+            <div class="flex flex-col items-center mb-6">
+                <a href="{{ route('home') }}" class="flex flex-col items-center gap-2">
+                    <img src="{{ asset('images/logo.png') }}" alt="Savora Logo" class="w-16 h-16 object-cover rounded-xl shadow-sm border border-cokelat-100 mb-1">
+                    <span class="font-serif text-2xl text-cokelat-800">Savora</span>
                 </a>
                 <p class="text-cokelat-400 text-xs mt-1">Reset password akun Anda</p>
             </div>
@@ -19,7 +20,9 @@
                     <div
                         class="bg-green-50 border border-green-200 text-green-700 rounded-lg
                             px-3 py-3 mb-4 text-xs text-center">
-                        <div class="text-2xl mb-1">📧</div>
+                        <div class="flex justify-center mb-2">
+                            <img src="{{ asset('images/logo.png') }}" alt="Savora Logo" class="w-10 h-10 object-cover rounded-lg shadow-sm border border-cokelat-100">
+                        </div>
                         <p class="font-bold mb-1">Link reset password sudah dikirim!</p>
                         <p>Cek inbox email Anda dan klik link yang dikirimkan untuk mereset password.</p>
                     </div>

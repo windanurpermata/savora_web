@@ -5,9 +5,10 @@
     <div class="min-h-screen bg-cokelat-50 flex items-center justify-center px-4 py-8">
         <div class="w-full max-w-sm">
 
-            <div class="text-center mb-6">
-                <a href="{{ route('home') }}" class="font-serif text-2xl text-cokelat-800">
-                    Dapur<span class="text-cokelat-500">Nusantara</span>
+            <div class="flex flex-col items-center mb-6">
+                <a href="{{ route('home') }}" class="flex flex-col items-center gap-2">
+                    <img src="{{ asset('images/logo.png') }}" alt="Savora Logo" class="w-16 h-16 object-cover rounded-xl shadow-sm border border-cokelat-100 mb-1">
+                    <span class="font-serif text-2xl text-cokelat-800">Savora</span>
                 </a>
                 <p class="text-cokelat-400 text-xs mt-1">Buat password baru</p>
             </div>

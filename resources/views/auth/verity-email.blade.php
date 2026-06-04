@@ -6,7 +6,9 @@
         <div class="w-full max-w-sm text-center">
 
             <div class="bg-white rounded-xl border border-cokelat-100 shadow-sm p-8">
-                <div class="text-5xl mb-4">📧</div>
+                <div class="flex justify-center mb-6">
+                    <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}" class="w-24 h-24 object-cover rounded-2xl shadow-sm border border-cokelat-100">
+                </div>
                 <h2 class="font-serif text-xl text-cokelat-800 mb-2">Cek Email Anda</h2>
                 <p class="text-cokelat-400 text-sm mb-6 leading-relaxed">
                     Kami sudah mengirim link verifikasi ke

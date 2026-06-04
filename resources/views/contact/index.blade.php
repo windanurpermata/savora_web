@@ -53,7 +53,7 @@
                         </div>
                         <div>
                             <p class="text-xs font-bold text-cokelat-700 mb-0.5">Email</p>
-                            <p class="text-xs text-cokelat-500">admin@dapurnusantara.id</p>
+                            <p class="text-xs text-cokelat-500">admin@savora.id</p>
                         </div>
                     </div>
 

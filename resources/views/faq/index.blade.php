@@ -15,7 +15,7 @@
                 Pertanyaan yang Sering Ditanyakan
             </h1>
             <p class="text-cokelat-300 text-sm">
-                Temukan jawaban atas pertanyaan umum seputar DapurNusantara
+                Temukan jawaban atas pertanyaan umum seputar Savora
             </p>
         </div>
     </section>

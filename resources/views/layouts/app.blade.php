@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'savora-DapurNusantara') - Resep Masakan Terlengkap</title>
+    <title>@yield('title', 'Savora') - Resep Masakan Terlengkap</title>
 
     {{-- Tailwind CSS via CDN (ganti dengan Vite jika sudah setup) --}}
     <script src="https://cdn.tailwindcss.com"></script>
@@ -449,7 +449,7 @@
                 class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
                         flex flex-col sm:flex-row items-center justify-between gap-3">
                 <p class="text-xs text-cokelat-600">
-                    © {{ date('Y') }} <span class="text-cokelat-500">Savora-DapurNusantara</span>
+                    © {{ date('Y') }} <span class="text-cokelat-500">Savora</span>
                     — Dibuat dengan ❤️ untuk seluruh keluarga Indonesia
                 </p>
                 <div class="flex gap-5">
