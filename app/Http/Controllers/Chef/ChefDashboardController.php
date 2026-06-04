@@ -15,9 +15,9 @@ class ChefDashboardController extends Controller
         $chef = Auth::user();
 
         // Statistik utama
-        $totalResep = Recipe::where('user_id', $chef->id)->count();
-        $totalRating = Rating::whereHas('recipe', fn($q) => $q->where('user_id', $chef->id))->count();
-        $rataRating = Rating::whereHas('recipe', fn($q) => $q->where('user_id', $chef->id))->avg('nilai');
+        $totalResep     = Recipe::where('user_id', $chef->id)->count();
+        $totalRating    = Rating::whereHas('recipe', fn($q) => $q->where('user_id', $chef->id))->count();
+        $rataRating     = Rating::whereHas('recipe', fn($q) => $q->where('user_id', $chef->id))->avg('nilai');
         $resepTerpopuler = Recipe::where('user_id', $chef->id)
             ->withCount('ratings')
             ->orderByDesc('ratings_count')
@@ -25,7 +25,7 @@ class ChefDashboardController extends Controller
 
         // Resep terbaru
         $resepTerbaru = Recipe::where('user_id', $chef->id)
-            ->with('category')
+            ->with('kategori')
             ->withAvg('ratings', 'nilai')
             ->latest()
             ->take(5)
