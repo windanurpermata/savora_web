@@ -49,11 +49,14 @@ class AdminMessageController extends Controller
                         ->subject('Re: Pesan Anda ke DapurNusantara');
                 }
             );
+
+            // Hapus pesan otomatis setelah berhasil dibalas
+            $msg->delete();
         } catch (\Exception $e) {
             return back()->with('error', 'Gagal mengirim balasan: ' . $e->getMessage());
         }
 
-        return back()->with('success', 'Balasan berhasil dikirim ke ' . $msg->email);
+        return redirect()->route('admin.messages.index')->with('success', 'Balasan berhasil dikirim ke ' . $msg->email . ' dan pesan telah dihapus.');
     }
 
     public function destroy($id)

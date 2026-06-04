@@ -92,6 +92,15 @@
                         <p class="text-xs font-bold text-cokelat-600 uppercase tracking-wider mb-3">
                             Balas via Email
                         </p>
+                        @if ($errors->any())
+                            <div class="mb-3 p-3 bg-red-50 border border-red-200 text-red-650 rounded-lg text-xs">
+                                <ul class="list-disc list-inside">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <form method="POST" action="{{ route('admin.messages.reply', $selectedMessage->id) }}"
                             class="space-y-3">
                             @csrf
@@ -99,21 +108,19 @@
                                 class="w-full bg-cokelat-50 border border-cokelat-200 rounded-lg
                                          px-4 py-3 text-sm outline-none focus:border-cokelat-500
                                          placeholder-cokelat-300 transition-colors resize-none">{{ old('balasan') }}</textarea>
-                            <div class="flex items-center gap-3">
-                                <button type="submit"
-                                    class="bg-cokelat-700 hover:bg-cokelat-800 text-white font-bold
-                                           px-5 py-2.5 rounded-lg text-sm transition-colors">
-                                    Kirim Balasan
-                                </button>
-                                <form method="POST" action="{{ route('admin.messages.destroy', $selectedMessage->id) }}"
-                                    onsubmit="return confirm('Hapus pesan ini?')" class="inline">
-                                    @csrf @method('DELETE')
-                                    <button type="submit"
-                                        class="text-sm text-red-400 hover:text-red-600 transition-colors">
-                                        Hapus Pesan
-                                    </button>
-                                </form>
-                            </div>
+                            <button type="submit"
+                                class="bg-cokelat-700 hover:bg-cokelat-800 text-white font-bold
+                                       px-5 py-2.5 rounded-lg text-sm transition-colors">
+                                Kirim Balasan
+                            </button>
+                        </form>
+                        <form method="POST" action="{{ route('admin.messages.destroy', $selectedMessage->id) }}"
+                            onsubmit="return confirm('Hapus pesan ini?')" class="mt-3 inline-block">
+                            @csrf @method('DELETE')
+                            <button type="submit"
+                                class="text-sm text-red-400 hover:text-red-650 transition-colors font-bold">
+                                Hapus Pesan
+                            </button>
                         </form>
                     </div>
 

@@ -90,6 +90,7 @@ Route::middleware(['auth', 'role:admin', 'admin.ip'])
 
         // Newsletter
         Route::get('/newsletter', [\App\Http\Controllers\Admin\AdminNewsletterController::class, 'index'])->name('newsletter.index');
+        Route::delete('/newsletter/{id}', [\App\Http\Controllers\Admin\AdminNewsletterController::class, 'destroy'])->name('newsletter.destroy');
     });
 
 // ===== FAQ =====
