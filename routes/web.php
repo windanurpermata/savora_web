@@ -1,7 +1,4 @@
 <?php
-// ============================================================
-// TAMBAHKAN / UPDATE bagian-bagian ini di routes/web.php
-// ============================================================
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -26,7 +23,7 @@ use App\Http\Controllers\Admin\AdminMessageController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/resep', [RecipeController::class, 'index'])->name('recipes.index');
 Route::get('/resep/{id}', [RecipeController::class, 'show'])->name('recipes.show');
-Route::get('/chef/{id}', [ChefProfileController::class, 'show'])->name('chef.profile');
+Route::get('/chef/{id}', [ChefProfileController::class, 'show'])->name('chef.profile')->whereNumber('id');
 
 // ===== AUTH =====
 Route::middleware('guest')->group(function () {
@@ -44,30 +41,27 @@ Route::post('/keluar', [LoginController::class, 'logout'])
     ->middleware('auth')->name('logout');
 
 // ===== VERIFIKASI EMAIL =====
-// Halaman pemberitahuan verifikasi
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 
-// Klik link dari email
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
     return redirect()->route('home')->with('success', 'Email berhasil diverifikasi!');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
-// Kirim ulang email verifikasi
 Route::post('/email/verification-notification', [LoginController::class, 'resendVerification'])
     ->middleware('throttle:6,1')->name('verification.resend');
 
 // ===== MEMBER =====
-Route::middleware(['auth', 'verified', 'role:member'])->group(function () {
+Route::middleware(['auth', 'role:member'])->group(function () {
     Route::get('/bookmark', [BookmarkController::class, 'index'])->name('bookmarks.index');
     Route::post('/resep/{id}/bookmark', [BookmarkController::class, 'toggle'])->name('bookmarks.toggle');
     Route::post('/resep/{id}/rating', [RatingController::class, 'store'])->name('recipes.rate');
 });
 
 // ===== CHEF =====
-Route::middleware(['auth', 'verified', 'role:chef'])
+Route::middleware(['auth', 'role:chef'])
     ->prefix('chef')->name('chef.')->group(function () {
         Route::get('/dashboard', [ChefDashboardController::class, 'index'])->name('dashboard');
         Route::get('/resep/buat', [RecipeController::class, 'create'])->name('recipes.create');
@@ -79,30 +73,32 @@ Route::middleware(['auth', 'verified', 'role:chef'])
         Route::put('/profil', [ChefProfileController::class, 'update'])->name('profile.update');
     });
 
-// ===== ADMIN — dilindungi IP Whitelist =====
-Route::middleware(['auth', 'verified', 'role:admin', 'admin.ip'])
+// ===== ADMIN =====
+Route::middleware(['auth', 'role:admin', 'admin.ip'])
     ->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::resource('users', \App\Http\Controllers\Admin\AdminUserController::class);
         Route::resource('recipes', \App\Http\Controllers\Admin\AdminRecipeController::class);
         Route::resource('categories', \App\Http\Controllers\Admin\AdminCategoryController::class);
+
+        // Messages
         Route::get('/messages', [AdminMessageController::class, 'index'])->name('messages.index');
         Route::get('/messages/{id}', [AdminMessageController::class, 'show'])->name('messages.show');
         Route::post('/messages/{id}/reply', [AdminMessageController::class, 'reply'])->name('messages.reply');
+        Route::delete('/messages/{id}/reply', [AdminMessageController::class, 'destroyReply'])->name('messages.reply.destroy');
         Route::delete('/messages/{id}', [AdminMessageController::class, 'destroy'])->name('messages.destroy');
-        Route::get('/newsletter', [AdminNewsletterController::class, 'index'])->name('newsletter.index');
+
+        // Newsletter
+        Route::get('/newsletter', [\App\Http\Controllers\Admin\AdminNewsletterController::class, 'index'])->name('newsletter.index');
     });
 
-
-
-
-// FAQ
+// ===== FAQ =====
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 
-// Hubungi Kami
+// ===== HUBUNGI KAMI =====
 Route::get('/hubungi-kami', [ContactController::class, 'index'])->name('contact');
 Route::post('/hubungi-kami', [ContactController::class, 'store'])->name('contact.store');
 
-// Newsletter
+// ===== NEWSLETTER =====
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])
     ->name('newsletter.subscribe');
