@@ -3,66 +3,24 @@
 namespace App\Http\Controllers\Chef;
 
 use App\Http\Controllers\Controller;
-use App\Models\Recipe;
 use App\Models\Rating;
+use App\Models\Recipe;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class ChefDashboardController extends Controller
 {
     public function index()
     {
-        $chef = Auth::user();
+        $user = Auth::user();
+        $reseps = Recipe::where('user_id', $user->id)->latest()->get();
+        $totalResep = $reseps->count();
 
-        // Statistik utama
-        $totalResep     = Recipe::where('user_id', $chef->id)->count();
-        $totalRating    = Rating::whereHas('recipe', fn($q) => $q->where('user_id', $chef->id))->count();
-        $rataRating     = Rating::whereHas('recipe', fn($q) => $q->where('user_id', $chef->id))->avg('nilai');
-        $resepTerpopuler = Recipe::where('user_id', $chef->id)
-            ->withCount('ratings')
-            ->orderByDesc('ratings_count')
-            ->first();
+        $avgRating = Rating::whereHas('recipe', function ($q) use ($user) {
+            $q->where('user_id', $user->id);
+        })->avg('nilai');
 
-        // Resep terbaru
-        $resepTerbaru = Recipe::where('user_id', $chef->id)
-            ->with('kategori')
-            ->withAvg('ratings', 'nilai')
-            ->latest()
-            ->take(5)
-            ->get();
+        $avgRating = round($avgRating ?? 0, 1);
 
-        // Resep rating tertinggi
-        $resepTerbaik = Recipe::where('user_id', $chef->id)
-            ->withAvg('ratings', 'nilai')
-            ->withCount('ratings')
-            ->having('ratings_avg_nilai', '>', 0)
-            ->orderByDesc('ratings_avg_nilai')
-            ->take(5)
-            ->get();
-
-        // Data grafik rating per bulan (6 bulan terakhir)
-        $grafikRating = Rating::whereHas('recipe', fn($q) => $q->where('user_id', $chef->id))
-            ->select(
-                DB::raw('MONTH(created_at) as bulan'),
-                DB::raw('YEAR(created_at) as tahun'),
-                DB::raw('AVG(nilai) as rata'),
-                DB::raw('COUNT(*) as total')
-            )
-            ->where('created_at', '>=', now()->subMonths(6))
-            ->groupBy('tahun', 'bulan')
-            ->orderBy('tahun')
-            ->orderBy('bulan')
-            ->get();
-
-        return view('chef.dashboard', compact(
-            'chef',
-            'totalResep',
-            'totalRating',
-            'rataRating',
-            'resepTerpopuler',
-            'resepTerbaru',
-            'resepTerbaik',
-            'grafikRating'
-        ));
+        return view('chef.dashboard', compact('reseps', 'totalResep', 'avgRating'));
     }
 }
