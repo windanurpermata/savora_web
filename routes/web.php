@@ -54,14 +54,14 @@ Route::post('/email/verification-notification', [LoginController::class, 'resend
     ->middleware('throttle:6,1')->name('verification.resend');
 
 // ===== MEMBER =====
-Route::middleware(['auth', 'role:member'])->group(function () {
+Route::middleware(['auth', 'role:member', 'verified'])->group(function () {
     Route::get('/bookmark', [BookmarkController::class, 'index'])->name('bookmarks.index');
     Route::post('/resep/{id}/bookmark', [BookmarkController::class, 'toggle'])->name('bookmarks.toggle');
     Route::post('/resep/{id}/rating', [RatingController::class, 'store'])->name('recipes.rate');
 });
 
 // ===== CHEF =====
-Route::middleware(['auth', 'role:chef'])
+Route::middleware(['auth', 'role:chef', 'verified'])
     ->prefix('chef')->name('chef.')->group(function () {
         Route::get('/dashboard', [ChefDashboardController::class, 'index'])->name('dashboard');
         Route::get('/resep/buat', [RecipeController::class, 'create'])->name('recipes.create');

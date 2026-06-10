@@ -65,8 +65,10 @@ class RegisterController extends Controller
         // Kirim email verifikasi
         $user->sendEmailVerificationNotification();
 
-        return redirect()->route('login')
-            ->with('success', 'Akun berhasil dibuat! Cek email Anda untuk verifikasi sebelum login.');
+        // Login user secara otomatis
+        Auth::login($user);
+
+        return redirect()->route('verification.notice');
     }
 
     private function generateCaptcha(Request $request): void

@@ -80,12 +80,7 @@ class LoginController extends Controller
 
         // Cek verifikasi email
         if (!Auth::user()->hasVerifiedEmail()) {
-            Auth::logout();
-            return back()
-                ->withInput($request->only('email'))
-                ->withErrors([
-                    'email' => 'Email belum diverifikasi. Cek inbox email Anda.'
-                ]);
+            return redirect()->route('verification.notice');
         }
 
         return $this->redirectByRole();
