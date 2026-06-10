@@ -88,24 +88,32 @@
                 {{-- Aksi Cepat --}}
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     <a href="{{ route('chef.recipes.create') }}"
-                        class="bg-white border border-cokelat-100 rounded-xl p-4
+                        class="bg-white border border-cokelat-100 rounded-xl p-4 flex flex-col items-center justify-center
                           hover:-translate-y-0.5 transition-transform shadow-sm text-center">
-                        <div class="text-2xl mb-2">➕</div>
+                        <svg class="w-6 h-6 mb-2 text-cokelat-700" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
                         <p class="text-cokelat-700 text-sm font-semibold">Tambah Resep</p>
                     </a>
                     <a href="{{ route('chef.profile.edit') }}"
-                        class="bg-white border border-cokelat-100 rounded-xl p-4
+                        class="bg-white border border-cokelat-100 rounded-xl p-4 flex flex-col items-center justify-center
                           hover:-translate-y-0.5 transition-transform shadow-sm text-center">
-                        <div class="text-2xl mb-2">✏️</div>
+                        <svg class="w-6 h-6 mb-2 text-cokelat-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.83 19.89a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                        </svg>
                         <p class="text-cokelat-700 text-sm font-semibold">Edit Profil</p>
                     </a>
                     <a href="{{ route('chef.profile', Auth::id()) }}"
-                        class="bg-white border border-cokelat-100 rounded-xl p-4
+                        class="bg-white border border-cokelat-100 rounded-xl p-4 flex flex-col items-center justify-center
                           hover:-translate-y-0.5 transition-transform shadow-sm text-center">
-                        <div class="text-2xl mb-2">👁️</div>
+                        <svg class="w-6 h-6 mb-2 text-cokelat-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.43 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
                         <p class="text-cokelat-700 text-sm font-semibold">Lihat Profil</p>
                     </a>
                 </div>
+
 
                 {{-- Resep Terbaru --}}
                 <div class="bg-white border border-cokelat-100 rounded-2xl shadow-sm overflow-hidden">

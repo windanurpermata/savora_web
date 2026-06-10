@@ -12,8 +12,8 @@ class LoginController extends Controller
 {
     // Maksimal percobaan login sebelum dikunci
     const MAX_ATTEMPTS = 3;
-    // Durasi kunci dalam detik (15 menit)
-    const DECAY_SECONDS = 900;
+    // Durasi kunci dalam detik (5 menit)
+    const DECAY_SECONDS = 300;
 
     public function showLoginForm(Request $request)
     {

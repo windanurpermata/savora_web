@@ -128,3 +128,39 @@
 
             {{-- Tombol --}}
             <div class="flex items-center gap-3">
+                <button type="submit"
+                    class="bg-cokelat-700 hover:bg-cokelat-800 text-white font-bold px-6 py-2.5
+                           rounded-xl text-sm transition-colors">
+                    Simpan Perubahan
+                </button>
+                <a href="{{ route('chef.dashboard') }}"
+                    class="text-sm text-cokelat-400 hover:text-cokelat-600 transition-colors">
+                    Batal
+                </a>
+            </div>
+
+        </form>
+    </div>
+@endsection
+
+@push('scripts')
+    <script>
+        function previewFoto(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const placeholder = document.getElementById('foto-placeholder');
+                    if (placeholder) {
+                        placeholder.classList.add('hidden');
+                    }
+                    const img = document.getElementById('foto-preview');
+                    if (img) {
+                        img.src = e.target.result;
+                        img.classList.remove('hidden');
+                    }
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+@endpush
