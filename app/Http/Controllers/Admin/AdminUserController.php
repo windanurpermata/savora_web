@@ -47,4 +47,19 @@ class AdminUserController extends Controller
         $user->delete();
         return back()->with('success', 'User berhasil dihapus.');
     }
+
+    public function toggleBlock($id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->id === Auth::id()) {
+            return back()->with('error', 'Tidak bisa memblokir akun sendiri.');
+        }
+
+        $user->is_blocked = !$user->is_blocked;
+        $user->save();
+
+        $status = $user->is_blocked ? 'diblokir' : 'aktif kembali';
+        return back()->with('success', "User {$user->name} berhasil {$status}.");
+    }
 }

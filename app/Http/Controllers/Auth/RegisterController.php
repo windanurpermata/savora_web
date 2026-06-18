@@ -14,7 +14,6 @@ class RegisterController extends Controller
 {
     public function showRegistrationForm(Request $request)
     {
-        $this->generateCaptcha($request);
         return view('auth.register');
     }
 
@@ -29,7 +28,7 @@ class RegisterController extends Controller
                 'confirmed',
                 Password::min(8)->mixedCase()->numbers()->symbols(),
             ],
-            'captcha' => 'required',
+            'g-recaptcha-response' => ['required', new \App\Rules\Recaptcha()],
         ], [
             'role.required' => 'Pilih jenis akun terlebih dahulu.',
             'name.required' => 'Nama lengkap wajib diisi.',
@@ -38,16 +37,8 @@ class RegisterController extends Controller
             'email.unique' => 'Email sudah terdaftar.',
             'password.required' => 'Password wajib diisi.',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
-            'captcha.required' => 'Jawaban captcha wajib diisi.',
+            'g-recaptcha-response.required' => 'Verifikasi reCAPTCHA wajib dicentang.',
         ]);
-
-        // Cek CAPTCHA
-        if ((int) $request->captcha !== (int) session('captcha_answer')) {
-            $this->generateCaptcha($request);
-            return back()
-                ->withInput($request->except('password', 'password_confirmation', 'captcha'))
-                ->withErrors(['captcha' => 'Jawaban captcha salah.']);
-        }
 
         // Buat user
         $user = User::create([
@@ -69,13 +60,5 @@ class RegisterController extends Controller
         Auth::login($user);
 
         return redirect()->route('verification.notice');
-    }
-
-    private function generateCaptcha(Request $request): void
-    {
-        $a = rand(1, 20);
-        $b = rand(1, 20);
-        $request->session()->put('captcha_question', "{$a} + {$b}");
-        $request->session()->put('captcha_answer', $a + $b);
     }
 }

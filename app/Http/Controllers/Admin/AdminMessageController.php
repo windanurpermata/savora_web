@@ -41,22 +41,30 @@ class AdminMessageController extends Controller
 
         $msg = ContactMessage::findOrFail($id);
 
+        $emailSent = true;
         try {
             Mail::raw(
-                "Halo {$msg->nama},\n\n{$request->balasan}\n\n— Tim DapurNusantara",
+                "Halo {$msg->nama},\n\n{$request->balasan}\n\n— Tim Savora",
                 function ($m) use ($msg) {
                     $m->to($msg->email, $msg->nama)
-                        ->subject('Re: Pesan Anda ke DapurNusantara');
+                        ->subject('Re: Pesan Anda ke Savora');
                 }
             );
-
-            // Hapus pesan otomatis setelah berhasil dibalas
-            $msg->delete();
         } catch (\Exception $e) {
-            return back()->with('error', 'Gagal mengirim balasan: ' . $e->getMessage());
+            $emailSent = false;
+            \Log::warning("Gagal mengirim email balasan ke {$msg->email}: " . $e->getMessage());
         }
 
-        return redirect()->route('admin.messages.index')->with('success', 'Balasan berhasil dikirim ke ' . $msg->email . ' dan pesan telah dihapus.');
+        // Hapus pesan otomatis setelah dibalas
+        $msg->delete();
+
+        if ($emailSent) {
+            return redirect()->route('admin.messages.index')
+                ->with('success', 'Balasan berhasil dikirim ke ' . $msg->email . ' dan pesan telah dibersihkan.');
+        }
+
+        return redirect()->route('admin.messages.index')
+            ->with('success', 'Balasan berhasil diproses (pesan dihapus), namun notifikasi email gagal dikirim ke ' . $msg->email . ' karena konfigurasi mail server belum aktif.');
     }
 
     public function destroy($id)

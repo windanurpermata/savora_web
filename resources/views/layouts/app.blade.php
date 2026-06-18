@@ -99,6 +99,11 @@
                             Hai, {{ Auth::user()->name }}
                         </span>
 
+                        <a href="{{ route('profile.edit') }}"
+                            class="text-cokelat-200 hover:text-cokelat-50 text-sm transition-colors">
+                            Edit Profil
+                        </a>
+
                         @if (Auth::user()->role === 'admin')
                             <a href="{{ route('admin.dashboard') }}"
                                 class="text-cokelat-200 hover:text-cokelat-50 text-sm transition-colors">
@@ -156,6 +161,7 @@
                 <a href="#kategori" class="text-cokelat-200 text-sm">Kategori</a>
                 <hr class="border-cokelat-700">
                 @auth
+                    <a href="{{ route('profile.edit') }}" class="text-cokelat-200 text-sm">Edit Profil</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="text-cokelat-200 text-sm">Keluar</button>

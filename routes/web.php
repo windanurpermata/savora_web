@@ -18,12 +18,17 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\Admin\AdminMessageController;
+use App\Http\Controllers\CommentController;
 
 // ===== PUBLIC =====
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/resep', [RecipeController::class, 'index'])->name('recipes.index');
 Route::get('/resep/{id}', [RecipeController::class, 'show'])->name('recipes.show');
 Route::get('/chef/{id}', [ChefProfileController::class, 'show'])->name('chef.profile')->whereNumber('id');
+
+// ===== GOOGLE LOGIN =====
+Route::get('/auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 
 // ===== AUTH =====
 Route::middleware('guest')->group(function () {
@@ -37,6 +42,10 @@ Route::middleware('guest')->group(function () {
     Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 });
 
+// ===== KOMENTAR RESEP =====
+Route::post('/resep/{id}/komentar', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');
+Route::delete('/komentar/{id}', [CommentController::class, 'destroy'])->name('comments.destroy')->middleware('auth');
+
 Route::post('/keluar', [LoginController::class, 'logout'])
     ->middleware('auth')->name('logout');
 
@@ -45,13 +54,52 @@ Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect()->route('home')->with('success', 'Email berhasil diverifikasi!');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+Route::post('/email/verify', function (Request $request) {
+    $request->validate([
+        'otp' => 'required|string|size:6',
+    ], [
+        'otp.required' => 'Kode OTP wajib diisi.',
+        'otp.size' => 'Kode OTP harus berupa 6 digit angka.',
+    ]);
+
+    $user = $request->user();
+
+    if ($user->hasVerifiedEmail()) {
+        return redirect()->route('home');
+    }
+
+    if ($user->otp_code !== $request->otp) {
+        return back()->withErrors(['otp' => 'Kode OTP yang Anda masukkan salah.']);
+    }
+
+    if (now()->greaterThan($user->otp_expires_at)) {
+        return back()->withErrors(['otp' => 'Kode OTP telah kedaluwarsa. Silakan kirim ulang kode baru.']);
+    }
+
+    $user->markEmailAsVerified();
+    
+    $user->forceFill([
+        'otp_code' => null,
+        'otp_expires_at' => null,
+    ])->save();
+
+    $redirectRoute = match ($user->role) {
+        'admin' => 'admin.dashboard',
+        'chef' => 'chef.dashboard',
+        default => 'home',
+    };
+
+    return redirect()->route($redirectRoute)->with('success', 'Email berhasil diverifikasi!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.verify.otp');
 
 Route::post('/email/verification-notification', [LoginController::class, 'resendVerification'])
     ->middleware('throttle:6,1')->name('verification.resend');
+
+// ===== USER PROFILE =====
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/profil/edit', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profil', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+});
 
 // ===== MEMBER =====
 Route::middleware(['auth', 'role:member', 'verified'])->group(function () {
@@ -82,6 +130,7 @@ Route::middleware(['auth', 'role:admin', 'admin.ip'])
         // Super Admin Only
         Route::middleware(['admin.role:super'])->group(function () {
             Route::resource('users', \App\Http\Controllers\Admin\AdminUserController::class);
+            Route::post('users/{id}/toggle-block', [\App\Http\Controllers\Admin\AdminUserController::class, 'toggleBlock'])->name('users.toggle-block');
             Route::resource('categories', \App\Http\Controllers\Admin\AdminCategoryController::class);
         });
 

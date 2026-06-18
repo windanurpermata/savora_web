@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectGuestsTo('/masuk');
+        $middleware->appendToGroup('web', \App\Http\Middleware\CheckBlocked::class);
         $middleware->alias([
             'role'       => RoleMiddleware::class,
             'admin.ip'   => AdminIpWhitelist::class,

@@ -45,4 +45,9 @@ class Recipe extends Model
     {
         return $this->hasMany(Step::class)->orderBy('urutan');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)->latest();
+    }
 }

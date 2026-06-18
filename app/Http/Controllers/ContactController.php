@@ -55,6 +55,23 @@ class ContactController extends Controller
             // Tetap lanjut meski email gagal terkirim
         }
 
+        // Kirim email terima kasih ke pengirim
+        try {
+            Mail::raw(
+                "Halo {$request->nama},\n\n" .
+                "Terima kasih telah menghubungi Savora. Kami telah menerima pesan Anda dengan topik \"" . ucwords(str_replace('_', ' ', $request->topik)) . "\".\n" .
+                "Tim kami akan meninjau pesan Anda dan segera memberikan tanggapan dalam waktu 1x24 jam kerja.\n\n" .
+                "Salam hangat,\n" .
+                "Tim Savora-DapurNusantara",
+                function ($m) use ($request) {
+                    $m->to($request->email)
+                        ->subject("[Savora] Terima Kasih Telah Menghubungi Kami");
+                }
+            );
+        } catch (\Exception $e) {
+            // Tetap lanjut
+        }
+
         return redirect()->route('contact')
             ->with('success', 'Pesan Anda sudah terkirim! Kami akan membalas dalam 1x24 jam.');
     }

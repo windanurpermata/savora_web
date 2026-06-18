@@ -84,21 +84,33 @@
                             </span>
                         </td>
                         <td class="px-4 py-3">
-                            @if ($user->email_verified_at)
-                                <span class="text-xs text-green-600 font-bold flex items-center gap-1">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Terverifikasi
-                                </span>
-                            @else
-                                <span class="text-xs text-red-500 font-bold flex items-center gap-1">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Belum Verifikasi
-                                </span>
-                            @endif
+                            <div class="flex flex-col gap-1 items-start">
+                                @if ($user->email_verified_at)
+                                    <span class="text-[10px] font-bold text-green-600 flex items-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Terverifikasi
+                                    </span>
+                                @else
+                                    <span class="text-[10px] font-bold text-red-500 flex items-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Belum Verifikasi
+                                    </span>
+                                @endif
+
+                                @if ($user->is_blocked)
+                                    <span class="text-[10px] font-bold text-amber-600 flex items-center gap-1 bg-amber-50 px-1.5 py-0.5 rounded">
+                                        🔒 Diblokir
+                                    </span>
+                                @else
+                                    <span class="text-[10px] font-bold text-emerald-600 flex items-center gap-1 bg-emerald-50 px-1.5 py-0.5 rounded">
+                                        ✓ Aktif
+                                    </span>
+                                @endif
+                            </div>
                         </td>
                         <td class="px-4 py-3 text-xs text-cokelat-400">
                             {{ $user->created_at->format('d M Y') }}
                         </td>
                         <td class="px-4 py-3">
-                            <div class="flex items-center gap-2 justify-end">
+                            <div class="flex items-center gap-3 justify-end">
                                 {{-- Ganti Role --}}
                                 @if ($user->id !== Auth::id())
                                     <form method="POST" action="{{ route('admin.users.update', $user->id) }}">
@@ -114,6 +126,16 @@
                                             <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin
                                             </option>
                                         </select>
+                                    </form>
+
+                                    {{-- Blokir / Buka Blokir --}}
+                                    <form method="POST" action="{{ route('admin.users.toggle-block', $user->id) }}"
+                                        onsubmit="return confirm('Apakah Anda yakin ingin {{ $user->is_blocked ? 'membuka blokir' : 'memblokir' }} user {{ $user->name }}?')">
+                                        @csrf
+                                        <button type="submit"
+                                            class="text-xs font-bold transition-colors {{ $user->is_blocked ? 'text-green-600 hover:text-green-800' : 'text-amber-600 hover:text-amber-800' }}">
+                                            {{ $user->is_blocked ? 'Buka Blokir' : 'Blokir' }}
+                                        </button>
                                     </form>
 
                                     {{-- Hapus --}}

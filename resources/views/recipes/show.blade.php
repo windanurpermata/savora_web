@@ -279,6 +279,99 @@
                     </div>
                 @endif
 
+                {{-- ===== KOMENTAR ===== --}}
+                <div class="mb-8 pt-6 border-t border-cokelat-100">
+                    <h2 class="font-serif text-xl text-cokelat-800 mb-4">
+                        Komentar ({{ $resep->comments->count() }})
+                    </h2>
+
+                    {{-- Form Komentar --}}
+                    @auth
+                        <div class="mb-6">
+                            <form method="POST" action="{{ route('comments.store', $resep->id) }}">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="isi" class="sr-only">Tulis komentar</label>
+                                    <textarea name="isi" id="isi" rows="3"
+                                        class="w-full rounded-lg border-cokelat-200 focus:border-cokelat-500 focus:ring focus:ring-cokelat-200 focus:ring-opacity-50 text-sm p-3 text-cokelat-800 placeholder-cokelat-400"
+                                        placeholder="Bagikan pendapat Anda tentang resep ini..." required></textarea>
+                                    @error('isi')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <button type="submit"
+                                    class="bg-cokelat-700 hover:bg-cokelat-800 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors">
+                                    Kirim Komentar
+                                </button>
+                            </form>
+                        </div>
+                    @else
+                        <div class="p-4 bg-cokelat-50 border border-cokelat-100 rounded-lg text-sm text-cokelat-600 mb-6">
+                            Silakan <a href="{{ route('login') }}" class="text-cokelat-700 font-bold hover:underline">masuk</a> untuk menulis komentar.
+                        </div>
+                    @endauth
+
+                    {{-- Daftar Komentar --}}
+                    @if($resep->comments->count())
+                        <div class="space-y-4">
+                            @foreach ($resep->comments as $comment)
+                                <div class="flex gap-3 p-4 bg-white border border-cokelat-100 rounded-lg shadow-sm">
+                                    {{-- Avatar --}}
+                                    <div class="w-9 h-9 rounded-full bg-cokelat-700 flex items-center justify-center flex-shrink-0 text-white font-bold text-xs overflow-hidden">
+                                        @if ($comment->user->chefProfile?->foto)
+                                            <img src="{{ asset('storage/' . $comment->user->chefProfile->foto) }}" class="w-full h-full object-cover rounded-full">
+                                        @else
+                                            {{ strtoupper(substr($comment->user->name ?? 'U', 0, 2)) }}
+                                        @endif
+                                    </div>
+                                    
+                                    {{-- Content --}}
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center justify-between gap-2 mb-1">
+                                            <div class="flex items-center gap-2 flex-wrap">
+                                                <span class="text-sm font-bold text-cokelat-800">
+                                                    {{ $comment->user->name ?? 'Pengguna' }}
+                                                </span>
+                                                @if ($comment->user->role === 'admin')
+                                                    <span class="bg-red-100 text-red-700 text-[10px] font-bold px-2 py-0.5 rounded-full">Admin</span>
+                                                @elseif ($comment->user->role === 'chef')
+                                                    <span class="bg-yellow-100 text-yellow-700 text-[10px] font-bold px-2 py-0.5 rounded-full">Chef</span>
+                                                @endif
+                                            </div>
+                                            <span class="text-xs text-cokelat-400 whitespace-nowrap">
+                                                {{ $comment->created_at->diffForHumans() }}
+                                            </span>
+                                        </div>
+                                        <p class="text-sm text-cokelat-600 leading-relaxed break-words">
+                                            {{ $comment->isi }}
+                                        </p>
+                                        
+                                        {{-- Delete Button (untuk owner comment atau admin) --}}
+                                        @auth
+                                            @if ($comment->user_id === Auth::id() || Auth::user()->role === 'admin')
+                                                <div class="mt-2 text-right">
+                                                    <form method="POST" action="{{ route('comments.destroy', $comment->id) }}" onsubmit="return confirm('Hapus komentar ini?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-xs text-red-500 hover:text-red-700 font-semibold transition-colors flex items-center gap-1 ml-auto">
+                                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                            </svg>
+                                                            Hapus
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            @endif
+                                        @endauth
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <p class="text-sm text-cokelat-400 italic">Belum ada komentar untuk resep ini.</p>
+                    @endif
+                </div>
+
             </div>
 
             {{-- ===== KOLOM KANAN (sidebar) ===== --}}

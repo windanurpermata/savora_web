@@ -165,14 +165,25 @@
                 <div class="flex items-center gap-3 mb-3">
                     <div
                         class="w-8 h-8 rounded-full bg-cokelat-500 flex items-center
-                            justify-center text-white text-xs font-bold flex-shrink-0">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
+                            justify-center text-white text-xs font-bold flex-shrink-0 overflow-hidden">
+                        @if (Auth::user()->foto)
+                            <img src="{{ asset('storage/' . Auth::user()->foto) }}" class="w-full h-full object-cover">
+                        @else
+                            {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
+                        @endif
                     </div>
                     <div class="min-w-0">
                         <p class="text-xs font-bold text-cokelat-50 truncate">{{ Auth::user()->name }}</p>
                         <p class="text-xs text-cokelat-500">Admin</p>
                     </div>
                 </div>
+                <a href="{{ route('profile.edit') }}" class="block text-xs text-cokelat-400 hover:text-cokelat-50 mb-3 transition-colors flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Edit Profil
+                </a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit"

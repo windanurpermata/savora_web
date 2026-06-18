@@ -65,7 +65,7 @@ class RecipeController extends Controller
      */
     public function show($id)
     {
-        $resep = Recipe::with(['user', 'kategori', 'ratings.user'])
+        $resep = Recipe::with(['user', 'kategori', 'ratings.user', 'comments.user'])
             ->withAvg('ratings', 'nilai')
             ->findOrFail($id);
 

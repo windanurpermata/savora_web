@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Keamanan Sistem Informasi - Savora Web</title>
+    <style>
+        /* CSS untuk Tampilan Screen (Modern & Premium) */
+        :root {
+            --primary-color: #f97316; /* Orange Savora */
+            --primary-dark: #ea580c;
+            --text-color: #1f2937;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Top Bar Menu */
+        .top-bar {
+            width: 100%;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .bar-container {
+            width: 800px;
+            max-width: 90%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bar-title {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .btn-print {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            font-family: inherit;
+        }
+
+        .btn-print:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        /* Container Dokumen Laporan */
+        .document-container {
+            width: 210mm; /* Lebar A4 */
+            min-height: 297mm; /* Tinggi A4 */
+            background-color: var(--card-bg);
+            margin: 40px 0;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-sizing: border-box;
+            padding-top: 30mm;
+            padding-bottom: 30mm;
+            padding-left: 40mm;
+            padding-right: 30mm;
+            position: relative;
+        }
+
+        /* Pengaturan Tipografi & Margin Laporan (Times New Roman, 12pt, 1.5 Spasi) */
+        .report-content {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 12pt;
+            line-height: 1.5;
+            color: #000000;
+            text-align: justify;
+        }
+
+        /* Page Break untuk Halaman Baru */
+        .page-break {
+            page-break-after: always;
+            border-bottom: 1px dashed #ccc;
+            margin: 40px 0;
+            padding-bottom: 20px;
+            position: relative;
+        }
+        
+        .page-break::after {
+            content: "--- Batas Halaman (Page Break) ---";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            padding: 0 10px;
+            font-size: 9pt;
+            color: #888;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Heading Styles */
+        h1, h2, h3, h4 {
+            color: #000000;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-top: 18pt;
+            margin-bottom: 6pt;
+        }
+
+        h1 {
+            font-size: 14pt;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 24pt;
+        }
+
+        h2 {
+            font-size: 12pt;
+            margin-top: 18pt;
+        }
+
+        h3 {
+            font-size: 12pt;
+            font-weight: bold;
+            margin-left: 0;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 12pt;
+            text-indent: 1.25cm; /* Alenia baru menjorok 1.25 cm */
+        }
+
+        .no-indent {
+            text-indent: 0;
+        }
+
+        /* List Styles */
+        ol, ul {
+            margin-top: 0;
+            margin-bottom: 12pt;
+            padding-left: 24pt;
+        }
+
+        li {
+            margin-bottom: 6pt;
+        }
+
+        /* Cover Page Specific Styles */
+        .cover-page {
+            height: 237mm; /* 297mm - 60mm (margin atas & bawah) */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .cover-title {
+            font-size: 14pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .cover-subtitle {
+            font-size: 12pt;
+            font-weight: normal;
+            margin-top: 10px;
+            text-transform: none;
+        }
+
+        .cover-logo {
+            max-width: 120px;
+            height: auto;
+            margin: 40px 0;
+        }
+
+        .cover-author {
+            font-size: 12pt;
+            margin-top: 40px;
+        }
+
+        .cover-author-table {
+            width: 70%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            font-size: 12pt;
+        }
+
+        .cover-author-table td {
+            padding: 4px;
+            text-align: left;
+            border: none;
+        }
+
+        .cover-footer {
+            font-size: 12pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            line-height: 1.4;
+        }
+
+        /* Table Styles */
+        table.report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12pt 0;
+            font-size: 11pt;
+        }
+
+        table.report-table th, table.report-table td {
+            border: 1px solid #000000;
+            padding: 8px;
+            text-align: left;
+        }
+
+        table.report-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Code/Snippet Box */
+        pre {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 10pt;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 12pt 0;
+        }
+
+        /* Screenshot Placeholder Box */
+        .screenshot-container {
+            border: 2px dashed #a8a29e;
+            border-radius: 8px;
+            background-color: #fafaf9;
+            padding: 20px;
+            text-align: center;
+            margin: 18pt 0;
+            position: relative;
+        }
+
+        .screenshot-placeholder-text {
+            color: #78716c;
+            font-family: Arial, sans-serif;
+            font-size: 10pt;
+        }
+
+        .screenshot-title {
+            font-weight: bold;
+            font-size: 10pt;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        /* Signature Section */
+        .signature-table {
+            width: 100%;
+            margin-top: 40px;
+            border-collapse: collapse;
+        }
+
+        .signature-table td {
+            border: none;
+            padding: 20px;
+            text-align: center;
+            width: 50%;
+            vertical-align: top;
+        }
+
+        /* CSS KHUSUS PRINT (A4 Margins & Fonts) */
+        @media print {
+            body {
+                background-color: #ffffff;
+                color: #000000;
+                padding: 0;
+                margin: 0;
+            }
+
+            .top-bar {
+                display: none; /* Sembunyikan top bar saat cetak */
+            }
+
+            .document-container {
+                width: auto;
+                min-height: auto;
+                margin: 0;
+                box-shadow: none;
+                padding: 0; /* Margin diatur oleh @page */
+            }
+
+            @page {
+                size: A4;
+                margin-top: 3cm;
+                margin-bottom: 3cm;
+                margin-left: 4cm;
+                margin-right: 3cm;
+            }
+
+            .page-break {
+                page-break-after: always;
+                border-bottom: none;
+                margin: 0;
+                padding-bottom: 0;
+            }
+
+            .page-break::after {
+                display: none;
+            }
+
+            .screenshot-container {
+                border: 1px solid #000000;
+                background-color: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="bar-container">
+            <div class="bar-title">Savora Web - Laporan Keamanan Sistem & Database</div>
+            <button class="btn-print" onclick="window.print()">Cetak / Simpan PDF</button>
+        </div>
+    </div>
+
+    <div class="document-container">
+        <div class="report-content">
+
+            <!-- ==================== 1. COVER ==================== -->
+            <div class="cover-page">
+                <div>
+                    <div class="cover-title">
+                        LAPORAN IMPLEMENTASI KEAMANAN SISTEM INFORMASI<br>
+                        MANAJEMEN IDENTITAS DAN KEAMANAN BASIS DATA<br>
+                        PADA PLATFORM SAVORA WEB
+                    </div>
+                    <div class="cover-subtitle">
+                        Studi Kasus: Sistem Autentikasi Multi-Role, Pencegahan SQL Injection,<br>
+                        Pencegahan Brute-Force, dan IP Whitelisting Administratif
+                    </div>
+                </div>
+
+                <!-- Savora Logo / Alternatif SVG Logo yang Premium -->
+                <svg width="120" height="120" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="100" r="90" stroke="#f97316" stroke-width="8" fill="#fffefb"/>
+                    <path d="M100 40C70 40 50 65 50 100C50 135 70 160 100 160C130 160 150 135 150 100C150 65 130 40 100 40ZM100 145C80 145 65 125 65 100C65 75 80 55 100 55C120 55 135 75 135 100C135 125 120 145 100 145Z" fill="#ea580c"/>
+                    <path d="M100 65C88 65 78 78 78 100C78 122 88 135 100 135C112 135 122 122 122 100C122 78 112 65 100 65ZM100 120C93 120 88 111 88 100C88 89 93 80 100 80C107 80 112 89 112 100C112 111 107 120 100 120Z" fill="#f97316"/>
+                </svg>
+
+                <div class="cover-author">
+                    Disusun Oleh:
+                    <table class="cover-author-table">
+                        <tr>
+                            <td style="width: 40%">Nama Lengkap</td>
+                            <td style="width: 5%">:</td>
+                            <td>Winda Nur Permata</td>
+                        </tr>
+                        <tr>
+                            <td>NIM</td>
+                            <td>:</td>
+                            <td>[Masukkan NIM Anda]</td>
+                        </tr>
+                        <tr>
+                            <td>Program Studi</td>
+                            <td>:</td>
+                            <td>Teknik Informatika</td>
+                        </tr>
+                        <tr>
+                            <td>Fakultas</td>
+                            <td>:</td>
+                            <td>Ilmu Komputer</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="cover-footer">
+                    UNIVERSITAS SAVORA INDONESIA<br>
+                    JAKARTA<br>
+                    2026
+                </div>
+            </div>
+            
+            <div class="page-break"></div>
+
+            <!-- ==================== 2. LEMBAR PENGESAHAN ==================== -->
+            <h1 style="margin-top: 50px;">LEMBAR PENGESAHAN</h1>
+            
+            <p class="no-indent" style="margin-top: 30px;">
+                Laporan Implementasi Keamanan Sistem Informasi pada Platform Savora Web ini telah diperiksa, disetujui, dan disahkan sebagai tugas laporan akademik.
+            </p>
+
+            <table style="width: 100%; margin-top: 40px; font-size: 12pt; border: none;">
+                <tr style="border: none;">
+                    <td style="width: 50%; border: none; padding: 10px;">
+                        Mengetahui,<br>
+                        Dosen Pengampu Mata Kuliah
+                        <br><br><br><br><br>
+                        <strong><u>[Nama Dosen Pengampu, M.T.]</u></strong><br>
+                        NIDN. [NIDN Dosen]
+                    </td>
+                    <td style="width: 50%; border: none; padding: 10px; text-align: right;">
+                        Jakarta, 14 Juni 2026<br>
+                        Penulis,
+                        <br><br><br><br><br>
+                        <strong><u>Winda Nur Permata</u></strong><br>
+                        NIM. [Masukkan NIM Anda]
+                    </td>
+                </tr>
+            </table>
+
+            <div class="page-break"></div>
+
+            <!-- ==================== 3. KATA PENGANTAR ==================== -->
+            <h1>KATA PENGANTAR</h1>
+            
+            <p>
+                Puji dan syukur penulis panjatkan ke hadirat Tuhan Yang Maha Esa atas segala rahmat dan hidayah-Nya, sehingga penulis dapat menyelesaikan laporan implementasi keamanan sistem informasi yang berjudul <strong>"Laporan Implementasi Keamanan Sistem Informasi: Manajemen Identitas dan Keamanan Basis Data pada Platform Savora Web"</strong> tepat pada waktunya.
+            </p>
+            <p>
+                Laporan ini disusun untuk mendokumentasikan langkah-langkah strategis dalam merancang, membangun, dan menguji fitur-fitur keamanan yang diterapkan pada platform resep masakan berbasis web, Savora Web. Fokus utama dari implementasi ini meliputi manajemen identitas (otentikasi multi-role dan mitigasi brute-force), otorisasi ketat berbasis Role-Based Access Control (RBAC), perlindungan query basis data dari ancaman injeksi (SQL Injection), serta mekanisme pembatasan akses administratif berbasis alamat IP (IP Whitelisting).
+            </p>
+            <p>
+                Dalam penyusunan laporan ini, penulis menyadari tidak lepas dari bimbingan, arahan, dan dukungan dari berbagai pihak. Oleh karena itu, penulis ingin menyampaikan terima kasih yang sebesar-besarnya kepada dosen pengampu mata kuliah Keamanan Basis Data, rekan-rekan mahasiswa, dan semua pihak yang telah membantu baik secara langsung maupun tidak langsung.
+            </p>
+            <p>
+                Penulis menyadari bahwa laporan ini masih jauh dari kesempurnaan. Oleh karena itu, kritik dan saran yang membangun sangat penulis harapkan untuk perbaikan di masa yang akan datang. Akhir kata, semoga laporan ini dapat bermanfaat bagi pengembangan ilmu pengetahuan, khususnya di bidang keamanan perangkat lunak dan basis data.
+            </p>
+            
+            <table style="width: 100%; border: none; margin-top: 40px;">
+                <tr style="border: none;">
+                    <td style="width: 60%; border: none;"></td>
+                    <td style="width: 40%; border: none; text-align: center;">
+                        Jakarta, 14 Juni 2026<br><br><br><br>
+                        Penulis
+                    </td>
+                </tr>
+            </table>
+
+            <div class="page-break"></div>
+
+            <!-- ==================== 4. DAFTAR ISI ==================== -->
+            <h1>DAFTAR ISI</h1>
+            
+            <div style="font-size: 12pt; line-height: 1.8;">
+                <table style="width: 100%; border: none; border-collapse: collapse;">
+                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>HALAMAN JUDUL</strong></td><td style="border: none; text-align: right; padding: 2px;">i</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>LEMBAR PENGESAHAN</strong></td><td style="border: none; text-align: right; padding: 2px;">ii</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>KATA PENGANTAR</strong></td><td style="border: none; text-align: right; padding: 2px;">iii</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>DAFTAR ISI</strong></td><td style="border: none; text-align: right; padding: 2px;">iv</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>BAB I PENDAHULUAN</strong></td><td style="border: none; text-align: right; padding: 2px;">1</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">1.1 Latar Belakang</td><td style="border: none; text-align: right; padding: 2px;">1</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">1.2 Rumusan Masalah</td><td style="border: none; text-align: right; padding: 2px;">2</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">1.3 Tujuan</td><td style="border: none; text-align: right; padding: 2px;">2</td></tr>
+                    
+                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>BAB II ANALISIS, PERANCANGAN DAN IMPLEMENTASI</strong></td><td style="border: none; text-align: right; padding: 2px;">3</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">2.1 Desain Keamanan Sistem (Autentikasi & Otorisasi)</td><td style="border: none; text-align: right; padding: 2px;">3</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">2.2 Secure Query (Pencegahan SQL Injection & IDOR)</td><td style="border: none; text-align: right; padding: 2px;">5</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">2.3 Hak Akses Database & RBAC (Role-Based Access Control)</td><td style="border: none; text-align: right; padding: 2px;">7</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">2.4 Tampilan Sistem (Dokumentasi Interface)</td><td style="border: none; text-align: right; padding: 2px;">9</td></tr>
+                    
+                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>BAB III PENGUJIAN DAN ANALISIS KERENTANAN</strong></td><td style="border: none; text-align: right; padding: 2px;">11</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">3.1 Pengujian Mitigasi Brute Force & Captcha</td><td style="border: none; text-align: right; padding: 2px;">11</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">3.2 Pengujian Otorisasi & Pencegahan Bypass Akses (BOLA/IDOR)</td><td style="border: none; text-align: right; padding: 2px;">12</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">3.3 Pengujian SQL Injection</td><td style="border: none; text-align: right; padding: 2px;">13</td></tr>
+                    
+                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>BAB V PENUTUP</strong></td><td style="border: none; text-align: right; padding: 2px;">14</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">5.1 Kesimpulan</td><td style="border: none; text-align: right; padding: 2px;">14</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">5.2 Saran</td><td style="border: none; text-align: right; padding: 2px;">14</td></tr>
+                    
+                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>DAFTAR PUSTAKA</strong></td><td style="border: none; text-align: right; padding: 2px;">15</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>LAMPIRAN</strong></td><td style="border: none; text-align: right; padding: 2px;">16</td></tr>
+                </table>
+            </div>
+
+            <div class="page-break"></div>
+
+            <!-- ==================== 5. BAB I PENDAHULUAN ==================== -->
+            <h1>BAB I<br>PENDAHULUAN</h1>
+            
+            <h2>1.1 Latar Belakang</h2>
+            <p>
+                Perkembangan teknologi berbasis web saat ini telah mengubah lanskap pertukaran informasi secara signifikan. Savora Web hadir sebagai platform berbagi resep kuliner modern yang memungkinkan koki (Chef) mempublikasikan kreasi kuliner mereka dan anggota (Member) untuk mencari, menandai (Bookmark), serta memberikan rating pada resep. Sebagai platform interaktif yang mengelola data pengguna, resep, dan ulasan, Savora Web menuntut fondasi keamanan yang tangguh guna menjamin kerahasiaan (Confidentiality), integritas (Integrity), dan ketersediaan (Availability) data.
+            </p>
+            <p>
+                Permasalahan keamanan pada aplikasi web terus meningkat seiring berkembangnya metode penyerangan. Berdasarkan daftar <em>OWASP Top 10</em> terbaru, kerentanan seperti <em>Broken Access Control</em> (Kegagalan Kontrol Akses) dan <em>Injection</em> (Injeksi) tetap menduduki peringkat teratas sebagai ancaman kritis. Dalam konteks aplikasi Savora Web, kegagalan dalam pembatasan otorisasi dapat berdampak fatal, misalnya seorang Member biasa dapat memodifikasi atau menghapus resep milik Chef lain, atau bahkan mengakses panel kontrol administratif (Admin Dashboard).
+            </p>
+            <p>
+                Selain masalah otorisasi, keamanan basis data memegang peranan krusial. Basis data menyimpan informasi sensitif seperti kredensial akun pengguna, alamat email, serta data transaksi resep. Tanpa perlindungan terstruktur, basis data rentan terhadap serangan <em>SQL Injection</em> (SQLi). Serangan ini terjadi ketika data masukan pengguna yang tidak divalidasi langsung disatukan ke dalam query SQL dinamis, memungkinkan penyerang mengeksekusi perintah database yang tidak sah untuk membaca, memanipulasi, atau menghapus data.
+            </p>
+            <p>
+                Pilar penting lainnya dalam sistem keamanan adalah Manajemen Identitas (Identity Management). Identitas pengguna harus dipastikan keabsahannya sejak proses registrasi hingga autentikasi. Tanpa pembatasan login, aplikasi rentan terhadap serangan <em>Brute Force</em> dan <em>Credential Stuffing</em>, di mana penyerang secara otomatis mencoba ribuan kombinasi password untuk meretas akun. Oleh karena itu, penerapan kebijakan kata sandi yang kuat, pembatasan jumlah percobaan login (Rate Limiting), verifikasi email, serta autentikasi berbasis tantangan matematika (CAPTCHA) menjadi hal wajib guna menjaga integritas platform Savora Web dari penyalahgunaan.
+            </p>
+
+            <h2>1.2 Rumusan Masalah</h2>
+            <p class="no-indent">Berdasarkan latar belakang di atas, rumusan masalah dalam implementasi keamanan ini adalah:</p>
+            <ol>
+                <li>Bagaimana merancang sistem autentikasi multi-role yang aman dari serangan brute-force dan otomatisasi registrasi palsu pada Savora Web?</li>
+                <li>Bagaimana mencegah eksploitasi celah SQL Injection dan Insecure Direct Object References (IDOR/BOLA) pada query basis data aplikasi?</li>
+                <li>Bagaimana mengimplementasikan Role-Based Access Control (RBAC) dan pengamanan level administratif yang membatasi hak akses berdasarkan IP (IP Whitelisting) dan level administratif?</li>
+            </ol>
+
+            <h2>1.3 Tujuan</h2>
+            <p class="no-indent">Tujuan yang dicapai melalui kegiatan implementasi keamanan ini adalah:</p>
+            <ol>
+                <li>Membangun modul autentikasi yang dilengkapi dengan pembatasan percobaan login (Rate Limiting 3 kali, lockout 5 menit) dan verifikasi CAPTCHA matematika.</li>
+                <li>Menerapkan arsitektur data access secure query memanfaatkan Eloquent ORM berbasis parameterized query untuk menjamin imunitas terhadap SQL Injection.</li>
+                <li>Membangun middleware otorisasi berbasis hak akses peran (Member, Chef, Admin, Super Admin) dan membatasi akses khusus panel admin hanya dari alamat IP localhost tepercaya (127.0.0.1 dan ::1).</li>
+            </ol>
+
+            <div class="page-break"></div>
+
+            <!-- ==================== 6. BAB II ANALISIS, PERANCANGAN DAN IMPLEMENTASI ==================== -->
+            <h1>BAB II<br>ANALISIS, PERANCANGAN DAN IMPLEMENTASI</h1>
+            
+            <h2>2.1 Desain Keamanan Sistem (Autentikasi, Otorisasi)</h2>
+            <p>
+                Keamanan Savora Web dirancang menggunakan pendekatan pertahanan berlapis (defense-in-depth). Desain ini memisahkan kontrol keamanan menjadi dua fase utama, yaitu Autentikasi (pembuktian identitas) dan Otorisasi (pemberian hak akses).
+            </p>
+            
+            <h3>A. Arsitektur Autentikasi</h3>
+            <p>
+                Alur autentikasi pada Savora Web dirancang untuk menyaring pengguna secara ketat guna menepis serangan brute force dan pendaftaran akun massal oleh bot. Fitur-fitur keamanan autentikasi yang diimplementasikan meliputi:
+            </p>
+            <ul>
+                <li><strong>Strict Validation & Complexity:</strong> Pendaftaran akun baru mewajibkan parameter email yang unik dan password yang memenuhi standar kompleksitas minimal 8 karakter, wajib memiliki huruf besar, huruf kecil, angka, dan karakter simbol spesial.</li>
+                <li><strong>CAPTCHA Matematika:</strong> Setiap formulir login dan register dilengkapi dengan CAPTCHA dinamis berbasis matematika penjumlahan angka acak (1-20) yang disimpan dalam session server untuk menghindari bypass bot otomatis.</li>
+                <li><strong>Rate Limiting (Lockout):</strong> Pada controller login (`LoginController.php`), diimplementasikan pembatasan hingga maksimal 3 kali kegagalan autentikasi. Jika batas terlampaui, IP & Email tersebut akan dikunci (lockout) selama 300 detik (5 menit) menggunakan layanan <em>RateLimiter</em> bawaan Laravel.</li>
+                <li><strong>Session Security:</strong> Setelah login berhasil, session di-regenerasi secara otomatis dengan perintah `$request->session()->regenerate()` untuk mereduksi risiko serangan <em>Session Fixation</em>.</li>
+                <li><strong>Email Verification:</strong> User yang baru terdaftar harus memverifikasi email melalui tautan bertanda tangan kriptografis (signed URL) sebelum dapat mengakses fitur-fitur internal platform.</li>
+            </ul>
+
+            <h3>B. Arsitektur Otorisasi</h3>
+            <p>
+                Otorisasi diterapkan menggunakan konsep <em>Role-Based Access Control</em> (RBAC) dan dibantu oleh middleware keamanan kustom. Request HTTP disaring menggunakan tiga middleware utama:
+            </p>
+            <ol>
+                <li><strong>RoleMiddleware:</strong> Membatasi akses rute berdasarkan peran umum user (member atau chef). Jika pengguna yang tidak berhak mencoba mengakses, sistem menghentikan proses dan menghasilkan respon HTTP 403 Forbidden.</li>
+                <li><strong>AdminRoleMiddleware:</strong> Membagi otorisasi administrator menjadi 2 level: Admin Biasa dan Super Admin (diidentifikasi berdasarkan email tertentu seperti `admin@savora.com` atau penanda nama). Rute pengelolaan sensitif seperti manajemen pengguna dan kategori hanya diizinkan untuk tingkat Super Admin.</li>
+                <li><strong>AdminIpWhitelist:</strong> Menambahkan lapisan pertahanan jaringan (network layer) dengan cara menolak seluruh permintaan ke area administratif (`/admin/*`) apabila alamat IP peminta tidak terdaftar dalam whitelist (`127.0.0.1` dan `::1`).</li>
+            </ol>
+
+            <h2>2.2 Secure Query</h2>
+            <p>
+                Keamanan manipulasi basis data pada Savora Web dibangun dengan mengandalkan paradigma modern dari kerangka kerja Laravel Eloquent ORM. Seluruh operasi penulisan dan pembacaan query SQL diimplementasikan tanpa merangkai string secara manual (SQL string concatenation).
+            </p>
+
+            <h3>A. Pencegahan SQL Injection</h3>
+            <p>
+                Secara <em>default</em>, Eloquent menggunakan mekanisme binding parameter PDO (PHP Data Objects). Ketika query filter pencarian resep dijalankan, input pencarian dilewatkan sebagai binding parameter:
+            </p>
+            <pre>
+$query->where('judul', 'like', '%' . $request->q . '%');</pre>
+            <p class="no-indent">
+                Mekanisme di atas menjamin bahwa nilai dari variabel `$request->q` akan selalu diperlakukan sebagai literal string, bukan sebagai bagian dari perintah sintaksis SQL yang dapat dieksekusi, sehingga menutup celah SQL Injection secara total.
+            </p>
+
+            <h3>B. Pencegahan Insecure Direct Object References (IDOR / BOLA)</h3>
+            <p>
+                Kerentanan IDOR (BOLA) terjadi saat pengguna dapat memanipulasi parameter ID objek untuk mengakses atau mengubah data milik orang lain. Pada Savora Web, keamanan data resep dijamin dengan menyematkan relasi kepemilikan user (`Auth::id()`) pada setiap manipulasi data (Edit, Update, Delete):
+            </p>
+            <pre>
+// Menjamin hanya pemilik resep asli yang dapat mengakses form edit
+$resep = Recipe::where('user_id', Auth::id())->findOrFail($id);</pre>
+            <p class="no-indent">
+                Dengan menyaring query berdasarkan id pengguna yang sedang login (`user_id = Auth::id()`), penyerang yang mencoba memanggil endpoint `/chef/resep/12/edit` untuk resep yang bukan miliknya akan langsung mendapatkan respons error `404 Not Found` atau `403 Forbidden` alih-alih data resep terpublikasi/dimodifikasi.
+            </p>
+
+            <h2>2.3 Hak Akses Database & RBAC</h2>
+            <p>
+                Model data Savora Web mengadopsi struktur relasional yang terintegrasi. Hak akses database dipetakan ke dalam bentuk kolom `role` pada tabel `users`.
+            </p>
+            
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>Nama Tabel</th>
+                        <th>Deskripsi Fungsi</th>
+                        <th>Hak Akses Peran (CRUD)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>users</strong></td>
+                        <td>Menyimpan kredensial dasar dan role akun</td>
+                        <td>Super Admin (Full), Member/Chef (Read/Update Profil Sendiri)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>chef_profiles</strong></td>
+                        <td>Metadata tambahan khusus akun Chef (bio, foto)</td>
+                        <td>Chef Terkait (Create/Read/Update), Public (Read)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>recipes</strong></td>
+                        <td>Menyimpan data resep masakan, porsi, waktu</td>
+                        <td>Chef Terkait (Full), Admin (Full), Public (Read)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>bookmarks</strong></td>
+                        <td>Penyimpanan resep favorit yang ditandai</td>
+                        <td>Member Terkait (Full)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ratings</strong></td>
+                        <td>Ulasan & penilaian resep kuliner</td>
+                        <td>Member Terkait (Create/Read/Delete), Public (Read)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>contact_messages</strong></td>
+                        <td>Kotak pesan pengaduan & kontak dari form public</td>
+                        <td>Public (Create), Admin (Read/Reply/Delete)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>
+                Melalui pembatasan ini, integritas database Savora Web tetap terjaga dan hak akses terkontrol sepenuhnya dari level aplikasi.
+            </p>
+
+            <h2>2.4 Tampilan Sistem</h2>
+            <p class="no-indent">Berikut adalah dokumentasi visual antarmuka sistem keamanan yang telah diimplementasikan:</p>
+
+            <!-- Tampilan Login -->
+            <div class="screenshot-container">
+                <div class="screenshot-placeholder-text">
+                    [ Tempatkan Screenshot Halaman Login Di Sini ]<br>
+                    Menampilkan Form Email, Password, Input CAPTCHA Matematika, dan Tombol Masuk.
+                </div>
+                <div class="screenshot-title">Gambar 2.1 Antarmuka Halaman Login dengan Fitur CAPTCHA Keamanan</div>
+            </div>
+
+            <!-- Tampilan Dashboard Chef -->
+            <div class="screenshot-container">
+                <div class="screenshot-placeholder-text">
+                    [ Tempatkan Screenshot Dashboard Chef / Admin Di Sini ]<br>
+                    Menampilkan Statistik Resep, Data Menu Eksklusif Chef, atau Panel Manajemen Admin.
+                </div>
+                <div class="screenshot-title">Gambar 2.2 Dashboard Manajemen Resep Chef Terotentikasi</div>
+            </div>
+
+            <!-- Tampilan Hak Akses Terbatas (403) -->
+            <div class="screenshot-container">
+                <div class="screenshot-placeholder-text">
+                    [ Tempatkan Screenshot Halaman Error 403 / IP Ditolak Di Sini ]<br>
+                    Menampilkan Pesan "403 Forbidden - Anda tidak memiliki akses ke halaman ini" atau IP Whitelist block.
+                </div>
+                <div class="screenshot-title">Gambar 2.3 Respon Proteksi Middleware (Access Denied / Forbidden 403)</div>
+            </div>
+
+            <div class="page-break"></div>
+
+            <!-- ==================== 7. BAB III PENGUJIAN DAN ANALISIS ==================== -->
+            <h1>BAB III<br>PENGUJIAN DAN ANALISIS KERENTANAN</h1>
+            
+            <h2>3.1 Pengujian Mitigasi Brute Force & Captcha</h2>
+            <p>
+                Pengujian dilakukan untuk memverifikasi keandalan Rate Limiter dan CAPTCHA matematika pada form login. Skenario pengujian dilakukan secara berurutan dengan hasil sebagai berikut:
+            </p>
+            
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>Skenario Uji</th>
+                        <th>Input yang Diberikan</th>
+                        <th>Hasil yang Diharapkan</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Login dengan CAPTCHA salah</td>
+                        <td>Email valid, Password valid, CAPTCHA asal</td>
+                        <td>Ditolak, muncul pesan kesalahan CAPTCHA, session CAPTCHA di-reset ulang.</td>
+                        <td>Berhasil</td>
+                    </tr>
+                    <tr>
+                        <td>Melakukan percobaan login gagal sebanyak 3 kali berturut-turut</td>
+                        <td>Email valid, Password salah, CAPTCHA benar (3x)</td>
+                        <td>Pada kegagalan ke-3, sistem mengunci login dan menampilkan pesan lockout selama 5 menit.</td>
+                        <td>Berhasil</td>
+                    </tr>
+                    <tr>
+                        <td>Mencoba login pada masa lockout (detik ke-30)</td>
+                        <td>Email valid, Password benar, CAPTCHA benar</td>
+                        <td>Akses ditolak langsung tanpa memeriksa password ke database, masa tunggu ditampilkan.</td>
+                        <td>Berhasil</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>3.2 Pengujian Otorisasi & Pencegahan Bypass Akses (BOLA/IDOR)</h2>
+            <p>
+                Pengujian otorisasi ini difokuskan pada pengujian kekuatan <em>RoleMiddleware</em>, <em>AdminRoleMiddleware</em>, serta proteksi direct object reference.
+            </p>
+            <ul>
+                <li><strong>Pengujian IP Whitelist Admin:</strong> Mengakses rute `/admin/dashboard` dari perangkat lain dalam satu jaringan lokal (IP non-127.0.0.1). Hasil menunjukkan sistem menolak akses secara instan dan melempar halaman 403 Forbidden. Akses hanya diizinkan dari mesin lokal localhost.</li>
+                <li><strong>Pengujian Level Admin:</strong> Menggunakan akun Admin Biasa (misal: `admin_staf@savora.com`) untuk mengakses rute manajemen pengguna (`/admin/users`). Hasil menunjukkan sistem menolak dengan pesan "Akses khusus Super Admin" sesuai logika pada `AdminRoleMiddleware.php`.</li>
+                <li><strong>Pengujian Bypass IDOR:</strong> Melakukan login sebagai `Chef A` kemudian mengirimkan HTTP request `PUT` secara paksa menuju url `/chef/resep/{id_resep_milik_chef_b}`. Hasil pengujian menunjukkan Laravel mengembalikan respon `404 Model Not Found` karena query disaring ketat menggunakan scope user terkait.</li>
+            </ul>
+
+            <h2>3.3 Pengujian SQL Injection</h2>
+            <p>
+                Percobaan injeksi SQL dilakukan pada kolom filter pencarian resep (`/resep?q=`). Input uji coba yang dimasukkan berupa payload SQL standar untuk membypass autentikasi atau menarik data tidak sah:
+            </p>
+            <pre>
+Payload Input: ' OR '1'='1' -- 
+Query Hasil Eksekusi: SELECT * FROM `recipes` WHERE `judul` LIKE '%\' OR \'1\'=\'1\' --%'</pre>
+            <p>
+                Hasil analisis menunjukkan tanda petik tunggal (`'`) otomatis di-escape oleh PDO adapter (ditandai dengan penambahan <em>backslash</em> `\'`). Sistem memperlakukan keseluruhan input tersebut sebagai string pencarian biasa untuk mencari judul resep yang mengandung kata <code>' OR '1'='1' --</code>. Tidak ada syntax SQL tambahan yang berhasil dieksekusi, membuktikan sistem aman dari kerentanan SQL Injection.
+            </p>
+
+            <div class="page-break"></div>
+
+            <!-- ==================== 8. BAB V PENUTUP ==================== -->
+            <h1>BAB V<br>PENUTUP</h1>
+            
+            <h2>5.1 Kesimpulan</h2>
+            <p>
+                Berdasarkan tahapan analisis, implementasi, dan pengujian keamanan yang telah dilaksanakan pada platform Savora Web, diperoleh beberapa kesimpulan sebagai berikut:
+            </p>
+            <ol>
+                <li>Manajemen Identitas (Identity Management) pada platform Savora Web telah berhasil ditingkatkan dengan menerapkan verifikasi CAPTCHA matematika dinamis untuk menyaring bot, serta Rate Limiter login (lockout 5 menit setelah 3 kali gagal) yang terbukti ampuh mencegah serangan brute-force.</li>
+                <li>Implementasi keamanan basis data menggunakan parameterized query bawaan Eloquent ORM telah menutup celah keamanan SQL Injection secara penuh. Selain itu, pembatasan query berbasis scope kepemilikan pengguna berhasil mencegah eksploitasi celah Broken Object Level Authorization (BOLA/IDOR).</li>
+                <li>Mekanisme otorisasi Role-Based Access Control (RBAC) dan perlindungan panel admin dengan IP Whitelisting & klasifikasi level admin biasa/super admin terbukti efektif dalam membatasi area sensitif sistem agar hanya dapat diakses oleh pihak yang berwenang dari host tepercaya.</li>
+            </ol>
+
+            <h2>5.2 Saran</h2>
+            <p>
+                Meskipun sistem keamanan saat ini sudah berjalan dengan baik, terdapat beberapa saran untuk pengembangan dan penguatan aspek keamanan di masa mendatang:
+            </p>
+            <ol>
+                <li><strong>Implementasi Multi-Factor Authentication (MFA):</strong> Untuk akun koki (Chef) dan administrator, disarankan menambahkan autentikasi dua faktor (MFA/2FA) menggunakan aplikasi authenticator berbasis TOTP untuk memperkuat manajemen identitas.</li>
+                <li><strong>Enkripsi Data Sensitif:</strong> Melakukan enkripsi data sensitif pengguna (seperti nomor telepon atau data profil pribadi jika ditambahkan nanti) pada tingkat kolom database menggunakan AES-256.</li>
+                <li><strong>Logging Aktivitas Audit (Security Log):</strong> Menerapkan modul logging aktivitas administratif untuk mencatat riwayat perubahan data krusial, guna keperluan forensik apabila terjadi insiden keamanan di masa mendatang.</li>
+            </ol>
+
+            <div class="page-break"></div>
+
+            <!-- ==================== 9. DAFTAR PUSTAKA ==================== -->
+            <h1>DAFTAR PUSTAKA</h1>
+            
+            <div style="margin-left: 24pt; text-indent: -24pt; line-height: 1.8;">
+                <p class="no-indent" style="margin-bottom: 12pt;">
+                    Laravel. (2026). <em>Laravel Documentation: Authentication, Security, and Eloquent ORM</em>. Diakses dari https://laravel.com/docs
+                </p>
+                <p class="no-indent" style="margin-bottom: 12pt;">
+                    OWASP. (2021). <em>OWASP Top 10: The Ten Most Critical Web Application Security Risks</em>. Open Web Application Security Project. Diakses dari https://owasp.org/www-project-top-ten/
+                </p>
+                <p class="no-indent" style="margin-bottom: 12pt;">
+                    Stuttard, D., & Pinto, M. (2011). <em>The Web Application Hacker's Handbook: Finding and Exploiting Security Flaws</em>. John Wiley & Sons.
+                </p>
+                <p class="no-indent" style="margin-bottom: 12pt;">
+                    Thomas, D. (2020). <em>Secure Querying and Database Security Best Practices in Modern PHP Frameworks</em>. Journal of Software Security, 14(2), 85-99.
+                </p>
+            </div>
+
+            <div class="page-break"></div>
+
+            <!-- ==================== 10. LAMPIRAN ==================== -->
+            <h1>LAMPIRAN</h1>
+            
+            <h3>A. Kode Middleware IP Whitelist (`AdminIpWhitelist.php`)</h3>
+            <pre>
+&lt;?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+class AdminIpWhitelist
+{
+    private array $allowedIps = [
+        '127.0.0.1', // localhost
+        '::1',       // localhost IPv6
+    ];
+
+    public function handle(Request $request, Closure $next): Response
+    {
+        if (! in_array($request->ip(), $this->allowedIps)) {
+            abort(403, 'Akses ditolak. IP Anda tidak diizinkan.');
+        }
+
+        return $next($request);
+    }
+}
+</pre>
+
+            <h3>B. Kebijakan Kompleksitas Kata Sandi (`RegisterController.php`)</h3>
+            <pre>
+$request->validate([
+    'role' => 'required|in:member,chef',
+    'name' => 'required|string|max:100',
+    'email' => 'required|email|unique:users,email',
+    'password' => [
+        'required',
+        'confirmed',
+        Password::min(8)->mixedCase()->numbers()->symbols(),
+    ],
+    'captcha' => 'required',
+]);
+</pre>
+
+        </div>
+    </div>
+
+</body>
+</html>

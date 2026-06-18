@@ -156,6 +156,9 @@
                                     <option value="pertanyaan_umum"
                                         {{ old('topik') === 'pertanyaan_umum' ? 'selected' : '' }}>Pertanyaan Umum
                                     </option>
+                                    <option value="pemulihan_akun_terblokir"
+                                        {{ old('topik') === 'pemulihan_akun_terblokir' ? 'selected' : '' }}>Pemulihan Akun Terblokir
+                                    </option>
                                     <option value="laporan_masalah"
                                         {{ old('topik') === 'laporan_masalah' ? 'selected' : '' }}>Laporan Masalah
                                     </option>

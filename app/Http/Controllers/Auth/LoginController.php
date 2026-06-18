@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -17,8 +19,6 @@ class LoginController extends Controller
 
     public function showLoginForm(Request $request)
     {
-        // Generate CAPTCHA baru setiap kali halaman login dibuka
-        $this->generateCaptcha($request);
         return view('auth.login');
     }
 
@@ -27,21 +27,13 @@ class LoginController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            'captcha' => 'required',
+            'g-recaptcha-response' => ['required', new \App\Rules\Recaptcha()],
         ], [
             'email.required' => 'Email wajib diisi.',
             'email.email' => 'Format email tidak valid.',
             'password.required' => 'Password wajib diisi.',
-            'captcha.required' => 'Jawaban captcha wajib diisi.',
+            'g-recaptcha-response.required' => 'Verifikasi reCAPTCHA wajib dicentang.',
         ]);
-
-        // ===== CEK CAPTCHA =====
-        if ((int) $request->captcha !== (int) session('captcha_answer')) {
-            $this->generateCaptcha($request); // generate captcha baru
-            return back()
-                ->withInput($request->only('email'))
-                ->withErrors(['captcha' => 'Jawaban captcha salah.']);
-        }
 
         // ===== CEK RATE LIMITER (lockout) =====
         $throttleKey = $this->throttleKey($request);
@@ -49,7 +41,6 @@ class LoginController extends Controller
         if (RateLimiter::tooManyAttempts($throttleKey, self::MAX_ATTEMPTS)) {
             $seconds = RateLimiter::availableIn($throttleKey);
             $minutes = ceil($seconds / 60);
-            $this->generateCaptcha($request);
             return back()
                 ->withInput($request->only('email'))
                 ->withErrors([
@@ -65,12 +56,24 @@ class LoginController extends Controller
             RateLimiter::hit($throttleKey, self::DECAY_SECONDS);
 
             $remaining = self::MAX_ATTEMPTS - RateLimiter::attempts($throttleKey);
-            $this->generateCaptcha($request);
 
             return back()
                 ->withInput($request->only('email'))
                 ->withErrors([
                     'email' => "Email atau password salah. Sisa percobaan: {$remaining}x."
+                ]);
+        }
+
+        // Cek jika akun diblokir
+        if (Auth::user()->is_blocked) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return back()
+                ->withInput($request->only('email'))
+                ->withErrors([
+                    'email' => 'Akun Anda telah diblokir. Silakan ke halaman <a href="/hubungi-kami" class="underline font-bold text-red-700 hover:text-red-900">Hubungi Kami</a> dan pilih pemulihan akun terblokir.'
                 ]);
         }
 
@@ -110,20 +113,61 @@ class LoginController extends Controller
         return back()->with('success', 'Link verifikasi sudah dikirim ulang ke email Anda.');
     }
 
+    // ===== GOOGLE SOCIALITE =====
+
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback()
+    {
+        try {
+            $googleUser = Socialite::driver('google')->user();
+        } catch (\Exception $e) {
+            return redirect()->route('login')->withErrors(['email' => 'Login Google gagal. Silakan coba lagi.']);
+        }
+
+        // Cari user berdasarkan google_id atau email
+        $user = User::where('google_id', $googleUser->id)
+            ->orWhere('email', $googleUser->email)
+            ->first();
+
+        if (!$user) {
+            // Buat akun baru
+            $user = User::create([
+                'name'              => $googleUser->name,
+                'email'             => $googleUser->email,
+                'google_id'         => $googleUser->id,
+                'password'          => bcrypt(Str::random(24)),
+                'role'              => 'member',
+                'email_verified_at' => now(),
+            ]);
+        } else {
+            // Update google_id jika belum ada
+            if (!$user->google_id) {
+                $user->update(['google_id' => $googleUser->id]);
+            }
+        }
+
+        // Cek jika akun diblokir
+        if ($user->is_blocked) {
+            return redirect()->route('login')->withErrors([
+                'email' => 'Akun Anda telah diblokir. Silakan ke halaman <a href="/hubungi-kami" class="underline font-bold text-red-700 hover:text-red-900">Hubungi Kami</a> dan pilih pemulihan akun terblokir.'
+            ]);
+        }
+
+        Auth::login($user, true);
+
+        return $this->redirectByRole();
+    }
+
     // ===== HELPERS =====
 
     private function throttleKey(Request $request): string
     {
         // Kunci berdasarkan email + IP agar lebih akurat
         return Str::lower($request->input('email')) . '|' . $request->ip();
-    }
-
-    private function generateCaptcha(Request $request): void
-    {
-        $a = rand(1, 20);
-        $b = rand(1, 20);
-        $request->session()->put('captcha_question', "{$a} + {$b}");
-        $request->session()->put('captcha_answer', $a + $b);
     }
 
     private function redirectByRole()

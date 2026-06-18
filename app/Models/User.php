@@ -16,6 +16,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'role',
+        'otp_code',
+        'otp_expires_at',
+        'is_blocked',
+        'google_id',
     ];
 
     protected $hidden = [
@@ -28,6 +32,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'otp_expires_at' => 'datetime',
+            'is_blocked' => 'boolean',
         ];
     }
 
@@ -51,6 +57,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function ratings()
     {
         return $this->hasMany(Rating::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     // ===== HELPERS =====
@@ -80,5 +91,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getBioAttribute(): ?string
     {
         return $this->chefProfile?->bio;
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $otp = sprintf('%06d', mt_rand(0, 999999));
+
+        $this->forceFill([
+            'otp_code' => $otp,
+            'otp_expires_at' => now()->addMinutes(15),
+        ])->save();
+
+        $this->notify(new \App\Notifications\SendOtpVerification($otp));
     }
 }
