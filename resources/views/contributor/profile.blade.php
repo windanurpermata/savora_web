@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Profil Chef ' . $chef->name)
+@section('title', 'Profil Chef ' . $contributor->name)
 
 @section('content')
 
@@ -11,8 +11,8 @@
 
                 {{-- Foto Chef --}}
                 <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-cokelat-600 flex-shrink-0 bg-cokelat-700">
-                    @if ($chef->foto)
-                        <img src="{{ asset('storage/' . $chef->foto) }}" alt="{{ $chef->name }}"
+                    @if ($contributor->foto)
+                        <img src="{{ asset('storage/' . $contributor->foto) }}" alt="{{ $contributor->name }}"
                             class="w-full h-full object-cover">
                     @else
                         <div class="w-full h-full flex items-center justify-center text-3xl text-cokelat-300">
@@ -24,14 +24,14 @@
                 {{-- Info Chef --}}
                 <div class="text-center sm:text-left">
                     <p class="text-cokelat-400 text-xs uppercase tracking-widest mb-1">Chef</p>
-                    <h1 class="font-serif text-2xl md:text-3xl text-cokelat-50 mb-1">{{ $chef->name }}</h1>
-                    @if ($chef->bio)
-                        <p class="text-cokelat-300 text-sm max-w-xl">{{ $chef->bio }}</p>
+                    <h1 class="font-serif text-2xl md:text-3xl text-cokelat-50 mb-1">{{ $contributor->name }}</h1>
+                    @if ($contributor->bio)
+                        <p class="text-cokelat-300 text-sm max-w-xl">{{ $contributor->bio }}</p>
                     @endif
                     <div class="flex flex-col sm:flex-row items-center sm:items-start gap-1 sm:gap-4 mt-2">
                         <p class="text-cokelat-500 text-xs">{{ $reseps->count() }} resep dipublikasikan</p>
                         <p class="text-cokelat-500 text-xs">
-                            Bergabung sejak {{ $chef->created_at->translatedFormat('F Y') }}
+                            Bergabung sejak {{ $contributor->created_at->translatedFormat('F Y') }}
                         </p>
                     </div>
                 </div>
@@ -44,13 +44,13 @@
     <section class="py-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <h2 class="font-serif text-xl text-cokelat-800 mb-6">Resep dari {{ $chef->name }}</h2>
+            <h2 class="font-serif text-xl text-cokelat-800 mb-6">Resep dari {{ $contributor->name }}</h2>
 
             @if ($reseps->isEmpty())
                 <div class="text-center py-20">
                     <div class="text-5xl mb-4">🍽</div>
-                    <p class="font-serif text-xl text-cokelat-700 mb-2">Chef ini belum memiliki resep</p>
-                    <p class="text-cokelat-400 text-sm">Nantikan resep dari chef ini ya!</p>
+                    <p class="font-serif text-xl text-cokelat-700 mb-2">Contributor ini belum memiliki resep</p>
+                    <p class="text-cokelat-400 text-sm">Nantikan resep dari contributor ini ya!</p>
                 </div>
             @else
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">

@@ -1,4 +1,4 @@
-@extends('chef.layout')
+@extends('contributor.layout')
 @section('title', 'Edit Resep')
 @section('page-title', 'Edit Resep')
 
@@ -7,7 +7,7 @@
     <div class="max-w-3xl mx-auto">
 
         {{-- Back --}}
-        <a href="{{ route('chef.dashboard') }}"
+        <a href="{{ route('contributor.dashboard') }}"
             class="inline-flex items-center gap-1 text-xs text-cokelat-400 hover:text-cokelat-600 mb-5 transition-colors">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -15,7 +15,7 @@
             Kembali ke Dashboard
         </a>
 
-        <form method="POST" action="{{ route('chef.recipes.update', $resep->id) }}" enctype="multipart/form-data"
+        <form method="POST" action="{{ route('contributor.recipes.update', $resep->id) }}" enctype="multipart/form-data"
             class="space-y-5">
             @csrf
             @method('PUT')
@@ -129,13 +129,13 @@
                        rounded-xl text-sm transition-colors">
                     Simpan Perubahan
                 </button>
-                <a href="{{ route('chef.dashboard') }}"
+                <a href="{{ route('contributor.dashboard') }}"
                     class="text-sm text-cokelat-400 hover:text-cokelat-600 transition-colors">
                     Batal
                 </a>
 
                 {{-- Hapus Resep --}}
-                <form method="POST" action="{{ route('chef.recipes.destroy', $resep->id) }}"
+                <form method="POST" action="{{ route('contributor.recipes.destroy', $resep->id) }}"
                     onsubmit="return confirm('Yakin hapus resep ini?')" class="ml-auto">
                     @csrf @method('DELETE')
                     <button type="submit" class="text-sm text-red-400 hover:text-red-600 transition-colors">

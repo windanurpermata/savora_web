@@ -42,7 +42,7 @@
     </div>
 
     {{-- ===================== KONTEN UTAMA ===================== --}}
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div id="protected-recipe-content" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="flex flex-col lg:flex-row gap-8">
 
             {{-- ===== KOLOM KIRI (konten resep) ===== --}}
@@ -52,12 +52,12 @@
                 <div class="flex flex-wrap items-center gap-4 mb-6 pb-6 border-b border-cokelat-100">
 
                     {{-- Chef --}}
-                    <a href="{{ route('chef.profile', $resep->user_id) }}" class="flex items-center gap-2 group">
+                    <a href="{{ route('contributor.profile', $resep->user_id) }}" class="flex items-center gap-2 group">
                         <div
                             class="w-9 h-9 rounded-full bg-cokelat-700 flex items-center
                                 justify-center overflow-hidden flex-shrink-0">
-                            @if ($resep->user->chefProfile?->foto)
-                                <img src="{{ asset('storage/' . $resep->user->chefProfile->foto) }}"
+                            @if ($resep->user->contributorProfile?->foto)
+                                <img src="{{ asset('storage/' . $resep->user->contributorProfile->foto) }}"
                                     class="w-full h-full object-cover">
                             @else
                                 <span class="font-serif text-sm font-bold text-yellow-200">
@@ -132,7 +132,7 @@
 
                             {{-- Tombol edit/hapus untuk chef pemilik atau admin --}}
                             @if (Auth::id() === $resep->user_id || Auth::user()->role === 'admin')
-                                <a href="{{ route('chef.recipes.edit', $resep->id) }}"
+                                <a href="{{ route('contributor.recipes.edit', $resep->id) }}"
                                     class="flex items-center gap-1.5 bg-cokelat-700 hover:bg-cokelat-800
                                       text-white text-xs font-bold px-3 py-1.5 rounded-lg transition-colors">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -141,7 +141,7 @@
                                     </svg>
                                     Edit
                                 </a>
-                                <form method="POST" action="{{ route('chef.recipes.destroy', $resep->id) }}"
+                                <form method="POST" action="{{ route('contributor.recipes.destroy', $resep->id) }}"
                                     onsubmit="return confirm('Hapus resep ini?')">
                                     @csrf @method('DELETE')
                                     <button type="submit"
@@ -318,8 +318,8 @@
                                 <div class="flex gap-3 p-4 bg-white border border-cokelat-100 rounded-lg shadow-sm">
                                     {{-- Avatar --}}
                                     <div class="w-9 h-9 rounded-full bg-cokelat-700 flex items-center justify-center flex-shrink-0 text-white font-bold text-xs overflow-hidden">
-                                        @if ($comment->user->chefProfile?->foto)
-                                            <img src="{{ asset('storage/' . $comment->user->chefProfile->foto) }}" class="w-full h-full object-cover rounded-full">
+                                        @if ($comment->user->contributorProfile?->foto)
+                                            <img src="{{ asset('storage/' . $comment->user->contributorProfile->foto) }}" class="w-full h-full object-cover rounded-full">
                                         @else
                                             {{ strtoupper(substr($comment->user->name ?? 'U', 0, 2)) }}
                                         @endif
@@ -334,8 +334,8 @@
                                                 </span>
                                                 @if ($comment->user->role === 'admin')
                                                     <span class="bg-red-100 text-red-700 text-[10px] font-bold px-2 py-0.5 rounded-full">Admin</span>
-                                                @elseif ($comment->user->role === 'chef')
-                                                    <span class="bg-yellow-100 text-yellow-700 text-[10px] font-bold px-2 py-0.5 rounded-full">Chef</span>
+                                                @elseif ($comment->user->role === 'contributor')
+                                                    <span class="bg-yellow-100 text-yellow-700 text-[10px] font-bold px-2 py-0.5 rounded-full">Contributor</span>
                                                 @endif
                                             </div>
                                             <span class="text-xs text-cokelat-400 whitespace-nowrap">
@@ -382,8 +382,8 @@
                     <div
                         class="w-14 h-14 rounded-full bg-cokelat-700 flex items-center
                             justify-center overflow-hidden mx-auto mb-3">
-                        @if ($resep->user->chefProfile?->foto)
-                            <img src="{{ asset('storage/' . $resep->user->chefProfile->foto) }}"
+                        @if ($resep->user->contributorProfile?->foto)
+                            <img src="{{ asset('storage/' . $resep->user->contributorProfile->foto) }}"
                                 class="w-full h-full object-cover">
                         @else
                             <span class="font-serif text-lg font-bold text-yellow-200">
@@ -393,9 +393,9 @@
                     </div>
                     <p class="font-bold text-sm text-cokelat-800 mb-0.5">{{ $resep->user->name }}</p>
                     <p class="text-xs text-cokelat-400 mb-3">
-                        {{ $resep->user->chefProfile->spesialisasi ?? 'Chef' }}
+                        {{ $resep->user->contributorProfile->spesialisasi ?? 'Chef' }}
                     </p>
-                    <a href="{{ route('chef.profile', $resep->user_id) }}"
+                    <a href="{{ route('contributor.profile', $resep->user_id) }}"
                         class="block w-full border border-cokelat-200 hover:bg-cokelat-50
                           text-cokelat-700 text-xs font-bold py-2 rounded-lg transition-colors">
                         Lihat Profil
@@ -471,5 +471,63 @@
                     btn.dataset.bookmarked = data.bookmarked ? 'true' : 'false';
                 });
         }
+
+        // ===== PROTEKSI ANTI COPY-PASTE =====
+        document.addEventListener('DOMContentLoaded', function () {
+            const protectedArea = document.getElementById('protected-recipe-content');
+            if (!protectedArea) return;
+
+            // Blokir copy, cut, paste
+            ['copy', 'cut', 'paste'].forEach(function (evt) {
+                protectedArea.addEventListener(evt, function (e) {
+                    e.preventDefault();
+                    return false;
+                });
+            });
+
+            // Blokir klik kanan (context menu)
+            protectedArea.addEventListener('contextmenu', function (e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // Blokir drag
+            protectedArea.addEventListener('dragstart', function (e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // Blokir shortcut keyboard Ctrl+C, Ctrl+A, Ctrl+X, Ctrl+P pada area resep
+            protectedArea.addEventListener('keydown', function (e) {
+                if (e.ctrlKey && ['c', 'a', 'x', 'p'].includes(e.key.toLowerCase())) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        });
     </script>
 @endpush
+
+@push('styles')
+    <style>
+        /* Proteksi anti-select pada konten resep */
+        #protected-recipe-content {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Pastikan form input tetap bisa digunakan */
+        #protected-recipe-content textarea,
+        #protected-recipe-content input,
+        #protected-recipe-content select,
+        #protected-recipe-content button {
+            -webkit-user-select: auto;
+            -moz-user-select: auto;
+            -ms-user-select: auto;
+            user-select: auto;
+        }
+    </style>
+@endpush
+

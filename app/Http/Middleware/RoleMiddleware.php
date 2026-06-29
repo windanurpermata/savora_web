@@ -22,7 +22,7 @@ class RoleMiddleware
         $userRole = auth()->user()->role;
 
         // Admin bisa akses semua route
-        if ($userRole === 'admin') {
+        if ($userRole === 'admin' || $userRole === 'superadmin') {
             return $next($request);
         }
 

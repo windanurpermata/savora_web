@@ -19,10 +19,11 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         $request->validate([
-            'name'     => 'required|string|max:100',
-            'bio'      => 'nullable|string|max:500',
-            'foto'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'password' => 'nullable|min:8|confirmed',
+            'name'         => 'required|string|max:100',
+            'phone_number' => 'nullable|string|max:20',
+            'bio'          => 'nullable|string|max:500',
+            'foto'         => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'password'     => 'nullable|min:8|confirmed',
         ], [
             'name.required'      => 'Nama wajib diisi.',
             'name.max'           => 'Nama maksimal 100 karakter.',
@@ -32,27 +33,34 @@ class ProfileController extends Controller
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
         ]);
 
-        // Update nama
-        $user->update(['name' => $request->name]);
+        // Update nama & nomor telepon
+        $user->update([
+            'name'         => $request->name,
+            'phone_number' => $request->phone_number,
+        ]);
 
-        // Update atau buat profile (menggunakan tabel chef_profiles)
-        $profileData = ['bio' => $request->bio];
+        // Update atau buat profile contributor (hanya untuk role contributor)
+        if ($user->isContributor()) {
+            $profileData = ['bio' => $request->bio];
 
-        if ($request->hasFile('foto')) {
-            if ($user->chefProfile?->foto) {
-                \Storage::disk('public')->delete($user->chefProfile->foto);
+            if ($request->hasFile('foto')) {
+                if ($user->contributorProfile?->foto) {
+                    \Storage::disk('public')->delete($user->contributorProfile->foto);
+                }
+                $profileData['foto'] = $request->file('foto')->store('profil', 'public');
             }
-            $profileData['foto'] = $request->file('foto')->store('profil', 'public');
-        }
 
-        $user->chefProfile()->updateOrCreate(
-            ['user_id' => $user->id],
-            $profileData
-        );
+            $user->contributorProfile()->updateOrCreate(
+                ['user_id' => $user->id],
+                $profileData
+            );
+        }
 
         if ($request->filled('password')) {
             $user->update(['password' => Hash::make($request->password)]);
         }
+
+        \App\Services\AuditLogger::log("User Updated Profile Settings");
 
         return back()->with('success', 'Profil berhasil diperbarui!');
     }

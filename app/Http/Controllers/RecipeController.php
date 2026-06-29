@@ -135,7 +135,7 @@ class RecipeController extends Controller
 
         Recipe::create($data);
 
-        return redirect()->route('chef.dashboard')
+        return redirect()->route('contributor.dashboard')
             ->with('success', 'Resep berhasil dibuat!');
     }
 
@@ -183,7 +183,7 @@ class RecipeController extends Controller
 
         $resep->update($data);
 
-        return redirect()->route('chef.dashboard')
+        return redirect()->route('contributor.dashboard')
             ->with('success', 'Resep berhasil diperbarui!');
     }
 
@@ -200,7 +200,7 @@ class RecipeController extends Controller
 
         $resep->delete();
 
-        return redirect()->route('chef.dashboard')
+        return redirect()->route('contributor.dashboard')
             ->with('success', 'Resep berhasil dihapus.');
     }
 }

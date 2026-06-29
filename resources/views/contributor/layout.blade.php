@@ -68,9 +68,9 @@
             <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
                 <p class="text-xs text-cokelat-600 uppercase tracking-wider px-4 mb-2">Menu</p>
 
-                <a href="{{ route('chef.dashboard') }}"
+                <a href="{{ route('contributor.dashboard') }}"
                     class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm transition-colors
-                      {{ request()->routeIs('chef.dashboard') ? 'bg-cokelat-700 text-cokelat-50 font-bold' : 'text-cokelat-300 hover:bg-cokelat-700 hover:text-cokelat-50' }}">
+                      {{ request()->routeIs('contributor.dashboard') ? 'bg-cokelat-700 text-cokelat-50 font-bold' : 'text-cokelat-300 hover:bg-cokelat-700 hover:text-cokelat-50' }}">
                     <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -78,18 +78,18 @@
                     Dashboard
                 </a>
 
-                <a href="{{ route('chef.recipes.create') }}"
+                <a href="{{ route('contributor.recipes.create') }}"
                     class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm transition-colors
-                      {{ request()->routeIs('chef.recipes.create') ? 'bg-cokelat-700 text-cokelat-50 font-bold' : 'text-cokelat-300 hover:bg-cokelat-700 hover:text-cokelat-50' }}">
+                      {{ request()->routeIs('contributor.recipes.create') ? 'bg-cokelat-700 text-cokelat-50 font-bold' : 'text-cokelat-300 hover:bg-cokelat-700 hover:text-cokelat-50' }}">
                     <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
                     Buat Resep
                 </a>
 
-                <a href="{{ route('chef.profile.edit') }}"
+                <a href="{{ route('contributor.profile.edit') }}"
                     class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm transition-colors
-                      {{ request()->routeIs('chef.profile.*') ? 'bg-cokelat-700 text-cokelat-50 font-bold' : 'text-cokelat-300 hover:bg-cokelat-700 hover:text-cokelat-50' }}">
+                      {{ request()->routeIs('contributor.profile.*') ? 'bg-cokelat-700 text-cokelat-50 font-bold' : 'text-cokelat-300 hover:bg-cokelat-700 hover:text-cokelat-50' }}">
                     <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />

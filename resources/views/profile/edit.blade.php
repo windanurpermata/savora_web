@@ -9,10 +9,10 @@
         {{-- Back --}}
         @php
             $backRoute = route('home');
-            if (Auth::user()->role === 'admin') {
+            if (Auth::user()->isAdmin()) {
                 $backRoute = route('admin.dashboard');
-            } elseif (Auth::user()->role === 'chef') {
-                $backRoute = route('chef.dashboard');
+            } elseif (Auth::user()->isContributor()) {
+                $backRoute = route('contributor.dashboard');
             }
         @endphp
         <a href="{{ $backRoute }}"
@@ -92,8 +92,63 @@
                                    text-sm text-cokelat-400 cursor-not-allowed">
                         <p class="text-xs text-cokelat-400 mt-1">Email tidak dapat diubah.</p>
                     </div>
+
+                    <div>
+                        <label class="text-xs font-bold text-cokelat-600 uppercase tracking-wider block mb-1.5">
+                            Nomor Telepon
+                        </label>
+                        <input type="text" name="phone_number" value="{{ old('phone_number', Auth::user()->phone_number) }}"
+                            class="w-full bg-cokelat-50 border border-cokelat-200 rounded-lg px-4 py-2.5
+                                   text-sm outline-none focus:border-cokelat-500 transition-colors
+                                   @error('phone_number') border-red-400 @enderror"
+                            placeholder="Contoh: 081234567890">
+                        @error('phone_number')
+                            <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
             </div>
+
+            @if (Auth::user()->isAdmin() || Auth::user()->isContributor())
+                {{-- Multi-Factor Authentication --}}
+                <div class="bg-white rounded-xl border border-cokelat-100 p-5 shadow-sm space-y-4">
+                    <div>
+                        <h3 class="font-serif text-base text-cokelat-800">Autentikasi Dua Faktor (2FA)</h3>
+                        <p class="text-xs text-cokelat-400">Meningkatkan keamanan akun Anda dengan menambahkan verifikasi TOTP dari aplikasi Authenticator.</p>
+                    </div>
+                    
+                    @if (Auth::user()->mfa_enabled)
+                        <div class="flex items-center justify-between bg-green-50 border border-green-200 rounded-xl p-4">
+                            <div class="flex items-center gap-3">
+                                <span class="flex h-3 w-3 relative">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                                </span>
+                                <div>
+                                    <p class="text-sm font-semibold text-green-800">2FA Aktif</p>
+                                    <p class="text-xs text-green-600">Akun Anda dilindungi dengan autentikasi tambahan.</p>
+                                </div>
+                            </div>
+                            <form action="{{ route('mfa.disable') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menonaktifkan 2FA? Keamanan akun Anda akan berkurang.');">
+                                @csrf
+                                <button type="submit" class="text-xs font-semibold text-red-600 border border-red-200 bg-white hover:bg-red-50 px-3 py-1.5 rounded-lg transition-colors">
+                                    Nonaktifkan 2FA
+                                </button>
+                            </form>
+                        </div>
+                    @else
+                        <div class="flex items-center justify-between bg-cokelat-50 border border-cokelat-200 rounded-xl p-4">
+                            <div>
+                                <p class="text-sm font-semibold text-cokelat-800">2FA Belum Aktif</p>
+                                <p class="text-xs text-cokelat-500">Aktifkan 2FA untuk melindungi akun koki atau admin Anda.</p>
+                            </div>
+                            <a href="{{ route('mfa.setup') }}" class="text-xs font-semibold text-white bg-cokelat-700 hover:bg-cokelat-800 px-3.5 py-1.5 rounded-lg transition-colors shadow-sm">
+                                Setup 2FA
+                            </a>
+                        </div>
+                    @endif
+                </div>
+            @endif
 
             {{-- Ganti Password --}}
             <div class="bg-white rounded-xl border border-cokelat-100 p-5 shadow-sm">

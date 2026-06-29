@@ -44,8 +44,8 @@
                                 </div>
                             </label>
                             <label class="cursor-pointer">
-                                <input type="radio" name="role" value="chef" class="peer hidden"
-                                    {{ old('role') === 'chef' ? 'checked' : '' }}>
+                                <input type="radio" name="role" value="contributor" class="peer hidden"
+                                    {{ old('role') === 'contributor' || request('role') === 'contributor' ? 'checked' : '' }}>
                                 <div
                                     class="border-2 border-cokelat-100 rounded-lg py-2.5 text-center
                                         peer-checked:border-cokelat-500 peer-checked:bg-cokelat-50

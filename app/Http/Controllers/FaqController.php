@@ -18,12 +18,12 @@ class FaqController extends Controller
                         'a' => 'Ya, DapurNusantara sepenuhnya gratis untuk dilihat dan digunakan oleh siapa saja. Untuk fitur seperti menyimpan bookmark, Anda perlu mendaftar sebagai member — juga gratis.',
                     ],
                     [
-                        'q' => 'Bagaimana cara mendaftar sebagai Chef?',
-                        'a' => 'Klik tombol "Daftar" di navbar, pilih role "Chef", lalu isi data diri Anda. Setelah verifikasi email, Anda langsung bisa membuat dan mengelola resep dari dashboard chef.',
+                        'q' => 'Bagaimana cara mendaftar sebagai Contributor?',
+                        'a' => 'Klik tombol "Daftar" di navbar, pilih role "Contributor", lalu isi data diri Anda. Setelah verifikasi email, Anda langsung bisa membuat dan mengelola resep dari dashboard contributor.',
                     ],
                     [
-                        'q' => 'Apa perbedaan Member dan Chef?',
-                        'a' => 'Member bisa menyimpan bookmark dan memberi rating resep. Chef bisa melakukan semua itu, plus membuat, mengedit, dan mengelola resep mereka sendiri di halaman profil chef.',
+                        'q' => 'Apa perbedaan Member dan Contributor?',
+                        'a' => 'Member bisa menyimpan bookmark dan memberi rating resep. Contributor bisa melakukan semua itu, plus membuat, mengedit, dan mengelola resep mereka sendiri di halaman profil contributor. Contributor juga bisa mengaktifkan autentikasi dua faktor (2FA) untuk keamanan akun lebih tinggi.',
                     ],
                     [
                         'q' => 'Lupa password, bagaimana cara resetnya?',
@@ -45,7 +45,7 @@ class FaqController extends Controller
                     ],
                     [
                         'q' => 'Apakah resep yang diunggah bisa diedit?',
-                        'a' => 'Ya, chef bisa mengedit dan menghapus resep kapan saja melalui dashboard chef. Admin juga memiliki akses untuk mengelola semua resep di platform.',
+                        'a' => 'Ya, contributor bisa mengedit dan menghapus resep kapan saja melalui dashboard contributor. Admin juga memiliki akses untuk mengelola semua resep di platform.',
                     ],
                     [
                         'q' => 'Format gambar apa yang didukung untuk resep?',
@@ -63,7 +63,11 @@ class FaqController extends Controller
                     ],
                     [
                         'q' => 'Mengapa akun saya terkunci saat login?',
-                        'a' => 'Akun akan dikunci sementara selama 15 menit setelah 5 kali percobaan login yang gagal. Ini adalah fitur keamanan untuk melindungi akun Anda dari akses tidak sah.',
+                        'a' => 'Akun akan dikunci sementara selama 5 menit setelah 3 kali percobaan login yang gagal. Ini adalah fitur keamanan untuk melindungi akun Anda dari serangan brute-force dan akses tidak sah.',
+                    ],
+                    [
+                        'q' => 'Apa itu autentikasi dua faktor (2FA)?',
+                        'a' => 'Autentikasi dua faktor (2FA) adalah lapisan keamanan tambahan di mana selain password, Anda perlu memasukkan kode 6 digit dari aplikasi Authenticator di HP Anda. Fitur ini tersedia untuk akun Contributor, Admin, dan Super Admin.',
                     ],
                 ],
             ],

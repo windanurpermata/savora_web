@@ -5,8 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\RatingController;
-use App\Http\Controllers\Chef\ChefDashboardController;
-use App\Http\Controllers\Chef\ChefProfileController;
+use App\Http\Controllers\Contributor\ContributorDashboardController;
+use App\Http\Controllers\Contributor\ContributorProfileController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -19,12 +19,13 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\Admin\AdminMessageController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\Auth\MfaController;
 
 // ===== PUBLIC =====
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/resep', [RecipeController::class, 'index'])->name('recipes.index');
-Route::get('/resep/{id}', [RecipeController::class, 'show'])->name('recipes.show');
-Route::get('/chef/{id}', [ChefProfileController::class, 'show'])->name('chef.profile')->whereNumber('id');
+Route::get('/resep', [RecipeController::class, 'index'])->name('recipes.index')->middleware('auth');
+Route::get('/resep/{id}', [RecipeController::class, 'show'])->name('recipes.show')->middleware('auth');
+Route::get('/contributor/{id}', [ContributorProfileController::class, 'show'])->name('contributor.profile')->whereNumber('id');
 
 // ===== GOOGLE LOGIN =====
 Route::get('/auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
@@ -84,8 +85,8 @@ Route::post('/email/verify', function (Request $request) {
     ])->save();
 
     $redirectRoute = match ($user->role) {
-        'admin' => 'admin.dashboard',
-        'chef' => 'chef.dashboard',
+        'admin', 'superadmin' => 'admin.dashboard',
+        'contributor' => 'contributor.dashboard',
         default => 'home',
     };
 
@@ -108,30 +109,32 @@ Route::middleware(['auth', 'role:member', 'verified'])->group(function () {
     Route::post('/resep/{id}/rating', [RatingController::class, 'store'])->name('recipes.rate');
 });
 
-// ===== CHEF =====
-Route::middleware(['auth', 'role:chef', 'verified'])
-    ->prefix('chef')->name('chef.')->group(function () {
-        Route::get('/dashboard', [ChefDashboardController::class, 'index'])->name('dashboard');
+// ===== CONTRIBUTOR =====
+Route::middleware(['auth', 'role:contributor', 'verified', 'mfa'])
+    ->prefix('contributor')->name('contributor.')->group(function () {
+        Route::get('/dashboard', [ContributorDashboardController::class, 'index'])->name('dashboard');
         Route::get('/resep/buat', [RecipeController::class, 'create'])->name('recipes.create');
         Route::post('/resep', [RecipeController::class, 'store'])->name('recipes.store');
         Route::get('/resep/{id}/edit', [RecipeController::class, 'edit'])->name('recipes.edit');
         Route::put('/resep/{id}', [RecipeController::class, 'update'])->name('recipes.update');
         Route::delete('/resep/{id}', [RecipeController::class, 'destroy'])->name('recipes.destroy');
-        Route::get('/profil/edit', [ChefProfileController::class, 'edit'])->name('profile.edit');
-        Route::put('/profil', [ChefProfileController::class, 'update'])->name('profile.update');
+        Route::get('/profil/edit', [ContributorProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/profil', [ContributorProfileController::class, 'update'])->name('profile.update');
     });
 
 // ===== ADMIN =====
-Route::middleware(['auth', 'role:admin', 'admin.ip'])
+Route::middleware(['auth', 'role:admin', 'admin.ip', 'mfa'])
     ->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
         Route::resource('recipes', \App\Http\Controllers\Admin\AdminRecipeController::class);
+
+        Route::resource('categories', \App\Http\Controllers\Admin\AdminCategoryController::class);
 
         // Super Admin Only
         Route::middleware(['admin.role:super'])->group(function () {
             Route::resource('users', \App\Http\Controllers\Admin\AdminUserController::class);
             Route::post('users/{id}/toggle-block', [\App\Http\Controllers\Admin\AdminUserController::class, 'toggleBlock'])->name('users.toggle-block');
-            Route::resource('categories', \App\Http\Controllers\Admin\AdminCategoryController::class);
+            Route::get('/audit-logs', [\App\Http\Controllers\Admin\AdminAuditLogController::class, 'index'])->name('audit-logs.index');
         });
 
         // Messages
@@ -145,6 +148,15 @@ Route::middleware(['auth', 'role:admin', 'admin.ip'])
         Route::get('/newsletter', [\App\Http\Controllers\Admin\AdminNewsletterController::class, 'index'])->name('newsletter.index');
         Route::delete('/newsletter/{id}', [\App\Http\Controllers\Admin\AdminNewsletterController::class, 'destroy'])->name('newsletter.destroy');
     });
+
+// ===== 2FA MFA =====
+Route::middleware('auth')->group(function () {
+    Route::get('/2fa/verifikasi', [MfaController::class, 'showVerifyForm'])->name('mfa.verify');
+    Route::post('/2fa/verifikasi', [MfaController::class, 'verify'])->name('mfa.verify.post');
+    Route::get('/2fa/setup', [MfaController::class, 'setup'])->name('mfa.setup');
+    Route::post('/2fa/enable', [MfaController::class, 'enable'])->name('mfa.enable');
+    Route::post('/2fa/disable', [MfaController::class, 'disable'])->name('mfa.disable');
+});
 
 // ===== FAQ =====
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');

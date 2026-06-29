@@ -6,7 +6,7 @@
     <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
         {{-- Back --}}
-        <a href="{{ route('chef.dashboard') }}"
+        <a href="{{ route('contributor.dashboard') }}"
             class="inline-flex items-center gap-1 text-xs text-cokelat-400 hover:text-cokelat-600 mb-5 transition-colors">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -20,7 +20,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('chef.profile.update') }}" enctype="multipart/form-data" class="space-y-5">
+        <form method="POST" action="{{ route('contributor.profile.update') }}" enctype="multipart/form-data" class="space-y-5">
             @csrf
             @method('PUT')
 
@@ -133,7 +133,7 @@
                            rounded-xl text-sm transition-colors">
                     Simpan Perubahan
                 </button>
-                <a href="{{ route('chef.dashboard') }}"
+                <a href="{{ route('contributor.dashboard') }}"
                     class="text-sm text-cokelat-400 hover:text-cokelat-600 transition-colors">
                     Batal
                 </a>

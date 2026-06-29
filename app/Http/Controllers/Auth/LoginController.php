@@ -57,6 +57,8 @@ class LoginController extends Controller
 
             $remaining = self::MAX_ATTEMPTS - RateLimiter::attempts($throttleKey);
 
+            \App\Services\AuditLogger::log("Failed Login Attempt for email: " . $request->email);
+
             return back()
                 ->withInput($request->only('email'))
                 ->withErrors([
@@ -66,6 +68,7 @@ class LoginController extends Controller
 
         // Cek jika akun diblokir
         if (Auth::user()->is_blocked) {
+            \App\Services\AuditLogger::log("Blocked User Login Attempt Denied", Auth::id());
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
@@ -80,6 +83,16 @@ class LoginController extends Controller
         // ===== LOGIN BERHASIL =====
         RateLimiter::clear($throttleKey); // reset counter
         $request->session()->regenerate();
+
+        \App\Services\AuditLogger::log("User Logged In Successfully", Auth::id());
+
+        // MFA Check
+        if (Auth::user()->mfa_enabled) {
+            session(['mfa_verified' => false]);
+            return redirect()->route('mfa.verify');
+        } else {
+            session(['mfa_verified' => true]);
+        }
 
         // Cek verifikasi email
         if (!Auth::user()->hasVerifiedEmail()) {
@@ -152,12 +165,22 @@ class LoginController extends Controller
 
         // Cek jika akun diblokir
         if ($user->is_blocked) {
+            \App\Services\AuditLogger::log("Blocked User Google Login Attempt Denied", $user->id);
             return redirect()->route('login')->withErrors([
                 'email' => 'Akun Anda telah diblokir. Silakan ke halaman <a href="/hubungi-kami" class="underline font-bold text-red-700 hover:text-red-900">Hubungi Kami</a> dan pilih pemulihan akun terblokir.'
             ]);
         }
 
         Auth::login($user, true);
+
+        \App\Services\AuditLogger::log("User Logged In via Google Socialite", $user->id);
+
+        if ($user->mfa_enabled) {
+            session(['mfa_verified' => false]);
+            return redirect()->route('mfa.verify');
+        } else {
+            session(['mfa_verified' => true]);
+        }
 
         return $this->redirectByRole();
     }
@@ -172,10 +195,12 @@ class LoginController extends Controller
 
     private function redirectByRole()
     {
-        return match (Auth::user()->role) {
-            'admin' => redirect()->route('admin.dashboard'),
-            'chef' => redirect()->route('chef.dashboard'),
-            default => redirect()->route('home'),
-        };
+        $role = Auth::user()->role;
+        if ($role === 'admin' || $role === 'superadmin') {
+            return redirect()->route('admin.dashboard');
+        } elseif ($role === 'contributor') {
+            return redirect()->route('contributor.dashboard');
+        }
+        return redirect()->route('home');
     }
 }

@@ -345,7 +345,10 @@
     <div class="top-bar">
         <div class="bar-container">
             <div class="bar-title">Savora Web - Laporan Keamanan Sistem & Database</div>
-            <button class="btn-print" onclick="window.print()">Cetak / Simpan PDF</button>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-print" onclick="window.print()">Cetak / Simpan PDF</button>
+                <button class="btn-print" onclick="exportToWord()" style="background-color: #2563eb;">Convert ke Word</button>
+            </div>
         </div>
     </div>
 
@@ -384,7 +387,7 @@
                         <tr>
                             <td>NIM</td>
                             <td>:</td>
-                            <td>[Masukkan NIM Anda]</td>
+                            <td>1234567890</td>
                         </tr>
                         <tr>
                             <td>Program Studi</td>
@@ -429,7 +432,7 @@
                         Penulis,
                         <br><br><br><br><br>
                         <strong><u>Winda Nur Permata</u></strong><br>
-                        NIM. [Masukkan NIM Anda]
+                        NIM. 1234567890
                     </td>
                 </tr>
             </table>
@@ -482,19 +485,25 @@
                     <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">2.1 Desain Keamanan Sistem (Autentikasi & Otorisasi)</td><td style="border: none; text-align: right; padding: 2px;">3</td></tr>
                     <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">2.2 Secure Query (Pencegahan SQL Injection & IDOR)</td><td style="border: none; text-align: right; padding: 2px;">5</td></tr>
                     <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">2.3 Hak Akses Database & RBAC (Role-Based Access Control)</td><td style="border: none; text-align: right; padding: 2px;">7</td></tr>
-                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">2.4 Tampilan Sistem (Dokumentasi Interface)</td><td style="border: none; text-align: right; padding: 2px;">9</td></tr>
-                    
-                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>BAB III PENGUJIAN DAN ANALISIS KERENTANAN</strong></td><td style="border: none; text-align: right; padding: 2px;">11</td></tr>
-                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">3.1 Pengujian Mitigasi Brute Force & Captcha</td><td style="border: none; text-align: right; padding: 2px;">11</td></tr>
-                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">3.2 Pengujian Otorisasi & Pencegahan Bypass Akses (BOLA/IDOR)</td><td style="border: none; text-align: right; padding: 2px;">12</td></tr>
-                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">3.3 Pengujian SQL Injection</td><td style="border: none; text-align: right; padding: 2px;">13</td></tr>
-                    
-                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>BAB V PENUTUP</strong></td><td style="border: none; text-align: right; padding: 2px;">14</td></tr>
-                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">5.1 Kesimpulan</td><td style="border: none; text-align: right; padding: 2px;">14</td></tr>
-                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">5.2 Saran</td><td style="border: none; text-align: right; padding: 2px;">14</td></tr>
-                    
-                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>DAFTAR PUSTAKA</strong></td><td style="border: none; text-align: right; padding: 2px;">15</td></tr>
-                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>LAMPIRAN</strong></td><td style="border: none; text-align: right; padding: 2px;">16</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">2.4 Enkripsi Data Sensitif dengan Salsa20</td><td style="border: none; text-align: right; padding: 2px;">8</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">2.5 Multi-Factor Authentication (MFA/TOTP)</td><td style="border: none; text-align: right; padding: 2px;">9</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">2.6 Audit Logging Aktivitas Administratif</td><td style="border: none; text-align: right; padding: 2px;">10</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">2.7 Use Case Diagram & Entity Relationship Diagram (ERD)</td><td style="border: none; text-align: right; padding: 2px;">11</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">2.8 Tampilan Sistem (Dokumentasi Interface)</td><td style="border: none; text-align: right; padding: 2px;">13</td></tr>
+
+                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>BAB III PENGUJIAN DAN ANALISIS KERENTANAN</strong></td><td style="border: none; text-align: right; padding: 2px;">14</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">3.1 Pengujian Mitigasi Brute Force & Captcha</td><td style="border: none; text-align: right; padding: 2px;">14</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">3.2 Pengujian Otorisasi & Pencegahan Bypass Akses (BOLA/IDOR)</td><td style="border: none; text-align: right; padding: 2px;">15</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">3.3 Pengujian SQL Injection</td><td style="border: none; text-align: right; padding: 2px;">16</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">3.4 Pengujian Multi-Factor Authentication (MFA)</td><td style="border: none; text-align: right; padding: 2px;">17</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">3.5 Pengujian Enkripsi Salsa20</td><td style="border: none; text-align: right; padding: 2px;">17</td></tr>
+
+                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>BAB IV PENUTUP</strong></td><td style="border: none; text-align: right; padding: 2px;">18</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">4.1 Kesimpulan</td><td style="border: none; text-align: right; padding: 2px;">18</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding-left: 20px; padding: 2px;">4.2 Saran</td><td style="border: none; text-align: right; padding: 2px;">19</td></tr>
+
+                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>DAFTAR PUSTAKA</strong></td><td style="border: none; text-align: right; padding: 2px;">20</td></tr>
+                    <tr style="border: none;"><td style="border: none; padding: 2px;"><strong>LAMPIRAN</strong></td><td style="border: none; text-align: right; padding: 2px;">21</td></tr>
                 </table>
             </div>
 
@@ -505,16 +514,16 @@
             
             <h2>1.1 Latar Belakang</h2>
             <p>
-                Perkembangan teknologi berbasis web saat ini telah mengubah lanskap pertukaran informasi secara signifikan. Savora Web hadir sebagai platform berbagi resep kuliner modern yang memungkinkan koki (Chef) mempublikasikan kreasi kuliner mereka dan anggota (Member) untuk mencari, menandai (Bookmark), serta memberikan rating pada resep. Sebagai platform interaktif yang mengelola data pengguna, resep, dan ulasan, Savora Web menuntut fondasi keamanan yang tangguh guna menjamin kerahasiaan (Confidentiality), integritas (Integrity), dan ketersediaan (Availability) data.
+                Perkembangan teknologi berbasis web saat ini telah mengubah lanskap pertukaran informasi secara signifikan. Savora Web hadir sebagai platform berbagi resep kuliner modern yang memungkinkan kontributor (Contributor) mempublikasikan kreasi kuliner mereka dan anggota (Member) untuk mencari, menandai (Bookmark), serta memberikan rating pada resep. Sebagai platform interaktif yang mengelola data pengguna, resep, dan ulasan, Savora Web menuntut fondasi keamanan yang tangguh guna menjamin kerahasiaan (Confidentiality), integritas (Integrity), dan ketersediaan (Availability) data.
             </p>
             <p>
-                Permasalahan keamanan pada aplikasi web terus meningkat seiring berkembangnya metode penyerangan. Berdasarkan daftar <em>OWASP Top 10</em> terbaru, kerentanan seperti <em>Broken Access Control</em> (Kegagalan Kontrol Akses) dan <em>Injection</em> (Injeksi) tetap menduduki peringkat teratas sebagai ancaman kritis. Dalam konteks aplikasi Savora Web, kegagalan dalam pembatasan otorisasi dapat berdampak fatal, misalnya seorang Member biasa dapat memodifikasi atau menghapus resep milik Chef lain, atau bahkan mengakses panel kontrol administratif (Admin Dashboard).
+                Permasalahan keamanan pada aplikasi web terus meningkat seiring berkembangnya metode penyerangan. Berdasarkan daftar <em>OWASP Top 10</em> terbaru, kerentanan seperti <em>Broken Access Control</em> (Kegagalan Kontrol Akses) dan <em>Injection</em> (Injeksi) tetap menduduki peringkat teratas sebagai ancaman kritis. Dalam konteks aplikasi Savora Web, kegagalan dalam pembatasan otorisasi dapat berdampak fatal, misalnya seorang Member biasa dapat memodifikasi atau menghapus resep milik Contributor lain, atau bahkan mengakses panel kontrol administratif (Admin Dashboard).
             </p>
             <p>
-                Selain masalah otorisasi, keamanan basis data memegang peranan krusial. Basis data menyimpan informasi sensitif seperti kredensial akun pengguna, alamat email, serta data transaksi resep. Tanpa perlindungan terstruktur, basis data rentan terhadap serangan <em>SQL Injection</em> (SQLi). Serangan ini terjadi ketika data masukan pengguna yang tidak divalidasi langsung disatukan ke dalam query SQL dinamis, memungkinkan penyerang mengeksekusi perintah database yang tidak sah untuk membaca, memanipulasi, atau menghapus data.
+                Selain masalah otorisasi, keamanan basis data memegang peranan krusial. Basis data menyimpan informasi sensitif seperti kredensial akun pengguna, alamat email, nomor telepon, serta data transaksi resep. Tanpa perlindungan terstruktur, basis data rentan terhadap serangan <em>SQL Injection</em> (SQLi). Serangan ini terjadi ketika data masukan pengguna yang tidak divalidasi langsung disatukan ke dalam query SQL dinamis, memungkinkan penyerang mengeksekusi perintah database yang tidak sah untuk membaca, memanipulasi, atau menghapus data. Untuk itu, data sensitif seperti nomor telepon pengguna dienkripsi menggunakan algoritma <em>Salsa20</em> pada tingkat kolom basis data.
             </p>
             <p>
-                Pilar penting lainnya dalam sistem keamanan adalah Manajemen Identitas (Identity Management). Identitas pengguna harus dipastikan keabsahannya sejak proses registrasi hingga autentikasi. Tanpa pembatasan login, aplikasi rentan terhadap serangan <em>Brute Force</em> dan <em>Credential Stuffing</em>, di mana penyerang secara otomatis mencoba ribuan kombinasi password untuk meretas akun. Oleh karena itu, penerapan kebijakan kata sandi yang kuat, pembatasan jumlah percobaan login (Rate Limiting), verifikasi email, serta autentikasi berbasis tantangan matematika (CAPTCHA) menjadi hal wajib guna menjaga integritas platform Savora Web dari penyalahgunaan.
+                Pilar penting lainnya dalam sistem keamanan adalah Manajemen Identitas (Identity Management). Identitas pengguna harus dipastikan keabsahannya sejak proses registrasi hingga autentikasi. Tanpa pembatasan login, aplikasi rentan terhadap serangan <em>Brute Force</em> dan <em>Credential Stuffing</em>, di mana penyerang secara otomatis mencoba ribuan kombinasi password untuk meretas akun. Oleh karena itu, penerapan kebijakan kata sandi yang kuat, pembatasan jumlah percobaan login (Rate Limiting), verifikasi email, autentikasi berbasis tantangan matematika (CAPTCHA), serta Multi-Factor Authentication (MFA/2FA) berbasis TOTP menjadi hal wajib guna menjaga integritas platform Savora Web dari penyalahgunaan. Di samping itu, pencatatan aktivitas administratif melalui modul <em>Audit Logging</em> memungkinkan penelusuran forensik apabila terjadi insiden keamanan.
             </p>
 
             <h2>1.2 Rumusan Masalah</h2>
@@ -522,7 +531,10 @@
             <ol>
                 <li>Bagaimana merancang sistem autentikasi multi-role yang aman dari serangan brute-force dan otomatisasi registrasi palsu pada Savora Web?</li>
                 <li>Bagaimana mencegah eksploitasi celah SQL Injection dan Insecure Direct Object References (IDOR/BOLA) pada query basis data aplikasi?</li>
-                <li>Bagaimana mengimplementasikan Role-Based Access Control (RBAC) dan pengamanan level administratif yang membatasi hak akses berdasarkan IP (IP Whitelisting) dan level administratif?</li>
+                <li>Bagaimana mengimplementasikan Role-Based Access Control (RBAC) dan pengamanan level administratif yang membatasi hak akses berdasarkan IP (IP Whitelisting) dan level administratif (Admin dan Super Admin)?</li>
+                <li>Bagaimana mengenkripsi data sensitif pengguna (nomor telepon) menggunakan algoritma Salsa20 stream cipher tanpa ketergantungan eksternal?</li>
+                <li>Bagaimana mengimplementasikan Multi-Factor Authentication (MFA) berbasis TOTP untuk akun Contributor, Admin, dan Super Admin?</li>
+                <li>Bagaimana membangun sistem Audit Logging untuk mencatat riwayat aktivitas administratif penting guna keperluan forensik?</li>
             </ol>
 
             <h2>1.3 Tujuan</h2>
@@ -530,7 +542,10 @@
             <ol>
                 <li>Membangun modul autentikasi yang dilengkapi dengan pembatasan percobaan login (Rate Limiting 3 kali, lockout 5 menit) dan verifikasi CAPTCHA matematika.</li>
                 <li>Menerapkan arsitektur data access secure query memanfaatkan Eloquent ORM berbasis parameterized query untuk menjamin imunitas terhadap SQL Injection.</li>
-                <li>Membangun middleware otorisasi berbasis hak akses peran (Member, Chef, Admin, Super Admin) dan membatasi akses khusus panel admin hanya dari alamat IP localhost tepercaya (127.0.0.1 dan ::1).</li>
+                <li>Membangun middleware otorisasi berbasis hak akses peran (Member, Contributor, Admin, Super Admin) dan membatasi akses khusus panel admin hanya dari alamat IP localhost tepercaya (127.0.0.1 dan ::1).</li>
+                <li>Mengimplementasikan enkripsi kolom nomor telepon di basis data menggunakan algoritma Salsa20 stream cipher murni PHP tanpa extension eksternal.</li>
+                <li>Mengimplementasikan autentikasi dua faktor (MFA/2FA) berbasis TOTP menggunakan aplikasi Authenticator (Google Authenticator / Microsoft Authenticator) untuk peran Contributor, Admin, dan Super Admin.</li>
+                <li>Membangun modul Audit Logging yang mencatat seluruh aktivitas penting administratif (login, logout, perubahan data, blokir akun) ke tabel <code>audit_logs</code> untuk keperluan forensik.</li>
             </ol>
 
             <div class="page-break"></div>
@@ -550,19 +565,21 @@
             <ul>
                 <li><strong>Strict Validation & Complexity:</strong> Pendaftaran akun baru mewajibkan parameter email yang unik dan password yang memenuhi standar kompleksitas minimal 8 karakter, wajib memiliki huruf besar, huruf kecil, angka, dan karakter simbol spesial.</li>
                 <li><strong>CAPTCHA Matematika:</strong> Setiap formulir login dan register dilengkapi dengan CAPTCHA dinamis berbasis matematika penjumlahan angka acak (1-20) yang disimpan dalam session server untuk menghindari bypass bot otomatis.</li>
-                <li><strong>Rate Limiting (Lockout):</strong> Pada controller login (`LoginController.php`), diimplementasikan pembatasan hingga maksimal 3 kali kegagalan autentikasi. Jika batas terlampaui, IP & Email tersebut akan dikunci (lockout) selama 300 detik (5 menit) menggunakan layanan <em>RateLimiter</em> bawaan Laravel.</li>
-                <li><strong>Session Security:</strong> Setelah login berhasil, session di-regenerasi secara otomatis dengan perintah `$request->session()->regenerate()` untuk mereduksi risiko serangan <em>Session Fixation</em>.</li>
+                <li><strong>Rate Limiting (Lockout):</strong> Pada controller login (<code>LoginController.php</code>), diimplementasikan pembatasan hingga maksimal 3 kali kegagalan autentikasi. Jika batas terlampaui, IP &amp; Email tersebut akan dikunci (lockout) selama 300 detik (5 menit) menggunakan layanan <em>RateLimiter</em> bawaan Laravel.</li>
+                <li><strong>Session Security:</strong> Setelah login berhasil, session di-regenerasi secara otomatis dengan perintah <code>$request-&gt;session()-&gt;regenerate()</code> untuk mereduksi risiko serangan <em>Session Fixation</em>.</li>
                 <li><strong>Email Verification:</strong> User yang baru terdaftar harus memverifikasi email melalui tautan bertanda tangan kriptografis (signed URL) sebelum dapat mengakses fitur-fitur internal platform.</li>
+                <li><strong>Multi-Factor Authentication (MFA/2FA):</strong> Akun Contributor, Admin, dan Super Admin dapat mengaktifkan verifikasi dua langkah berbasis TOTP. Setelah login berhasil, sistem mengarahkan pengguna ke halaman verifikasi kode 6 digit dari aplikasi Authenticator (Google Authenticator / Microsoft Authenticator). Kode diperbarui setiap 30 detik secara offline.</li>
             </ul>
 
             <h3>B. Arsitektur Otorisasi</h3>
             <p>
-                Otorisasi diterapkan menggunakan konsep <em>Role-Based Access Control</em> (RBAC) dan dibantu oleh middleware keamanan kustom. Request HTTP disaring menggunakan tiga middleware utama:
+                Otorisasi diterapkan menggunakan konsep <em>Role-Based Access Control</em> (RBAC) dengan empat peran pengguna: <strong>Member</strong>, <strong>Contributor</strong>, <strong>Admin</strong>, dan <strong>Super Admin</strong>. Request HTTP disaring menggunakan middleware keamanan kustom:
             </p>
             <ol>
-                <li><strong>RoleMiddleware:</strong> Membatasi akses rute berdasarkan peran umum user (member atau chef). Jika pengguna yang tidak berhak mencoba mengakses, sistem menghentikan proses dan menghasilkan respon HTTP 403 Forbidden.</li>
-                <li><strong>AdminRoleMiddleware:</strong> Membagi otorisasi administrator menjadi 2 level: Admin Biasa dan Super Admin (diidentifikasi berdasarkan email tertentu seperti `admin@savora.com` atau penanda nama). Rute pengelolaan sensitif seperti manajemen pengguna dan kategori hanya diizinkan untuk tingkat Super Admin.</li>
-                <li><strong>AdminIpWhitelist:</strong> Menambahkan lapisan pertahanan jaringan (network layer) dengan cara menolak seluruh permintaan ke area administratif (`/admin/*`) apabila alamat IP peminta tidak terdaftar dalam whitelist (`127.0.0.1` dan `::1`).</li>
+                <li><strong>RoleMiddleware:</strong> Membatasi akses rute berdasarkan peran umum user (member atau contributor). Jika pengguna yang tidak berhak mencoba mengakses, sistem menghentikan proses dan menghasilkan respon HTTP 403 Forbidden.</li>
+                <li><strong>AdminRoleMiddleware:</strong> Membagi otorisasi administrator menjadi 2 level: Admin Biasa dan Super Admin. Rute pengelolaan sensitif seperti manajemen pengguna, kategori, dan audit log hanya diizinkan untuk tingkat Super Admin. Admin biasa mendapat akses terbatas pada konten non-sensitif.</li>
+                <li><strong>AdminIpWhitelist:</strong> Menambahkan lapisan pertahanan jaringan (network layer) dengan cara menolak seluruh permintaan ke area administratif (<code>/admin/*</code>) apabila alamat IP peminta tidak terdaftar dalam whitelist (<code>127.0.0.1</code> dan <code>::1</code>).</li>
+                <li><strong>MfaMiddleware:</strong> Memverifikasi bahwa pengguna dengan peran Contributor, Admin, atau Super Admin yang telah mengaktifkan MFA telah melewati tahap verifikasi TOTP sebelum diizinkan mengakses dashboard. Jika belum, sistem mengalihkan ke halaman verifikasi 2FA.</li>
             </ol>
 
             <h2>2.2 Secure Query</h2>
@@ -593,7 +610,7 @@ $resep = Recipe::where('user_id', Auth::id())->findOrFail($id);</pre>
 
             <h2>2.3 Hak Akses Database & RBAC</h2>
             <p>
-                Model data Savora Web mengadopsi struktur relasional yang terintegrasi. Hak akses database dipetakan ke dalam bentuk kolom `role` pada tabel `users`.
+                Model data Savora Web mengadopsi struktur relasional yang terintegrasi. Hak akses database dipetakan ke dalam bentuk kolom <code>role</code> pada tabel <code>users</code> dengan empat nilai peran: <strong>member</strong>, <strong>contributor</strong>, <strong>admin</strong>, dan <strong>superadmin</strong>.
             </p>
             
             <table class="report-table">
@@ -607,18 +624,18 @@ $resep = Recipe::where('user_id', Auth::id())->findOrFail($id);</pre>
                 <tbody>
                     <tr>
                         <td><strong>users</strong></td>
-                        <td>Menyimpan kredensial dasar dan role akun</td>
-                        <td>Super Admin (Full), Member/Chef (Read/Update Profil Sendiri)</td>
+                        <td>Menyimpan kredensial, role, nomor telepon (terenkripsi Salsa20), dan konfigurasi MFA akun</td>
+                        <td>Super Admin (Full), Member/Contributor (Read/Update Profil Sendiri)</td>
                     </tr>
                     <tr>
                         <td><strong>chef_profiles</strong></td>
-                        <td>Metadata tambahan khusus akun Chef (bio, foto)</td>
-                        <td>Chef Terkait (Create/Read/Update), Public (Read)</td>
+                        <td>Metadata tambahan khusus akun Contributor (bio, foto)</td>
+                        <td>Contributor Terkait (Create/Read/Update), Public (Read)</td>
                     </tr>
                     <tr>
                         <td><strong>recipes</strong></td>
                         <td>Menyimpan data resep masakan, porsi, waktu</td>
-                        <td>Chef Terkait (Full), Admin (Full), Public (Read)</td>
+                        <td>Contributor Terkait (Full), Admin (Full), Public (Read)</td>
                     </tr>
                     <tr>
                         <td><strong>bookmarks</strong></td>
@@ -635,6 +652,11 @@ $resep = Recipe::where('user_id', Auth::id())->findOrFail($id);</pre>
                         <td>Kotak pesan pengaduan & kontak dari form public</td>
                         <td>Public (Create), Admin (Read/Reply/Delete)</td>
                     </tr>
+                    <tr>
+                        <td><strong>audit_logs</strong></td>
+                        <td>Riwayat aktivitas administratif penting (login, blokir, hapus, ubah data)</td>
+                        <td>Super Admin (Read Only), Sistem (Create otomatis)</td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -642,7 +664,624 @@ $resep = Recipe::where('user_id', Auth::id())->findOrFail($id);</pre>
                 Melalui pembatasan ini, integritas database Savora Web tetap terjaga dan hak akses terkontrol sepenuhnya dari level aplikasi.
             </p>
 
-            <h2>2.4 Tampilan Sistem</h2>
+            <h2>2.4 Enkripsi Data Sensitif dengan Salsa20</h2>
+            <p>
+                Data sensitif pengguna berupa nomor telepon (<code>phone_number</code>) dienkripsi pada tingkat kolom basis data menggunakan algoritma <em>Salsa20 stream cipher</em> yang diimplementasikan secara murni dalam PHP tanpa ketergantungan pada extension eksternal (seperti OpenSSL atau libsodium).
+            </p>
+            <h3>A. Mengapa Salsa20?</h3>
+            <p>
+                Salsa20 dipilih karena karakteristiknya sebagai <em>stream cipher</em> yang ringan, cepat, dan telah terbukti aman secara kriptografis. Algoritma ini dirancang oleh Daniel J. Bernstein dan merupakan basis dari keluarga ChaCha20 yang digunakan secara luas dalam protokol TLS modern. Berbeda dengan AES-CBC yang memerlukan padding dan rentan terhadap serangan padding oracle jika tidak dikonfigurasi dengan benar, Salsa20 menghasilkan <em>keystream</em> yang di-XOR langsung dengan plaintext, sehingga lebih sederhana dan bebas dari masalah padding.
+            </p>
+            <h3>B. Mekanisme Enkripsi</h3>
+            <p>Implementasi enkripsi Salsa20 pada Savora Web mengikuti alur berikut:</p>
+            <ul>
+                <li><strong>Kunci (Key):</strong> 256-bit (32 byte) yang disimpan dalam variabel lingkungan (<code>SALSA20_KEY</code> di file <code>.env</code>) dalam format heksadesimal.</li>
+                <li><strong>Nonce:</strong> 64-bit (8 byte) yang dibangkitkan secara acak-aman (<code>random_bytes(8)</code>) untuk setiap operasi enkripsi baru, memastikan ciphertext yang berbeda meskipun plaintext sama.</li>
+                <li><strong>Penyimpanan:</strong> Ciphertext dan nonce digabungkan dengan format <code>base64(nonce + ciphertext)</code> dan disimpan di kolom <code>phone_number_encrypted</code> pada tabel <code>users</code>.</li>
+                <li><strong>Transparansi:</strong> Proses enkripsi/dekripsi ditangani otomatis oleh Eloquent accessor dan mutator pada model <code>User</code>, sehingga kode di controller tetap bersih dan tidak perlu mengelola enkripsi secara manual.</li>
+            </ul>
+            <pre>// Contoh Implementasi Mutator pada User Model
+public function setPhoneNumberAttribute($value): void {
+    if (!empty($value)) {
+        $this->attributes['phone_number_encrypted'] = Salsa20Service::encrypt($value);
+    }
+}
+
+// Accessor otomatis mendekripsi saat diakses
+public function getPhoneNumberAttribute(): ?string {
+    return $this->phone_number_encrypted
+        ? Salsa20Service::decrypt($this->phone_number_encrypted)
+        : null;
+}</pre>
+
+            <h2>2.5 Multi-Factor Authentication (MFA/TOTP)</h2>
+            <p>
+                Multi-Factor Authentication (MFA) diimplementasikan menggunakan algoritma <em>Time-based One-Time Password</em> (TOTP) sesuai standar RFC 6238. TOTP bekerja secara sepenuhnya <em>offline</em> — tidak membutuhkan koneksi internet atau SMS — menjadikannya solusi yang tepat bahkan untuk lingkungan pengembangan lokal (localhost).
+            </p>
+            <h3>A. Prinsip Kerja TOTP</h3>
+            <p>
+                Aplikasi Authenticator di perangkat pengguna dan server Savora Web menggunakan <em>secret key</em> yang sama. Setiap 30 detik, kode OTP 6 digit dibangkitkan dari kombinasi secret key dan waktu Unix saat ini (floor(time/30)), menggunakan fungsi HMAC-SHA1. Karena kedua pihak menggunakan kunci dan waktu yang sama, kode yang dihasilkan pun identik sehingga dapat diverifikasi.
+            </p>
+            <h3>B. Alur Setup dan Verifikasi</h3>
+            <ol>
+                <li>Contributor/Admin membuka halaman <strong>Edit Profil</strong> dan memilih menu <em>Setup 2FA</em>.</li>
+                <li>Server membangkitkan secret key acak (Base32) dan menampilkannya sebagai QR Code (format <code>otpauth://</code>).</li>
+                <li>Pengguna melakukan <em>scan</em> QR Code menggunakan aplikasi Authenticator di HP.</li>
+                <li>Pengguna memasukkan kode 6 digit pertama untuk konfirmasi — secret key disimpan terenkripsi di database.</li>
+                <li>Setiap login berikutnya, setelah email dan password benar, sistem mengalihkan ke halaman verifikasi OTP. Pengguna membuka aplikasi Authenticator dan memasukkan kode 6 digit yang aktif saat itu.</li>
+            </ol>
+            <h3>C. Keamanan Tambahan</h3>
+            <ul>
+                <li><strong>Replay Attack Prevention:</strong> Kode OTP yang telah digunakan tidak dapat dipakai kembali dalam periode 30 detik yang sama.</li>
+                <li><strong>Window Tolerance:</strong> Server mengizinkan toleransi ±1 interval waktu (±30 detik) untuk mengakomodasi perbedaan jam kecil antara HP dan server.</li>
+                <li><strong>Secret Encryption:</strong> Secret TOTP disimpan di kolom <code>two_factor_secret</code> dalam database, hanya dapat diakses oleh sistem dan bukan oleh Admin biasa.</li>
+            </ul>
+
+            <h2>2.6 Audit Logging Aktivitas Administratif</h2>
+            <p>
+                Modul Audit Logging diimplementasikan untuk mencatat riwayat perubahan dan aktivitas penting yang terjadi pada sistem Savora Web. Setiap entri log tersimpan secara otomatis ke tabel <code>audit_logs</code> dalam basis data.
+            </p>
+            <h3>A. Struktur Data Audit Log</h3>
+            <table class="report-table">
+                <thead>
+                    <tr><th>Kolom</th><th>Tipe Data</th><th>Keterangan</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>id</code></td><td>BIGINT (PK)</td><td>Identifikasi unik log</td></tr>
+                    <tr><td><code>user_id</code></td><td>BIGINT (FK)</td><td>ID pengguna yang melakukan aksi</td></tr>
+                    <tr><td><code>action</code></td><td>VARCHAR</td><td>Jenis aksi (login, logout, update_profile, block_user, dll.)</td></tr>
+                    <tr><td><code>description</code></td><td>TEXT</td><td>Deskripsi detail aksi yang dilakukan</td></tr>
+                    <tr><td><code>ip_address</code></td><td>VARCHAR</td><td>Alamat IP pemohon aksi</td></tr>
+                    <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td>Waktu kejadian aksi</td></tr>
+                </tbody>
+            </table>
+            <h3>B. Aktivitas yang Dicatat</h3>
+            <ul>
+                <li>Login dan logout akun (Contributor, Admin, Super Admin)</li>
+                <li>Perubahan data profil pengguna (termasuk nomor telepon)</li>
+                <li>Aktivasi dan nonaktivasi MFA</li>
+                <li>Pemblokiran dan pembukaan blokir akun pengguna</li>
+                <li>Penghapusan resep oleh Admin</li>
+                <li>Perubahan peran (role) pengguna oleh Super Admin</li>
+            </ul>
+            <p>
+                Seluruh log hanya dapat diakses oleh <strong>Super Admin</strong> melalui panel <code>/admin/audit-logs</code>, tidak dapat dihapus dari antarmuka, dan bersifat append-only untuk menjaga integritas rekam jejak forensik.
+            </p>
+
+                        <h2>2.7 Use Case Diagram &amp; Entity Relationship Diagram (ERD)</h2>
+            <p>
+                Guna mempermudah pemahaman alur kerja dan relasi data pada platform Savora Web, berikut disajikan rancangan Use Case Diagram dan Entity Relationship Diagram (ERD) yang mengintegrasikan berbagai peran pengguna serta entitas basis data yang digunakan. Terdapat empat aktor utama dalam sistem ini yaitu <strong>Guest</strong> (pengunjung tidak terdaftar), <strong>Member</strong> (anggota terdaftar), <strong>Contributor</strong> (penulis resep), serta <strong>Admin dan Super Admin</strong> (pengelola sistem).
+            </p>
+
+            <h3>A. Use Case Diagram</h3>
+            <p>
+                Use Case Diagram di bawah ini menggambarkan interaksi antara empat aktor utama (Guest, Member, Contributor, Admin/Super Admin) dengan sistem Savora Web. Setiap use case dikodekan (UC1&ndash;UC9) dan dibedakan warnanya berdasarkan hak akses peran. Batasan otorisasi yang ketat diterapkan melalui middleware RBAC sehingga setiap aktor hanya dapat mengakses fitur yang sesuai dengan perannya.
+            </p>
+
+            <div style="text-align: center; margin: 18pt 0;">
+                <svg width="100%" height="640" viewBox="0 0 820 640" style="background-color: #fafaf9; border: 1px solid #ddd; border-radius: 8px;">
+                    <!-- Title -->
+                    <text x="410" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#ea580c">USE CASE DIAGRAM - SAVORA WEB</text>
+
+                    <!-- System Boundary Box -->
+                    <rect x="200" y="45" width="420" height="575" rx="8" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="6,3"/>
+                    <text x="410" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#64748b" font-style="italic">&laquo;system&raquo; Savora Web</text>
+
+                    <!-- Actor: Guest -->
+                    <g transform="translate(80, 110)">
+                        <circle cx="0" cy="-20" r="13" fill="#fff" stroke="#64748b" stroke-width="2"/>
+                        <line x1="0" y1="-7" x2="0" y2="18" stroke="#64748b" stroke-width="2"/>
+                        <line x1="-16" y1="5" x2="16" y2="5" stroke="#64748b" stroke-width="2"/>
+                        <line x1="0" y1="18" x2="-12" y2="38" stroke="#64748b" stroke-width="2"/>
+                        <line x1="0" y1="18" x2="12" y2="38" stroke="#64748b" stroke-width="2"/>
+                        <text x="0" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#475569">Guest</text>
+                        <text x="0" y="67" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#94a3b8">(Tamu / Pengunjung)</text>
+                    </g>
+
+                    <!-- Actor: Member -->
+                    <g transform="translate(80, 310)">
+                        <circle cx="0" cy="-20" r="13" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+                        <line x1="0" y1="-7" x2="0" y2="18" stroke="#2563eb" stroke-width="2"/>
+                        <line x1="-16" y1="5" x2="16" y2="5" stroke="#2563eb" stroke-width="2"/>
+                        <line x1="0" y1="18" x2="-12" y2="38" stroke="#2563eb" stroke-width="2"/>
+                        <line x1="0" y1="18" x2="12" y2="38" stroke="#2563eb" stroke-width="2"/>
+                        <text x="0" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#2563eb">Member</text>
+                        <text x="0" y="67" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#94a3b8">(Anggota Terdaftar)</text>
+                    </g>
+
+                    <!-- Actor: Contributor -->
+                    <g transform="translate(740, 200)">
+                        <circle cx="0" cy="-20" r="13" fill="#fff" stroke="#16a34a" stroke-width="2"/>
+                        <line x1="0" y1="-7" x2="0" y2="18" stroke="#16a34a" stroke-width="2"/>
+                        <line x1="-16" y1="5" x2="16" y2="5" stroke="#16a34a" stroke-width="2"/>
+                        <line x1="0" y1="18" x2="-12" y2="38" stroke="#16a34a" stroke-width="2"/>
+                        <line x1="0" y1="18" x2="12" y2="38" stroke="#16a34a" stroke-width="2"/>
+                        <text x="0" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#16a34a">Contributor</text>
+                        <text x="0" y="67" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#94a3b8">(Penulis Resep)</text>
+                    </g>
+
+                    <!-- Actor: Admin/SuperAdmin -->
+                    <g transform="translate(740, 460)">
+                        <circle cx="0" cy="-20" r="13" fill="#fff" stroke="#ea580c" stroke-width="2"/>
+                        <line x1="0" y1="-7" x2="0" y2="18" stroke="#ea580c" stroke-width="2"/>
+                        <line x1="-16" y1="5" x2="16" y2="5" stroke="#ea580c" stroke-width="2"/>
+                        <line x1="0" y1="18" x2="-12" y2="38" stroke="#ea580c" stroke-width="2"/>
+                        <line x1="0" y1="18" x2="12" y2="38" stroke="#ea580c" stroke-width="2"/>
+                        <text x="0" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#ea580c">Admin &amp;</text>
+                        <text x="0" y="68" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#ea580c">Super Admin</text>
+                    </g>
+
+                    <!-- UC1: Melihat & Mencari Resep (Kuning - semua aktor) -->
+                    <g transform="translate(410, 100)">
+                        <ellipse cx="0" cy="0" rx="108" ry="22" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+                        <text x="0" y="-5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#78350f">UC1: Melihat &amp; Mencari</text>
+                        <text x="0" y="9" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#78350f">Resep Kuliner</text>
+                    </g>
+                    <!-- UC2: Registrasi -->
+                    <g transform="translate(410, 155)">
+                        <ellipse cx="0" cy="0" rx="108" ry="22" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+                        <text x="0" y="-5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#78350f">UC2: Registrasi Akun</text>
+                        <text x="0" y="9" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#78350f">+ Verifikasi Email (OTP)</text>
+                    </g>
+                    <!-- UC3: Login -->
+                    <g transform="translate(410, 210)">
+                        <ellipse cx="0" cy="0" rx="108" ry="22" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+                        <text x="0" y="-5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#78350f">UC3: Login dengan</text>
+                        <text x="0" y="9" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#78350f">CAPTCHA &amp; Rate Limiter</text>
+                    </g>
+                    <!-- UC4: Bookmark & Rating (Biru - Member) -->
+                    <g transform="translate(410, 285)">
+                        <ellipse cx="0" cy="0" rx="108" ry="22" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+                        <text x="0" y="-5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1e3a8a">UC4: Bookmark &amp;</text>
+                        <text x="0" y="9" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1e3a8a">Rating Resep</text>
+                    </g>
+                    <!-- UC5: Komentar & Kontak -->
+                    <g transform="translate(410, 340)">
+                        <ellipse cx="0" cy="0" rx="108" ry="22" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+                        <text x="0" y="-5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#1e3a8a">UC5: Menulis Komentar</text>
+                        <text x="0" y="9" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1e3a8a">&amp; Kirim Pesan Kontak</text>
+                    </g>
+                    <!-- UC6: Kelola Resep (Hijau - Contributor) -->
+                    <g transform="translate(410, 410)">
+                        <ellipse cx="0" cy="0" rx="108" ry="22" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+                        <text x="0" y="-5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#14532d">UC6: Kelola Resep &amp;</text>
+                        <text x="0" y="9" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#14532d">Profil Contributor</text>
+                    </g>
+                    <!-- UC7: Setup MFA -->
+                    <g transform="translate(410, 465)">
+                        <ellipse cx="0" cy="0" rx="108" ry="22" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+                        <text x="0" y="-5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#14532d">UC7: Setup &amp; Verifikasi</text>
+                        <text x="0" y="9" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#14532d">MFA / 2FA (TOTP)</text>
+                    </g>
+                    <!-- UC8: Panel Admin (Merah - Admin) -->
+                    <g transform="translate(410, 530)">
+                        <ellipse cx="0" cy="0" rx="108" ry="22" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+                        <text x="0" y="-5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#7f1d1d">UC8: Kelola Pengguna,</text>
+                        <text x="0" y="9" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7f1d1d">Konten &amp; Audit Log</text>
+                    </g>
+                    <!-- UC9: Newsletter & Kategori -->
+                    <g transform="translate(410, 585)">
+                        <ellipse cx="0" cy="0" rx="108" ry="22" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+                        <text x="0" y="-5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#7f1d1d">UC9: Manajemen</text>
+                        <text x="0" y="9" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#7f1d1d">Newsletter &amp; Kategori</text>
+                    </g>
+
+                    <!-- CONNECTIONS: Guest -> UC1, UC2, UC3 -->
+                    <line x1="93" y1="100" x2="302" y2="100" stroke="#64748b" stroke-width="1.2"/>
+                    <line x1="93" y1="110" x2="302" y2="153" stroke="#64748b" stroke-width="1.2"/>
+                    <line x1="93" y1="120" x2="302" y2="207" stroke="#64748b" stroke-width="1.2"/>
+
+                    <!-- CONNECTIONS: Member -> UC4, UC5 -->
+                    <line x1="93" y1="300" x2="302" y2="285" stroke="#2563eb" stroke-width="1.2"/>
+                    <line x1="93" y1="312" x2="302" y2="339" stroke="#2563eb" stroke-width="1.2"/>
+
+                    <!-- CONNECTIONS: Contributor -> UC6, UC7 -->
+                    <line x1="727" y1="200" x2="518" y2="408" stroke="#16a34a" stroke-width="1.2"/>
+                    <line x1="727" y1="210" x2="518" y2="463" stroke="#16a34a" stroke-width="1.2"/>
+
+                    <!-- CONNECTIONS: Admin -> UC8, UC9 -->
+                    <line x1="727" y1="460" x2="518" y2="528" stroke="#ea580c" stroke-width="1.2"/>
+                    <line x1="727" y1="470" x2="518" y2="583" stroke="#ea580c" stroke-width="1.2"/>
+
+                    <!-- Legend -->
+                    <rect x="212" y="615" width="396" height="20" rx="3" fill="#f8fafc" stroke="#e2e8f0"/>
+                    <rect x="218" y="619" width="10" height="10" fill="#fef3c7" stroke="#d97706"/>
+                    <text x="232" y="628" font-family="Arial, sans-serif" font-size="8.5" fill="#64748b">Semua Peran</text>
+                    <rect x="298" y="619" width="10" height="10" fill="#dbeafe" stroke="#2563eb"/>
+                    <text x="312" y="628" font-family="Arial, sans-serif" font-size="8.5" fill="#64748b">Member+</text>
+                    <rect x="367" y="619" width="10" height="10" fill="#dcfce7" stroke="#16a34a"/>
+                    <text x="381" y="628" font-family="Arial, sans-serif" font-size="8.5" fill="#64748b">Contributor+</text>
+                    <rect x="448" y="619" width="10" height="10" fill="#fee2e2" stroke="#dc2626"/>
+                    <text x="462" y="628" font-family="Arial, sans-serif" font-size="8.5" fill="#64748b">Admin / Super Admin</text>
+                </svg>
+            </div>
+
+            <h3>Penjelasan Use Case</h3>
+            <p class="no-indent">Berikut adalah penjelasan detail dari setiap use case yang terdapat pada diagram di atas:</p>
+
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th style="width:7%">Kode</th>
+                        <th style="width:22%">Nama Use Case</th>
+                        <th style="width:18%">Aktor</th>
+                        <th style="width:53%">Deskripsi Detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>UC1</strong></td>
+                        <td>Melihat &amp; Mencari Resep Kuliner</td>
+                        <td>Guest, Member, Contributor, Admin</td>
+                        <td>Semua pengguna (termasuk tamu yang belum login) dapat mengakses halaman daftar resep, melihat detail resep beserta bahan-bahan (<em>ingredients</em>) dan langkah memasak (<em>steps</em>), serta melakukan pencarian berdasarkan judul menggunakan filter <em>parameterized query</em> Eloquent ORM yang aman dari SQL Injection. Resep yang tampil hanya yang berstatus <em>published</em>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UC2</strong></td>
+                        <td>Registrasi Akun + Verifikasi Email (OTP)</td>
+                        <td>Guest</td>
+                        <td>Tamu dapat mendaftarkan akun baru sebagai Member atau Contributor. Formulir registrasi dilindungi CAPTCHA matematika dinamis dan validasi kompleksitas password (min. 8 karakter, huruf besar/kecil, angka, simbol). Setelah berhasil mendaftar, sistem mengirimkan kode OTP 6 digit ke email untuk verifikasi identitas sebelum akun aktif dapat digunakan.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UC3</strong></td>
+                        <td>Login dengan CAPTCHA &amp; Rate Limiter</td>
+                        <td>Semua peran (melalui Guest)</td>
+                        <td>Pengguna terdaftar melakukan login menggunakan email, password, dan jawaban CAPTCHA matematika. Sistem menerapkan Rate Limiter maksimal 3 kali kegagalan sebelum akun dikunci selama 5 menit (300 detik). Setelah login berhasil, session di-regenerasi untuk mencegah <em>Session Fixation</em>. Jika MFA diaktifkan, pengguna diarahkan ke halaman verifikasi TOTP sebelum dapat mengakses dashboard.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UC4</strong></td>
+                        <td>Bookmark &amp; Rating Resep</td>
+                        <td>Member, Contributor</td>
+                        <td>Pengguna yang sudah login dapat menyimpan resep favorit ke koleksi Bookmark pribadi dan memberikan penilaian bintang (Rating) pada resep. Setiap pengguna hanya dapat memberikan satu rating per resep. Data bookmark dan rating hanya dapat diakses serta dimodifikasi oleh pengguna pemiliknya melalui <em>user ownership filtering</em> (<code>where('user_id', Auth::id())</code>) untuk mencegah IDOR.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UC5</strong></td>
+                        <td>Menulis Komentar &amp; Kirim Pesan Kontak</td>
+                        <td>Member, Contributor (Komentar); Guest + semua (Kontak)</td>
+                        <td>Pengguna yang login dapat memberikan komentar atau ulasan teks pada halaman detail resep. Selain itu, seluruh pengguna termasuk tamu dapat mengirimkan pesan atau pengaduan melalui formulir halaman <em>Kontak</em>. Pesan tersimpan di tabel <code>contact_messages</code> dengan kolom <code>is_read</code> untuk pelacakan status oleh Admin.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UC6</strong></td>
+                        <td>Kelola Resep &amp; Profil Contributor</td>
+                        <td>Contributor</td>
+                        <td>Contributor dapat membuat resep baru (beserta bahan dan langkah memasak), mengedit, serta menghapus resep miliknya sendiri. Contributor juga dapat mengelola profil publik (<em>contributor_profiles</em>) yang berisi bio, foto, dan spesialisasi memasak. Seluruh operasi manipulasi resep selalu divalidasi dengan <code>where('user_id', Auth::id())->findOrFail($id)</code> untuk mencegah BOLA/IDOR.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UC7</strong></td>
+                        <td>Setup &amp; Verifikasi MFA / 2FA (TOTP)</td>
+                        <td>Contributor, Admin, Super Admin</td>
+                        <td>Pengguna dengan peran Contributor, Admin, atau Super Admin dapat mengaktifkan autentikasi dua faktor (2FA) berbasis TOTP (RFC 6238) melalui halaman profil. Sistem menampilkan QR Code yang di-scan menggunakan Google/Microsoft Authenticator. Setiap login berikutnya, setelah email dan password benar, pengguna wajib memasukkan kode OTP 6 digit yang diperbarui setiap 30 detik secara offline.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UC8</strong></td>
+                        <td>Kelola Pengguna, Konten &amp; Audit Log</td>
+                        <td>Admin, Super Admin</td>
+                        <td>Admin dapat mengelola resep yang dilaporkan dan membalas pesan kontak. Super Admin memiliki akses penuh: manajemen pengguna (blokir/unblokir, ubah role), penghapusan resep, dan akses eksklusif ke panel <em>Audit Log</em> yang mencatat seluruh aktivitas administratif. Semua akses ke area <code>/admin/*</code> dibatasi hanya dari IP localhost (127.0.0.1 / ::1) melalui middleware <em>AdminIpWhitelist</em>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UC9</strong></td>
+                        <td>Manajemen Newsletter &amp; Kategori</td>
+                        <td>Admin, Super Admin</td>
+                        <td>Admin dapat mengelola kategori resep (tambah, edit, hapus) dan mengirim email newsletter kepada seluruh subscriber aktif yang terdaftar di tabel <code>newsletter_subscribers</code>. Pengguna publik dapat berlangganan newsletter melalui halaman depan. Setiap subscriber memiliki <code>unsubscribe_token</code> unik untuk berhenti berlangganan secara aman tanpa perlu login.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="page-break"></div>
+
+            <h3>B. Entity Relationship Diagram (ERD)</h3>
+            <p>
+                ERD di bawah ini menggambarkan struktur relasional tabel basis data Savora Web yang sesungguhnya berdasarkan file migrasi database. Sistem menggunakan <strong>11 entitas (tabel)</strong> yang saling berelasi membentuk arsitektur data yang efisien. Struktur relasi dirancang untuk mendukung integritas data dan memfasilitasi pembatasan hak akses berbasis kepemilikan pengguna (<em>user ownership filtering</em>) yang mencegah celah IDOR.
+            </p>
+
+            <div style="text-align: center; margin: 18pt 0;">
+                <svg width="100%" height="820" viewBox="0 0 910 820" style="background-color: #fafaf9; border: 1px solid #ddd; border-radius: 8px;">
+                    <text x="455" y="28" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ea580c">ENTITY RELATIONSHIP DIAGRAM (ERD) - SAVORA WEB</text>
+
+                    <!-- ===== TABLE: users ===== -->
+                    <g transform="translate(15, 50)">
+                        <rect width="195" height="240" rx="6" fill="#ffffff" stroke="#ea580c" stroke-width="2.5"/>
+                        <rect width="195" height="30" rx="4" fill="#ea580c"/>
+                        <text x="97" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">users</text>
+                        <text x="10" y="52" font-family="monospace" font-size="9" font-weight="bold" fill="#b45309">&#x1F511; id (PK, BIGINT)</text>
+                        <text x="10" y="69" font-family="monospace" font-size="9" fill="#374151">   name [VARCHAR]</text>
+                        <text x="10" y="86" font-family="monospace" font-size="9" fill="#374151">   email [VARCHAR, UNIQUE]</text>
+                        <text x="10" y="103" font-family="monospace" font-size="9" fill="#374151">   password [VARCHAR]</text>
+                        <text x="10" y="120" font-family="monospace" font-size="9" fill="#374151">   role [ENUM]</text>
+                        <text x="10" y="137" font-family="monospace" font-size="9" fill="#374151">   is_blocked [BOOLEAN]</text>
+                        <text x="10" y="154" font-family="monospace" font-size="9" fill="#374151">   otp_code [VARCHAR(6)]</text>
+                        <text x="10" y="171" font-family="monospace" font-size="9" fill="#374151">   otp_expires_at [TIMESTAMP]</text>
+                        <text x="10" y="188" font-family="monospace" font-size="9" fill="#374151">   mfa_secret [VARCHAR]</text>
+                        <text x="10" y="205" font-family="monospace" font-size="9" fill="#374151">   mfa_enabled [BOOLEAN]</text>
+                        <text x="10" y="222" font-family="monospace" font-size="9" fill="#b45309">   phone_number [TEXT ENC]</text>
+                        <text x="10" y="237" font-family="monospace" font-size="9" fill="#374151">   timestamps</text>
+                    </g>
+
+                    <!-- ===== TABLE: contributor_profiles ===== -->
+                    <g transform="translate(15, 320)">
+                        <rect width="195" height="130" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+                        <rect width="195" height="30" rx="4" fill="#16a34a"/>
+                        <text x="97" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#ffffff">contributor_profiles</text>
+                        <text x="10" y="52" font-family="monospace" font-size="9" font-weight="bold" fill="#b45309">&#x1F511; id (PK)</text>
+                        <text x="10" y="69" font-family="monospace" font-size="9" fill="#1d4ed8">&#x1F517; user_id (FK - users)</text>
+                        <text x="10" y="86" font-family="monospace" font-size="9" fill="#374151">   bio [TEXT]</text>
+                        <text x="10" y="103" font-family="monospace" font-size="9" fill="#374151">   foto [VARCHAR]</text>
+                        <text x="10" y="120" font-family="monospace" font-size="9" fill="#374151">   spesialisasi [VARCHAR]</text>
+                    </g>
+
+                    <!-- ===== TABLE: audit_logs ===== -->
+                    <g transform="translate(15, 480)">
+                        <rect width="195" height="130" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+                        <rect width="195" height="30" rx="4" fill="#dc2626"/>
+                        <text x="97" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">audit_logs</text>
+                        <text x="10" y="52" font-family="monospace" font-size="9" font-weight="bold" fill="#b45309">&#x1F511; id (PK)</text>
+                        <text x="10" y="69" font-family="monospace" font-size="9" fill="#1d4ed8">&#x1F517; user_id (FK, nullable)</text>
+                        <text x="10" y="86" font-family="monospace" font-size="9" fill="#374151">   activity [VARCHAR]</text>
+                        <text x="10" y="103" font-family="monospace" font-size="9" fill="#374151">   ip_address [VARCHAR]</text>
+                        <text x="10" y="120" font-family="monospace" font-size="9" fill="#374151">   user_agent [TEXT]</text>
+                    </g>
+
+                    <!-- ===== TABLE: categories ===== -->
+                    <g transform="translate(280, 50)">
+                        <rect width="175" height="95" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+                        <rect width="175" height="30" rx="4" fill="#64748b"/>
+                        <text x="87" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">categories</text>
+                        <text x="10" y="52" font-family="monospace" font-size="9" font-weight="bold" fill="#b45309">&#x1F511; id (PK)</text>
+                        <text x="10" y="69" font-family="monospace" font-size="9" fill="#374151">   name [VARCHAR]</text>
+                        <text x="10" y="86" font-family="monospace" font-size="9" fill="#374151">   timestamps</text>
+                    </g>
+
+                    <!-- ===== TABLE: recipes ===== -->
+                    <g transform="translate(280, 190)">
+                        <rect width="175" height="220" rx="6" fill="#ffffff" stroke="#ea580c" stroke-width="2.5"/>
+                        <rect width="175" height="30" rx="4" fill="#ea580c"/>
+                        <text x="87" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">recipes</text>
+                        <text x="10" y="52" font-family="monospace" font-size="9" font-weight="bold" fill="#b45309">&#x1F511; id (PK)</text>
+                        <text x="10" y="69" font-family="monospace" font-size="9" fill="#1d4ed8">&#x1F517; user_id (FK - users)</text>
+                        <text x="10" y="86" font-family="monospace" font-size="9" fill="#1d4ed8">&#x1F517; category_id (FK, nullable)</text>
+                        <text x="10" y="103" font-family="monospace" font-size="9" fill="#374151">   judul [VARCHAR]</text>
+                        <text x="10" y="120" font-family="monospace" font-size="9" fill="#374151">   deskripsi [TEXT]</text>
+                        <text x="10" y="137" font-family="monospace" font-size="9" fill="#374151">   gambar [VARCHAR]</text>
+                        <text x="10" y="154" font-family="monospace" font-size="9" fill="#374151">   waktu_memasak [INT]</text>
+                        <text x="10" y="171" font-family="monospace" font-size="9" fill="#374151">   porsi [INT]</text>
+                        <text x="10" y="188" font-family="monospace" font-size="9" fill="#374151">   status [VARCHAR]</text>
+                        <text x="10" y="205" font-family="monospace" font-size="9" fill="#374151">   timestamps</text>
+                    </g>
+
+                    <!-- ===== TABLE: ingredients ===== -->
+                    <g transform="translate(535, 50)">
+                        <rect width="170" height="112" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+                        <rect width="170" height="30" rx="4" fill="#64748b"/>
+                        <text x="85" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">ingredients</text>
+                        <text x="10" y="52" font-family="monospace" font-size="9" font-weight="bold" fill="#b45309">&#x1F511; id (PK)</text>
+                        <text x="10" y="69" font-family="monospace" font-size="9" fill="#1d4ed8">&#x1F517; recipe_id (FK - recipes)</text>
+                        <text x="10" y="86" font-family="monospace" font-size="9" fill="#374151">   name [VARCHAR]</text>
+                        <text x="10" y="103" font-family="monospace" font-size="9" fill="#374151">   timestamps</text>
+                    </g>
+
+                    <!-- ===== TABLE: steps ===== -->
+                    <g transform="translate(535, 200)">
+                        <rect width="170" height="112" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+                        <rect width="170" height="30" rx="4" fill="#64748b"/>
+                        <text x="85" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">steps</text>
+                        <text x="10" y="52" font-family="monospace" font-size="9" font-weight="bold" fill="#b45309">&#x1F511; id (PK)</text>
+                        <text x="10" y="69" font-family="monospace" font-size="9" fill="#1d4ed8">&#x1F517; recipe_id (FK - recipes)</text>
+                        <text x="10" y="86" font-family="monospace" font-size="9" fill="#374151">   instruction [TEXT]</text>
+                        <text x="10" y="103" font-family="monospace" font-size="9" fill="#374151">   timestamps</text>
+                    </g>
+
+                    <!-- ===== TABLE: bookmarks ===== -->
+                    <g transform="translate(535, 350)">
+                        <rect width="170" height="112" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+                        <rect width="170" height="30" rx="4" fill="#64748b"/>
+                        <text x="85" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">bookmarks</text>
+                        <text x="10" y="52" font-family="monospace" font-size="9" font-weight="bold" fill="#b45309">&#x1F511; id (PK)</text>
+                        <text x="10" y="69" font-family="monospace" font-size="9" fill="#1d4ed8">&#x1F517; user_id (FK - users)</text>
+                        <text x="10" y="86" font-family="monospace" font-size="9" fill="#1d4ed8">&#x1F517; recipe_id (FK - recipes)</text>
+                        <text x="10" y="103" font-family="monospace" font-size="9" fill="#374151">   timestamps</text>
+                    </g>
+
+                    <!-- ===== TABLE: ratings ===== -->
+                    <g transform="translate(535, 500)">
+                        <rect width="170" height="130" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+                        <rect width="170" height="30" rx="4" fill="#64748b"/>
+                        <text x="85" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">ratings</text>
+                        <text x="10" y="52" font-family="monospace" font-size="9" font-weight="bold" fill="#b45309">&#x1F511; id (PK)</text>
+                        <text x="10" y="69" font-family="monospace" font-size="9" fill="#1d4ed8">&#x1F517; user_id (FK - users)</text>
+                        <text x="10" y="86" font-family="monospace" font-size="9" fill="#1d4ed8">&#x1F517; recipe_id (FK - recipes)</text>
+                        <text x="10" y="103" font-family="monospace" font-size="9" fill="#374151">   rating [INT]</text>
+                        <text x="10" y="120" font-family="monospace" font-size="9" fill="#374151">   timestamps</text>
+                    </g>
+
+                    <!-- ===== TABLE: comments ===== -->
+                    <g transform="translate(535, 670)">
+                        <rect width="170" height="112" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+                        <rect width="170" height="30" rx="4" fill="#64748b"/>
+                        <text x="85" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">comments</text>
+                        <text x="10" y="52" font-family="monospace" font-size="9" font-weight="bold" fill="#b45309">&#x1F511; id (PK)</text>
+                        <text x="10" y="69" font-family="monospace" font-size="9" fill="#1d4ed8">&#x1F517; user_id (FK - users)</text>
+                        <text x="10" y="86" font-family="monospace" font-size="9" fill="#1d4ed8">&#x1F517; recipe_id (FK - recipes)</text>
+                        <text x="10" y="103" font-family="monospace" font-size="9" fill="#374151">   isi [TEXT]</text>
+                    </g>
+
+                    <!-- ===== TABLE: contact_messages ===== -->
+                    <g transform="translate(280, 500)">
+                        <rect width="185" height="165" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+                        <rect width="185" height="30" rx="4" fill="#64748b"/>
+                        <text x="92" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#ffffff">contact_messages</text>
+                        <text x="10" y="52" font-family="monospace" font-size="9" font-weight="bold" fill="#b45309">&#x1F511; id (PK)</text>
+                        <text x="10" y="69" font-family="monospace" font-size="9" fill="#1d4ed8">&#x1F517; user_id (FK, nullable)</text>
+                        <text x="10" y="86" font-family="monospace" font-size="9" fill="#374151">   nama [VARCHAR]</text>
+                        <text x="10" y="103" font-family="monospace" font-size="9" fill="#374151">   email [VARCHAR]</text>
+                        <text x="10" y="120" font-family="monospace" font-size="9" fill="#374151">   topik [VARCHAR]</text>
+                        <text x="10" y="137" font-family="monospace" font-size="9" fill="#374151">   pesan [TEXT]</text>
+                        <text x="10" y="154" font-family="monospace" font-size="9" fill="#374151">   is_read [BOOLEAN]</text>
+                    </g>
+
+                    <!-- ===== TABLE: newsletter_subscribers ===== -->
+                    <g transform="translate(280, 695)">
+                        <rect width="185" height="112" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+                        <rect width="185" height="30" rx="4" fill="#64748b"/>
+                        <text x="92" y="20" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#ffffff">newsletter_subscribers</text>
+                        <text x="10" y="52" font-family="monospace" font-size="9" font-weight="bold" fill="#b45309">&#x1F511; id (PK)</text>
+                        <text x="10" y="69" font-family="monospace" font-size="9" fill="#374151">   email [VARCHAR, UNIQUE]</text>
+                        <text x="10" y="86" font-family="monospace" font-size="9" fill="#374151">   is_active [BOOLEAN]</text>
+                        <text x="10" y="103" font-family="monospace" font-size="9" fill="#374151">   unsubscribe_token [VARCHAR]</text>
+                    </g>
+
+                    <!-- ===== RELATIONSHIP LINES ===== -->
+                    <!-- users 1 -- 0..1 contributor_profiles -->
+                    <path d="M 112,290 L 112,320" fill="none" stroke="#16a34a" stroke-width="1.5"/>
+                    <text x="117" y="307" font-family="sans-serif" font-size="9" fill="#16a34a">1</text>
+                    <text x="117" y="320" font-family="sans-serif" font-size="9" fill="#16a34a">0..1</text>
+
+                    <!-- users 1 -- 0..* audit_logs -->
+                    <path d="M 112,450 L 112,480" fill="none" stroke="#dc2626" stroke-width="1.5"/>
+                    <text x="117" y="467" font-family="sans-serif" font-size="9" fill="#dc2626">1</text>
+                    <text x="117" y="480" font-family="sans-serif" font-size="9" fill="#dc2626">0..*</text>
+
+                    <!-- users 1 -- 0..* recipes -->
+                    <path d="M 210,160 L 250,160 L 250,280 L 280,280" fill="none" stroke="#ea580c" stroke-width="1.5"/>
+                    <text x="213" y="154" font-family="sans-serif" font-size="9" fill="#ea580c">1</text>
+                    <text x="260" y="274" font-family="sans-serif" font-size="9" fill="#ea580c">0..*</text>
+
+                    <!-- categories 1 -- 0..* recipes -->
+                    <path d="M 367,145 L 367,190" fill="none" stroke="#64748b" stroke-width="1.5"/>
+                    <text x="372" y="160" font-family="sans-serif" font-size="9" fill="#64748b">1</text>
+                    <text x="372" y="186" font-family="sans-serif" font-size="9" fill="#64748b">0..*</text>
+
+                    <!-- recipes 1 -- 0..* ingredients -->
+                    <path d="M 455,250 L 490,250 L 490,106 L 535,106" fill="none" stroke="#64748b" stroke-width="1.5"/>
+                    <text x="458" y="244" font-family="sans-serif" font-size="9" fill="#64748b">1</text>
+                    <text x="515" y="100" font-family="sans-serif" font-size="9" fill="#64748b">0..*</text>
+
+                    <!-- recipes 1 -- 0..* steps -->
+                    <path d="M 455,275 L 535,275" fill="none" stroke="#64748b" stroke-width="1.5"/>
+                    <text x="458" y="269" font-family="sans-serif" font-size="9" fill="#64748b">1</text>
+                    <text x="515" y="269" font-family="sans-serif" font-size="9" fill="#64748b">0..*</text>
+
+                    <!-- recipes 1 -- 0..* bookmarks -->
+                    <path d="M 455,340 L 490,340 L 490,400 L 535,400" fill="none" stroke="#64748b" stroke-width="1.5"/>
+                    <text x="458" y="334" font-family="sans-serif" font-size="9" fill="#64748b">1</text>
+                    <text x="515" y="394" font-family="sans-serif" font-size="9" fill="#64548b">0..*</text>
+
+                    <!-- users 1 -- 0..* bookmarks (dashed) -->
+                    <path d="M 210,80 L 617,80 L 617,350" fill="none" stroke="#64748b" stroke-width="1" stroke-dasharray="4,2"/>
+                    <text x="615" y="344" font-family="sans-serif" font-size="9" fill="#64748b">0..*</text>
+
+                    <!-- recipes 1 -- 0..* ratings -->
+                    <path d="M 455,360 L 490,360 L 490,545 L 535,545" fill="none" stroke="#64748b" stroke-width="1.5"/>
+                    <text x="458" y="354" font-family="sans-serif" font-size="9" fill="#64748b">1</text>
+                    <text x="515" y="539" font-family="sans-serif" font-size="9" fill="#64748b">0..*</text>
+
+                    <!-- users -- ratings (dashed) -->
+                    <path d="M 210,90 L 705,90 L 705,500" fill="none" stroke="#64748b" stroke-width="1" stroke-dasharray="4,2"/>
+                    <text x="700" y="494" font-family="sans-serif" font-size="9" fill="#64748b">0..*</text>
+
+                    <!-- recipes 1 -- 0..* comments -->
+                    <path d="M 455,380 L 500,380 L 500,718 L 535,718" fill="none" stroke="#64748b" stroke-width="1.5"/>
+                    <text x="458" y="374" font-family="sans-serif" font-size="9" fill="#64748b">1</text>
+                    <text x="515" y="712" font-family="sans-serif" font-size="9" fill="#64748b">0..*</text>
+
+                    <!-- users -- contact_messages (dashed) -->
+                    <path d="M 210,200 L 255,200 L 255,567 L 280,567" fill="none" stroke="#64748b" stroke-width="1" stroke-dasharray="4,2"/>
+                    <text x="258" y="561" font-family="sans-serif" font-size="9" fill="#64748b">0..*</text>
+
+                    <!-- Legend -->
+                    <rect x="15" y="640" width="245" height="80" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+                    <text x="25" y="657" font-family="Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#475569">Keterangan Simbol &amp; Warna:</text>
+                    <rect x="25" y="665" width="20" height="2.5" fill="#ea580c"/>
+                    <text x="50" y="670" font-family="Arial, sans-serif" font-size="8.5" fill="#475569">Entitas Inti (users, recipes)</text>
+                    <rect x="25" y="678" width="20" height="2.5" fill="#16a34a"/>
+                    <text x="50" y="683" font-family="Arial, sans-serif" font-size="8.5" fill="#475569">Profil Contributor</text>
+                    <rect x="25" y="691" width="20" height="2.5" fill="#dc2626"/>
+                    <text x="50" y="696" font-family="Arial, sans-serif" font-size="8.5" fill="#475569">Keamanan / Audit Log</text>
+                    <line x1="135" y1="666" x2="155" y2="666" stroke="#64748b" stroke-width="1.2"/>
+                    <text x="160" y="670" font-family="Arial, sans-serif" font-size="8.5" fill="#475569">Relasi wajib (cascade)</text>
+                    <line x1="135" y1="679" x2="155" y2="679" stroke="#64748b" stroke-width="1" stroke-dasharray="3,2"/>
+                    <text x="160" y="683" font-family="Arial, sans-serif" font-size="8.5" fill="#475569">Relasi opsional (nullable FK)</text>
+                    <text x="135" y="697" font-family="Arial, sans-serif" font-size="8.5" fill="#475569">PK=Primary Key, FK=Foreign Key</text>
+                    <text x="25" y="712" font-family="Arial, sans-serif" font-size="8" fill="#94a3b8" font-style="italic">*phone_number tersimpan terenkripsi Salsa20</text>
+                </svg>
+            </div>
+
+            <h3>Penjelasan Entitas ERD</h3>
+            <p class="no-indent">Berikut adalah penjelasan detail dari setiap entitas (tabel) yang ada pada ERD Savora Web:</p>
+
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th style="width:18%">Nama Entitas (Tabel)</th>
+                        <th style="width:18%">Relasi ke Entitas Lain</th>
+                        <th style="width:64%">Penjelasan Fungsi &amp; Kolom Penting</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>users</strong></td>
+                        <td>1-ke-banyak: <em>recipes, bookmarks, ratings, comments, audit_logs, contact_messages</em>; 1-ke-1: <em>contributor_profiles</em></td>
+                        <td>Entitas inti yang menyimpan data akun seluruh pengguna. Kolom <code>role</code> (ENUM: <em>member, contributor, admin, superadmin</em>) menentukan hak akses dalam sistem RBAC. Kolom <code>is_blocked</code> digunakan Admin untuk menonaktifkan akun bermasalah. Kolom <code>otp_code</code> dan <code>otp_expires_at</code> menyimpan kode verifikasi email sementara. Kolom <code>mfa_secret</code> dan <code>mfa_enabled</code> mengelola konfigurasi autentikasi dua faktor (TOTP). Kolom <code>phone_number</code> disimpan dalam format <strong>terenkripsi Salsa20 stream cipher</strong> untuk melindungi data sensitif pengguna.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>contributor_profiles</strong></td>
+                        <td>Milik 1 (1-ke-1): <em>users</em> — cascade delete</td>
+                        <td>Menyimpan metadata tambahan khusus akun Contributor. Kolom <code>bio</code> berisi deskripsi singkat kontributor, <code>foto</code> menyimpan path gambar profil publik, dan <code>spesialisasi</code> mencatat keahlian memasak. Relasi <em>one-to-one</em> dengan <code>users</code> artinya setiap Contributor memiliki tepat satu profil. Catatan: Tabel ini awalnya bernama <em>chef_profiles</em> kemudian di-rename melalui migrasi tanggal 22 Juni 2026 untuk menyesuaikan terminologi peran yang telah diperbarui dari "chef" menjadi "contributor".</td>
+                    </tr>
+                    <tr>
+                        <td><strong>categories</strong></td>
+                        <td>1-ke-banyak: <em>recipes</em></td>
+                        <td>Menyimpan daftar kategori resep masakan (contoh: Masakan Indonesia, Kue &amp; Dessert, Minuman, dll.). Kolom <code>name</code> adalah nama kategori. Relasi <em>one-to-many</em> dengan <code>recipes</code> — satu kategori dapat memiliki banyak resep, namun setiap resep hanya termasuk dalam satu kategori. Pengelolaan kategori merupakan hak eksklusif Admin/Super Admin melalui panel administratif.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>recipes</strong></td>
+                        <td>Milik 1 <em>users</em> dan 1 <em>categories</em>; 1-ke-banyak: <em>ingredients, steps, bookmarks, ratings, comments</em></td>
+                        <td>Entitas pusat sistem yang menyimpan data resep masakan. Kolom <code>judul</code> adalah nama resep, <code>deskripsi</code> berisi penjelasan singkat, <code>gambar</code> menyimpan path foto, <code>waktu_memasak</code> dalam satuan menit, dan <code>porsi</code> untuk jumlah sajian. Kolom <code>status</code> mengontrol visibilitas resep. Foreign key <code>user_id</code> adalah kunci utama pencegahan IDOR — setiap operasi edit/hapus divalidasi dengan <code>where('user_id', Auth::id())</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ingredients</strong></td>
+                        <td>Milik 1: <em>recipes</em> — cascade delete</td>
+                        <td>Menyimpan daftar bahan-bahan yang dibutuhkan untuk sebuah resep. Setiap baris adalah satu item bahan dengan kolom <code>name</code> yang memuat nama bahan dan satuannya (contoh: "200 gram tepung terigu"). Relasi <em>one-to-many</em> dengan <code>recipes</code> — satu resep dapat memiliki banyak bahan. Ketika resep dihapus, seluruh data bahan terkait ikut terhapus otomatis (<em>cascade delete</em>).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>steps</strong></td>
+                        <td>Milik 1: <em>recipes</em> — cascade delete</td>
+                        <td>Menyimpan langkah-langkah instruksi memasak secara berurutan untuk setiap resep. Kolom <code>instruction</code> berisi teks detail instruksi tiap tahap memasak. Relasi <em>one-to-many</em> dengan <code>recipes</code>. Sama seperti <code>ingredients</code>, data steps ikut terhapus otomatis saat resep induknya dihapus (<em>cascade delete</em>), menjaga konsistensi data.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>bookmarks</strong></td>
+                        <td>Milik 1: <em>users</em> dan 1: <em>recipes</em> (keduanya cascade delete)</td>
+                        <td>Tabel pivot yang menyimpan hubungan antara pengguna dan resep yang mereka simpan sebagai favorit. Berfungsi sebagai relasi <em>many-to-many</em> antara <code>users</code> dan <code>recipes</code> — satu pengguna dapat menandai banyak resep, dan satu resep dapat ditandai oleh banyak pengguna. Data bookmark hanya dapat diakses oleh pengguna pemiliknya (<em>user ownership filtering</em>) untuk mencegah IDOR.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ratings</strong></td>
+                        <td>Milik 1: <em>users</em> dan 1: <em>recipes</em></td>
+                        <td>Menyimpan penilaian numerik (bintang) yang diberikan pengguna pada resep. Kolom <code>rating</code> berisi nilai integer (skala 1&ndash;5). Berfungsi sebagai relasi <em>many-to-many</em> antara <code>users</code> dan <code>recipes</code>. Sistem memastikan satu pengguna hanya dapat memberikan satu rating per resep untuk menjaga integritas data penilaian resep.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>comments</strong></td>
+                        <td>Milik 1: <em>users</em> dan 1: <em>recipes</em> (cascade delete)</td>
+                        <td>Menyimpan ulasan atau komentar teks yang ditulis pengguna pada halaman detail resep. Kolom <code>isi</code> berisi konten komentar. Ketika sebuah resep dihapus, seluruh komentar terkait ikut terhapus otomatis (<em>cascade delete</em>). Pengguna hanya dapat menghapus komentar milik mereka sendiri, sementara Admin/Super Admin dapat menghapus komentar manapun untuk moderasi konten.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>contact_messages</strong></td>
+                        <td>Milik 1 (opsional/nullable): <em>users</em></td>
+                        <td>Menyimpan pesan yang dikirimkan pengguna atau tamu (guest) melalui formulir halaman Kontak. Kolom <code>nama</code> dan <code>email</code> diisi manual oleh pengirim, <code>topik</code> untuk kategori pengaduan, dan <code>pesan</code> berisi isi pesan lengkap. Kolom <code>is_read</code> (BOOLEAN) digunakan Admin untuk menandai pesan yang sudah ditangani. Foreign key <code>user_id</code> bersifat <em>nullable</em> karena tamu yang belum login pun dapat mengirim pesan kontak.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>newsletter_subscribers</strong></td>
+                        <td>Tidak berelasi langsung (entitas mandiri)</td>
+                        <td>Menyimpan daftar alamat email yang berlangganan newsletter platform Savora Web. Kolom <code>email</code> bersifat <em>UNIQUE</em> untuk mencegah duplikasi subscription. Kolom <code>is_active</code> menentukan status berlangganan aktif atau sudah <em>unsubscribe</em>. Kolom <code>unsubscribe_token</code> adalah token unik yang dikirimkan via email untuk memungkinkan proses berhenti berlangganan yang aman tanpa memerlukan login. Admin dapat mengirimkan email newsletter massal ke seluruh subscriber aktif melalui panel administratif.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>audit_logs</strong></td>
+                        <td>Milik 1 (opsional/nullable): <em>users</em></td>
+                        <td>Menyimpan rekam jejak forensik seluruh aktivitas administratif penting. Kolom <code>activity</code> mencatat jenis aksi (contoh: <em>login, logout, block_user, delete_recipe, change_role, mfa_enabled</em>), <code>ip_address</code> mencatat alamat IP pemohon, dan <code>user_agent</code> mencatat informasi perangkat/browser yang digunakan. Tabel ini bersifat <em>append-only</em> — tidak dapat dihapus melalui antarmuka — dan hanya dapat dibaca oleh Super Admin melalui panel <code>/admin/audit-logs</code>. Digunakan untuk analisis forensik jika terjadi insiden keamanan.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="page-break"></div>
+
+            <h2>2.8 Tampilan Sistem</h2>
             <p class="no-indent">Berikut adalah dokumentasi visual antarmuka sistem keamanan yang telah diimplementasikan:</p>
 
             <!-- Tampilan Login -->
@@ -654,13 +1293,40 @@ $resep = Recipe::where('user_id', Auth::id())->findOrFail($id);</pre>
                 <div class="screenshot-title">Gambar 2.1 Antarmuka Halaman Login dengan Fitur CAPTCHA Keamanan</div>
             </div>
 
-            <!-- Tampilan Dashboard Chef -->
+            <!-- Tampilan Dashboard Contributor -->
             <div class="screenshot-container">
                 <div class="screenshot-placeholder-text">
-                    [ Tempatkan Screenshot Dashboard Chef / Admin Di Sini ]<br>
-                    Menampilkan Statistik Resep, Data Menu Eksklusif Chef, atau Panel Manajemen Admin.
+                    [ Tempatkan Screenshot Dashboard Contributor / Admin Di Sini ]<br>
+                    Menampilkan Statistik Resep, Data Menu Eksklusif Contributor, atau Panel Manajemen Admin.
                 </div>
-                <div class="screenshot-title">Gambar 2.2 Dashboard Manajemen Resep Chef Terotentikasi</div>
+                <div class="screenshot-title">Gambar 2.2 Dashboard Manajemen Resep Contributor Terotentikasi</div>
+            </div>
+
+            <!-- Tampilan Setup 2FA -->
+            <div class="screenshot-container">
+                <div class="screenshot-placeholder-text">
+                    [ Tempatkan Screenshot Halaman Setup 2FA Di Sini ]<br>
+                    Menampilkan QR Code untuk di-scan menggunakan Google Authenticator / Microsoft Authenticator.
+                </div>
+                <div class="screenshot-title">Gambar 2.3 Halaman Setup Multi-Factor Authentication (MFA/2FA)</div>
+            </div>
+
+            <!-- Tampilan Verifikasi OTP -->
+            <div class="screenshot-container">
+                <div class="screenshot-placeholder-text">
+                    [ Tempatkan Screenshot Halaman Verifikasi Kode 2FA Di Sini ]<br>
+                    Menampilkan Form Input Kode 6 Digit OTP dari Aplikasi Authenticator.
+                </div>
+                <div class="screenshot-title">Gambar 2.4 Halaman Verifikasi Kode OTP (TOTP)</div>
+            </div>
+
+            <!-- Tampilan Audit Log -->
+            <div class="screenshot-container">
+                <div class="screenshot-placeholder-text">
+                    [ Tempatkan Screenshot Halaman Audit Log Di Sini ]<br>
+                    Menampilkan Tabel Riwayat Aktivitas: Aksi, Pengguna, IP Address, dan Waktu Kejadian.
+                </div>
+                <div class="screenshot-title">Gambar 2.5 Panel Audit Log Aktivitas Administratif (Super Admin Only)</div>
             </div>
 
             <!-- Tampilan Hak Akses Terbatas (403) -->
@@ -669,7 +1335,7 @@ $resep = Recipe::where('user_id', Auth::id())->findOrFail($id);</pre>
                     [ Tempatkan Screenshot Halaman Error 403 / IP Ditolak Di Sini ]<br>
                     Menampilkan Pesan "403 Forbidden - Anda tidak memiliki akses ke halaman ini" atau IP Whitelist block.
                 </div>
-                <div class="screenshot-title">Gambar 2.3 Respon Proteksi Middleware (Access Denied / Forbidden 403)</div>
+                <div class="screenshot-title">Gambar 2.6 Respon Proteksi Middleware (Access Denied / Forbidden 403)</div>
             </div>
 
             <div class="page-break"></div>
@@ -715,13 +1381,74 @@ $resep = Recipe::where('user_id', Auth::id())->findOrFail($id);</pre>
 
             <h2>3.2 Pengujian Otorisasi & Pencegahan Bypass Akses (BOLA/IDOR)</h2>
             <p>
-                Pengujian otorisasi ini difokuskan pada pengujian kekuatan <em>RoleMiddleware</em>, <em>AdminRoleMiddleware</em>, serta proteksi direct object reference.
+                Pengujian otorisasi ini difokuskan pada pengujian kekuatan <em>RoleMiddleware</em>, <em>AdminRoleMiddleware</em>, <em>MfaMiddleware</em>, serta proteksi direct object reference.
             </p>
             <ul>
-                <li><strong>Pengujian IP Whitelist Admin:</strong> Mengakses rute `/admin/dashboard` dari perangkat lain dalam satu jaringan lokal (IP non-127.0.0.1). Hasil menunjukkan sistem menolak akses secara instan dan melempar halaman 403 Forbidden. Akses hanya diizinkan dari mesin lokal localhost.</li>
-                <li><strong>Pengujian Level Admin:</strong> Menggunakan akun Admin Biasa (misal: `admin_staf@savora.com`) untuk mengakses rute manajemen pengguna (`/admin/users`). Hasil menunjukkan sistem menolak dengan pesan "Akses khusus Super Admin" sesuai logika pada `AdminRoleMiddleware.php`.</li>
-                <li><strong>Pengujian Bypass IDOR:</strong> Melakukan login sebagai `Chef A` kemudian mengirimkan HTTP request `PUT` secara paksa menuju url `/chef/resep/{id_resep_milik_chef_b}`. Hasil pengujian menunjukkan Laravel mengembalikan respon `404 Model Not Found` karena query disaring ketat menggunakan scope user terkait.</li>
+                <li><strong>Pengujian IP Whitelist Admin:</strong> Mengakses rute <code>/admin/dashboard</code> dari perangkat lain dalam satu jaringan lokal (IP non-127.0.0.1). Hasil menunjukkan sistem menolak akses secara instan dan melempar halaman 403 Forbidden. Akses hanya diizinkan dari mesin lokal localhost.</li>
+                <li><strong>Pengujian Level Admin:</strong> Menggunakan akun Admin Biasa untuk mengakses rute manajemen pengguna (<code>/admin/users</code>) dan halaman audit log (<code>/admin/audit-logs</code>). Hasil menunjukkan sistem menolak dengan pesan "Akses khusus Super Admin" sesuai logika pada <code>AdminRoleMiddleware.php</code>.</li>
+                <li><strong>Pengujian Bypass IDOR:</strong> Melakukan login sebagai <em>Contributor A</em> kemudian mengirimkan HTTP request <code>PUT</code> secara paksa menuju URL <code>/contributor/resep/{id_resep_milik_contributor_b}</code>. Hasil pengujian menunjukkan Laravel mengembalikan respon <code>404 Model Not Found</code> karena query disaring ketat menggunakan scope user terkait.</li>
+                <li><strong>Pengujian MFA Bypass:</strong> Mencoba mengakses <code>/contributor/dashboard</code> secara langsung setelah login tanpa melewati halaman verifikasi OTP (2FA aktif). Hasil menunjukkan sistem mengalihkan kembali ke halaman verifikasi OTP sesuai logika <code>MfaMiddleware.php</code>.</li>
             </ul>
+
+            <h2>3.4 Pengujian Multi-Factor Authentication (MFA)</h2>
+            <table class="report-table">
+                <thead>
+                    <tr><th>Skenario Uji</th><th>Input yang Diberikan</th><th>Hasil yang Diharapkan</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Setup 2FA dengan kode konfirmasi benar</td>
+                        <td>Scan QR Code, masukkan kode OTP 6 digit valid dari Authenticator</td>
+                        <td>MFA aktif, secret tersimpan, tampil pesan sukses</td>
+                        <td>Berhasil</td>
+                    </tr>
+                    <tr>
+                        <td>Login dengan MFA aktif, kode OTP benar</td>
+                        <td>Email + password benar, kode OTP 6 digit valid</td>
+                        <td>Login berhasil, diarahkan ke dashboard</td>
+                        <td>Berhasil</td>
+                    </tr>
+                    <tr>
+                        <td>Login dengan MFA aktif, kode OTP salah</td>
+                        <td>Email + password benar, kode OTP acak/kedaluwarsa</td>
+                        <td>Ditolak, muncul pesan kode tidak valid, diminta mengulang</td>
+                        <td>Berhasil</td>
+                    </tr>
+                    <tr>
+                        <td>Login tanpa MFA aktif</td>
+                        <td>Email + password benar, MFA belum diaktifkan</td>
+                        <td>Langsung masuk ke dashboard tanpa halaman OTP</td>
+                        <td>Berhasil</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>3.5 Pengujian Enkripsi Salsa20</h2>
+            <table class="report-table">
+                <thead>
+                    <tr><th>Skenario Uji</th><th>Input</th><th>Hasil yang Diharapkan</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Simpan nomor telepon di profil</td>
+                        <td>"081234567890"</td>
+                        <td>Nilai tersimpan di DB sebagai string Base64 terenkripsi (ciphertext), bukan plaintext</td>
+                        <td>Berhasil</td>
+                    </tr>
+                    <tr>
+                        <td>Baca nomor telepon dari profil</td>
+                        <td>Ciphertext dari DB</td>
+                        <td>Accessor secara otomatis mendekripsi dan menampilkan "081234567890" di form</td>
+                        <td>Berhasil</td>
+                    </tr>
+                    <tr>
+                        <td>Enkripsi dua kali dengan plaintext sama</td>
+                        <td>"081234567890" (dua kali simpan)</td>
+                        <td>Dua ciphertext berbeda (karena nonce acak berbeda tiap enkripsi)</td>
+                        <td>Berhasil</td>
+                    </tr>
+                </tbody>
+            </table>
 
             <h2>3.3 Pengujian SQL Injection</h2>
             <p>
@@ -736,27 +1463,32 @@ Query Hasil Eksekusi: SELECT * FROM `recipes` WHERE `judul` LIKE '%\' OR \'1\'=\
 
             <div class="page-break"></div>
 
-            <!-- ==================== 8. BAB V PENUTUP ==================== -->
-            <h1>BAB V<br>PENUTUP</h1>
+            <!-- ==================== 8. BAB IV PENUTUP ==================== -->
+            <h1>BAB IV<br>PENUTUP</h1>
             
-            <h2>5.1 Kesimpulan</h2>
+            <h2>4.1 Kesimpulan</h2>
             <p>
                 Berdasarkan tahapan analisis, implementasi, dan pengujian keamanan yang telah dilaksanakan pada platform Savora Web, diperoleh beberapa kesimpulan sebagai berikut:
             </p>
             <ol>
                 <li>Manajemen Identitas (Identity Management) pada platform Savora Web telah berhasil ditingkatkan dengan menerapkan verifikasi CAPTCHA matematika dinamis untuk menyaring bot, serta Rate Limiter login (lockout 5 menit setelah 3 kali gagal) yang terbukti ampuh mencegah serangan brute-force.</li>
                 <li>Implementasi keamanan basis data menggunakan parameterized query bawaan Eloquent ORM telah menutup celah keamanan SQL Injection secara penuh. Selain itu, pembatasan query berbasis scope kepemilikan pengguna berhasil mencegah eksploitasi celah Broken Object Level Authorization (BOLA/IDOR).</li>
-                <li>Mekanisme otorisasi Role-Based Access Control (RBAC) dan perlindungan panel admin dengan IP Whitelisting & klasifikasi level admin biasa/super admin terbukti efektif dalam membatasi area sensitif sistem agar hanya dapat diakses oleh pihak yang berwenang dari host tepercaya.</li>
+                <li>Mekanisme otorisasi Role-Based Access Control (RBAC) dengan empat peran (Member, Contributor, Admin, Super Admin) dan perlindungan panel admin dengan IP Whitelisting terbukti efektif dalam membatasi area sensitif sistem agar hanya dapat diakses oleh pihak yang berwenang dari host tepercaya.</li>
+                <li>Implementasi enkripsi kolom nomor telepon menggunakan algoritma <em>Salsa20 stream cipher</em> yang dibangun secara murni dalam PHP berhasil melindungi data sensitif pengguna di tingkat basis data. Pengujian membuktikan ciphertext bervariasi antar enkripsi meski plaintext sama, menunjukkan penggunaan nonce acak yang benar.</li>
+                <li>Multi-Factor Authentication (MFA/2FA) berbasis TOTP (RFC 6238) berhasil diimplementasikan untuk akun Contributor, Admin, dan Super Admin. Sistem verifikasi kode 6 digit dari aplikasi Authenticator berfungsi penuh secara offline, termasuk di lingkungan pengembangan lokal (localhost).</li>
+                <li>Modul Audit Logging berhasil mencatat seluruh aktivitas administratif penting ke dalam tabel <code>audit_logs</code>, menyediakan rekam jejak forensik yang dapat diakses secara eksklusif oleh Super Admin melalui panel administratif.</li>
             </ol>
 
-            <h2>5.2 Saran</h2>
+            <h2>4.2 Saran</h2>
             <p>
-                Meskipun sistem keamanan saat ini sudah berjalan dengan baik, terdapat beberapa saran untuk pengembangan dan penguatan aspek keamanan di masa mendatang:
+                Meskipun sistem keamanan berlapis telah berhasil diimplementasikan, terdapat beberapa saran untuk penguatan dan pengembangan lebih lanjut di masa mendatang:
             </p>
             <ol>
-                <li><strong>Implementasi Multi-Factor Authentication (MFA):</strong> Untuk akun koki (Chef) dan administrator, disarankan menambahkan autentikasi dua faktor (MFA/2FA) menggunakan aplikasi authenticator berbasis TOTP untuk memperkuat manajemen identitas.</li>
-                <li><strong>Enkripsi Data Sensitif:</strong> Melakukan enkripsi data sensitif pengguna (seperti nomor telepon atau data profil pribadi jika ditambahkan nanti) pada tingkat kolom database menggunakan AES-256.</li>
-                <li><strong>Logging Aktivitas Audit (Security Log):</strong> Menerapkan modul logging aktivitas administratif untuk mencatat riwayat perubahan data krusial, guna keperluan forensik apabila terjadi insiden keamanan di masa mendatang.</li>
+                <li><strong>Penerapan HTTPS / SSL/TLS:</strong> Saat dipindahkan ke server produksi, wajib mengaktifkan HTTPS menggunakan sertifikat SSL/TLS (misalnya Let's Encrypt) agar transmisi data antar browser dan server terenkripsi sepenuhnya, termasuk session token dan kode OTP.</li>
+                <li><strong>Enkripsi Kolom Tambahan:</strong> Mempertimbangkan enkripsi kolom sensitif tambahan seperti <code>bio</code> pada profil kontributor, atau riwayat komentar jika berisi konten pribadi, menggunakan Salsa20 yang telah terimplementasi.</li>
+                <li><strong>Rotasi Kunci Enkripsi:</strong> Menerapkan mekanisme rotasi periodik untuk kunci Salsa20 (<code>SALSA20_KEY</code>) agar keamanan data jangka panjang tetap terjaga meskipun terjadi kebocoran konfigurasi.</li>
+                <li><strong>Rate Limiting pada Verifikasi OTP:</strong> Menambahkan pembatasan percobaan pada halaman verifikasi OTP 2FA untuk mencegah serangan brute-force terhadap kode 6 digit (meskipun TOTP memiliki jendela waktu yang pendek).</li>
+                <li><strong>Notifikasi Email Login Mencurigakan:</strong> Mengirimkan notifikasi email otomatis kepada pemilik akun apabila terdeteksi aktivitas login dari IP atau lokasi yang tidak dikenal, sebagai lapisan peringatan tambahan.</li>
             </ol>
 
             <div class="page-break"></div>
@@ -830,5 +1562,20 @@ $request->validate([
         </div>
     </div>
 
+    <script>
+        function exportToWord() {
+            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Laporan Keamanan Savora Web</title></head><body>";
+            var footer = "</body></html>";
+            var sourceHTML = header + document.querySelector('.report-content').innerHTML + footer;
+            
+            var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            var fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = 'Laporan_Keamanan_Savora.doc';
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
+        }
+    </script>
 </body>
 </html>

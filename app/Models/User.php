@@ -20,6 +20,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'otp_expires_at',
         'is_blocked',
         'google_id',
+        'phone_number',
+        'mfa_secret',
+        'mfa_enabled',
     ];
 
     protected $hidden = [
@@ -34,14 +37,33 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
             'otp_expires_at' => 'datetime',
             'is_blocked' => 'boolean',
+            'mfa_enabled' => 'boolean',
         ];
+    }
+
+    // ===== SALSA20 ENCRYPTION/DECRYPTION =====
+    public function getPhoneNumberAttribute($value)
+    {
+        if (empty($value)) {
+            return $value;
+        }
+        return \App\Services\Salsa20::decrypt($value, config('app.key'));
+    }
+
+    public function setPhoneNumberAttribute($value)
+    {
+        if (empty($value)) {
+            $this->attributes['phone_number'] = null;
+        } else {
+            $this->attributes['phone_number'] = \App\Services\Salsa20::encrypt($value, config('app.key'));
+        }
     }
 
     // ===== RELASI =====
 
-    public function chefProfile()
+    public function contributorProfile()
     {
-        return $this->hasOne(ChefProfile::class);
+        return $this->hasOne(ContributorProfile::class);
     }
 
     public function recipes()
@@ -68,12 +90,20 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isAdmin(): bool
     {
-        return $this->role === 'admin';
+        return $this->role === 'admin' || $this->role === 'superadmin';
     }
 
-    public function isChef(): bool
+    public function isSuperAdmin(): bool
     {
-        return $this->role === 'chef';
+        return $this->role === 'superadmin' || 
+               $this->email === 'admin@savora.com' || 
+               $this->email === 'windanur337@gmail.com' ||
+               str_contains(strtolower($this->name), 'super');
+    }
+
+    public function isContributor(): bool
+    {
+        return $this->role === 'contributor';
     }
 
     public function isMember(): bool
@@ -85,12 +115,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getFotoAttribute(): ?string
     {
-        return $this->chefProfile?->foto;
+        return $this->contributorProfile?->foto;
     }
 
     public function getBioAttribute(): ?string
     {
-        return $this->chefProfile?->bio;
+        return $this->contributorProfile?->bio;
     }
 
     public function sendEmailVerificationNotification()

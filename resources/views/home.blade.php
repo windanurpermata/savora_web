@@ -48,7 +48,7 @@
                         <p class="text-cokelat-200 text-xs mt-1">Resep Tersedia</p>
                     </div>
                     <div class="bg-cokelat-500/20 border border-cokelat-500/30 rounded-2xl p-5 text-center">
-                        <p class="font-serif text-3xl text-yellow-300 font-bold">{{ $totalChef }}+</p>
+                        <p class="font-serif text-3xl text-yellow-300 font-bold">{{ $totalContributor }}+</p>
                         <p class="text-cokelat-200 text-xs mt-1">Contributor Aktif</p>
                     </div>
                     <div class="bg-cokelat-500/20 border border-cokelat-500/30 rounded-2xl p-5 text-center">
@@ -295,8 +295,8 @@
         </div>
     </section>
 
-    {{-- ===================== CHEF TERFEATURED ===================== --}}
-    <section id="chef" class="py-12 bg-cokelat-800">
+    {{-- ===================== CONTRIBUTOR TERFEATURED ===================== --}}
+    <section id="contributor" class="py-12 bg-cokelat-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div class="text-center mb-8">
@@ -305,8 +305,8 @@
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
-                @forelse($chefFeatured as $chef)
-                    <a href="{{ route('chef.profile', $chef->id) }}"
+                @forelse($contributorFeatured as $contributor)
+                    <a href="{{ route('contributor.profile', $contributor->id) }}"
                         class="bg-cokelat-700 hover:bg-cokelat-600 rounded-xl p-5 text-center
                           transition-colors border border-cokelat-600">
 
@@ -314,22 +314,22 @@
                         <div
                             class="w-14 h-14 rounded-full mx-auto mb-3 overflow-hidden
                                 bg-cokelat-500 flex items-center justify-center">
-                            @if ($chef->chefProfile && $chef->chefProfile->foto)
-                                <img src="{{ asset('storage/' . $chef->chefProfile->foto) }}" alt="{{ $chef->name }}"
+                            @if ($contributor->contributorProfile && $contributor->contributorProfile->foto)
+                                <img src="{{ asset('storage/' . $contributor->contributorProfile->foto) }}" alt="{{ $contributor->name }}"
                                     class="w-full h-full object-cover">
                             @else
                                 <span class="font-serif text-xl font-bold text-yellow-200">
-                                    {{ strtoupper(substr($chef->name, 0, 2)) }}
+                                    {{ strtoupper(substr($contributor->name, 0, 2)) }}
                                 </span>
                             @endif
                         </div>
 
-                        <p class="font-bold text-cokelat-50 text-sm mb-0.5">{{ $chef->name }}</p>
+                        <p class="font-bold text-cokelat-50 text-sm mb-0.5">{{ $contributor->name }}</p>
                         <p class="text-cokelat-300 text-xs">
-                            {{ $chef->chefProfile->spesialisasi ?? 'Masakan Nusantara' }}
+                            {{ $contributor->contributorProfile->spesialisasi ?? 'Masakan Nusantara' }}
                         </p>
                         <p class="text-cokelat-400 text-xs mt-1">
-                            {{ $chef->recipes_count }} resep
+                            {{ $contributor->recipes_count }} resep
                         </p>
 
                     </a>
@@ -361,7 +361,7 @@
                           px-6 py-3 rounded-lg transition-colors text-sm">
                             Daftar sebagai Member
                         </a>
-                        <a href="{{ route('register') }}?role=chef"
+                        <a href="{{ route('register') }}?role=contributor"
                             class="border border-cokelat-200/40 hover:border-cokelat-50 text-cokelat-50
                           font-bold px-6 py-3 rounded-lg transition-colors text-sm">
                             Daftar sebagai Contributor

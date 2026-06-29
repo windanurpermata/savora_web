@@ -15,13 +15,19 @@ class Recaptcha implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (empty($value)) {
-            $fail('Verifikasi reCAPTCHA wajib diisi.');
+        // Skip validasi saat unit test
+        if (app()->runningUnitTests()) {
             return;
         }
 
-        // Untuk testing / development lokal tanpa keys, kita bisa skip validasi jika tidak diset di .env
-        if (app()->runningUnitTests()) {
+        // Skip validasi di environment lokal / debug mode
+        // reCAPTCHA tidak bisa diverifikasi di localhost tanpa pendaftaran domain di Google Console
+        if (app()->environment('local') || config('app.debug')) {
+            return;
+        }
+
+        if (empty($value)) {
+            $fail('Verifikasi reCAPTCHA wajib diisi.');
             return;
         }
 
@@ -31,7 +37,7 @@ class Recaptcha implements ValidationRule
         }
 
         $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret' => $secretKey,
+            'secret'   => $secretKey,
             'response' => $value,
         ]);
 

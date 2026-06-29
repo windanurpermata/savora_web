@@ -31,8 +31,10 @@ class AdminUserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $request->validate(['role' => 'required|in:member,chef,admin']);
+        $request->validate(['role' => 'required|in:member,contributor,admin,superadmin']);
+        $oldRole = $user->role;
         $user->update(['role' => $request->role]);
+        \App\Services\AuditLogger::log("Admin changed user role: {$user->email} from {$oldRole} to {$request->role}");
         return back()->with('success', 'Role user berhasil diubah.');
     }
 

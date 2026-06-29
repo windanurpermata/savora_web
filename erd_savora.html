@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERD Savora</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'dark',
+            flowchart: {
+                curve: 'linear' // Garis lurus seperti di gambar
+            }
+        });
+    </script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #erd-container {
+            margin-top: 20px;
+            padding: 40px;
+            border-radius: 8px;
+            width: auto;
+            max-width: 95vw;
+            overflow-x: auto;
+            text-align: center;
+            background-color: rgba(30, 30, 30, 0.9);
+            border: 1px solid #444;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+        }
+        button {
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2>Entity Relationship Diagram (ERD) - Savora</h2>
+        <button onclick="saveAsImage()">💾 Simpan sebagai Gambar (PNG)</button>
+        <p style="color: #aaa; font-size: 14px; margin-top: 10px;">(Tunggu hingga diagram muncul, lalu klik tombol di atas untuk menyimpan)</p>
+    </div>
+
+    <div id="erd-container">
+        <pre class="mermaid" id="mermaid-graph">
+flowchart TD
+    %% Entities (Rectangles)
+    SUPERADMIN[SUPERADMIN]
+    ADMIN[ADMIN]
+    CONTACT_MESSAGES[CONTACT MESSAGES]
+    NEWSLETTER[NEWSLETTER]
+    USERS[USERS]
+    CHEF[CHEF]
+    RECIPES[RECIPES]
+    MEMBERS[MEMBERS]
+    BOOKMARK[BOOKMARK]
+
+    %% Relationships (Diamonds)
+    rel_mempunyai{mempunyai}
+    rel_memiliki1{memiliki}
+    rel_mengirim{mengirim}
+    rel_mendaftar{mendaftar}
+    rel_memiliki2{memiliki}
+    rel_memiliki3{memiliki}
+    rel_membuat{membuat}
+    rel_menyimpan{Menyimpan}
+    rel_disimpan{di simpan}
+
+    %% Attributes (Ovals)
+    sa_kelola_user([kelola user])
+    sa_kelola_resep([kelola resep])
+    sa_pesan_masuk([pesan masuk])
+    sa_tambah_kategori([tambah kategori])
+    sa_newsletter([newsletter])
+
+    ad_kelola_resep([kelola resep])
+    ad_pesan_masuk([pesan masuk])
+
+    cm_deskripsi([deskripsi])
+    cm_topic([topic])
+    cm_nama([nama])
+    cm_email([email])
+
+    nl_email([email])
+
+    us_nama([nama])
+    us_email([email])
+    us_password([password])
+    us_verifikasi([verifikasi email])
+    us_captcha([captcha])
+
+    ch_tambah_resep([tambah resep])
+    ch_edit_profil([edit profil])
+    ch_lihat_profil([lihat profil])
+
+    re_judul([judul resep])
+    re_kategori([Kategori])
+    re_waktu([waktu memasak])
+    re_porsi([jumlah porsi])
+    re_deskripsi([deskripsi])
+    re_foto([foto resep])
+
+    me_rating([rating])
+    me_komentar([Komentar])
+    me_edit([edit_profil])
+
+    %% Connect Attributes to Entities
+    SUPERADMIN --- sa_kelola_user
+    SUPERADMIN --- sa_kelola_resep
+    SUPERADMIN --- sa_pesan_masuk
+    SUPERADMIN --- sa_tambah_kategori
+    SUPERADMIN --- sa_newsletter
+
+    ADMIN --- ad_kelola_resep
+    ADMIN --- ad_pesan_masuk
+
+    CONTACT_MESSAGES --- cm_deskripsi
+    CONTACT_MESSAGES --- cm_topic
+    CONTACT_MESSAGES --- cm_nama
+    CONTACT_MESSAGES --- cm_email
+
+    NEWSLETTER --- nl_email
+
+    USERS --- us_nama
+    USERS --- us_email
+    USERS --- us_password
+    USERS --- us_verifikasi
+    USERS --- us_captcha
+
+    CHEF --- ch_tambah_resep
+    CHEF --- ch_edit_profil
+    CHEF --- ch_lihat_profil
+
+    RECIPES --- re_judul
+    RECIPES --- re_kategori
+    RECIPES --- re_waktu
+    RECIPES --- re_porsi
+    RECIPES --- re_deskripsi
+    RECIPES --- re_foto
+
+    MEMBERS --- me_rating
+    MEMBERS --- me_komentar
+    MEMBERS --- me_edit
+
+    %% Connect Entities to Relationships
+    SUPERADMIN -- N --- rel_mempunyai
+    rel_mempunyai -- 1 --- ADMIN
+
+    ADMIN -- N --- rel_memiliki1
+    rel_memiliki1 -- 1 --- USERS
+
+    CONTACT_MESSAGES -- N --- rel_mengirim
+    rel_mengirim -- 1 --- USERS
+
+    NEWSLETTER -- N --- rel_mendaftar
+    rel_mendaftar -- 1 --- USERS
+
+    USERS -- 1 --- rel_memiliki2
+    rel_memiliki2 -- N --- CHEF
+
+    USERS -- 1 --- rel_memiliki3
+    rel_memiliki3 -- N --- MEMBERS
+
+    CHEF -- 1 --- rel_membuat
+    rel_membuat -- N --- RECIPES
+
+    MEMBERS -- 1 --- rel_menyimpan
+    rel_menyimpan -- N --- BOOKMARK
+
+    BOOKMARK -- 1 --- rel_disimpan
+    rel_disimpan -- N --- RECIPES
+        </pre>
+    </div>
+
+    <script>
+        function saveAsImage() {
+            const container = document.getElementById('erd-container');
+            const originalBackground = container.style.backgroundColor;
+            const originalBoxShadow = container.style.boxShadow;
+            
+            // Set exact background for canvas output and remove shadow
+            container.style.backgroundColor = '#1e1e1e';
+            container.style.boxShadow = 'none';
+            
+            html2canvas(container, {
+                backgroundColor: '#1e1e1e',
+                scale: 2, // High resolution
+                logging: false
+            }).then(canvas => {
+                // Restore styles
+                container.style.backgroundColor = originalBackground;
+                container.style.boxShadow = originalBoxShadow;
+                
+                // Download
+                const link = document.createElement('a');
+                link.download = 'ERD_Savora.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>

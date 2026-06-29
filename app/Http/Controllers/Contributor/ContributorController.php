@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Chef;
+namespace App\Http\Controllers\Contributor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Recipe;
@@ -8,7 +8,7 @@ use App\Models\Rating;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class ChefDashboardController extends Controller
+class ContributorController extends Controller
 {
     public function index()
     {
@@ -54,7 +54,7 @@ class ChefDashboardController extends Controller
             ->orderBy('bulan')
             ->get();
 
-        return view('chef.dashboard', compact(
+        return view('contributor.dashboard', compact(
             'chef',
             'totalResep',
             'totalRating',

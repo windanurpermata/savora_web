@@ -83,7 +83,7 @@
                               {{ request()->routeIs('recipes.*') ? 'text-cokelat-50 font-bold' : '' }}">
                         Resep
                     </a>
-                    <a href="#chef" class="text-cokelat-200 hover:text-cokelat-50 text-sm transition-colors">
+                    <a href="#contributor" class="text-cokelat-200 hover:text-cokelat-50 text-sm transition-colors">
                         Contributor
                     </a>
                     <a href="#kategori" class="text-cokelat-200 hover:text-cokelat-50 text-sm transition-colors">
@@ -104,13 +104,13 @@
                             Edit Profil
                         </a>
 
-                        @if (Auth::user()->role === 'admin')
+                        @if (Auth::user()->role === 'admin' || Auth::user()->role === 'superadmin')
                             <a href="{{ route('admin.dashboard') }}"
                                 class="text-cokelat-200 hover:text-cokelat-50 text-sm transition-colors">
                                 Dashboard
                             </a>
-                        @elseif(Auth::user()->role === 'chef')
-                            <a href="{{ route('chef.dashboard') }}"
+                        @elseif(Auth::user()->role === 'contributor')
+                            <a href="{{ route('contributor.dashboard') }}"
                                 class="text-cokelat-200 hover:text-cokelat-50 text-sm transition-colors">
                                 Dashboard
                             </a>
@@ -157,7 +157,7 @@
             <div class="flex flex-col gap-3 pt-3">
                 <a href="{{ route('home') }}" class="text-cokelat-200 text-sm">Beranda</a>
                 <a href="{{ route('recipes.index') }}" class="text-cokelat-200 text-sm">Resep</a>
-                <a href="#chef" class="text-cokelat-200 text-sm">Contributor</a>
+                <a href="#contributor" class="text-cokelat-200 text-sm">Contributor</a>
                 <a href="#kategori" class="text-cokelat-200 text-sm">Kategori</a>
                 <hr class="border-cokelat-700">
                 @auth
@@ -382,7 +382,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('register') }}?role=chef"
+                                    <a href="{{ route('register') }}?role=contributor"
                                         class="text-xs text-cokelat-400 hover:text-cokelat-50
                                               transition-colors flex items-center gap-2">
                                         <span class="text-cokelat-600 text-xs">›</span> Daftar Contributor
@@ -399,12 +399,21 @@
                                         </a>
                                     </li>
                                 @endif
-                                @if (Auth::user()->role === 'chef')
+                                @if (Auth::user()->role === 'contributor')
                                     <li>
-                                        <a href="{{ route('chef.dashboard') }}"
+                                        <a href="{{ route('contributor.dashboard') }}"
                                             class="text-xs text-cokelat-400 hover:text-cokelat-50
                                                   transition-colors flex items-center gap-2">
                                             <span class="text-cokelat-600 text-xs">›</span> Dashboard Contributor
+                                        </a>
+                                    </li>
+                                @endif
+                                @if (Auth::user()->role === 'admin' || Auth::user()->role === 'superadmin')
+                                    <li>
+                                        <a href="{{ route('admin.dashboard') }}"
+                                            class="text-xs text-cokelat-400 hover:text-cokelat-50
+                                                  transition-colors flex items-center gap-2">
+                                            <span class="text-cokelat-600 text-xs">›</span> Dashboard Admin
                                         </a>
                                     </li>
                                 @endif

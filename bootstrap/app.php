@@ -20,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role'       => RoleMiddleware::class,
             'admin.ip'   => AdminIpWhitelist::class,
             'admin.role' => \App\Http\Middleware\AdminRoleMiddleware::class,
+            'mfa'        => \App\Http\Middleware\MfaMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

@@ -38,9 +38,9 @@ class HomeController extends Controller
                 return $resep;
             });
 
-        // Chef terfeatured — chef dengan resep terbanyak
-        $chefFeatured = User::where('role', 'chef')
-            ->with('chefProfile')
+        // Contributor terfeatured — contributor dengan resep terbanyak
+        $contributorFeatured = User::where('role', 'contributor')
+            ->with('contributorProfile')
             ->withCount('recipes')
             ->orderByDesc('recipes_count')
             ->take(8)
@@ -51,17 +51,17 @@ class HomeController extends Controller
 
         // Statistik singkat untuk hero section
         $totalResep = Recipe::count();
-        $totalChef = User::where('role', 'chef')->count();
+        $totalContributor = User::where('role', 'contributor')->count();
         $totalMember = User::where('role', 'member')->count();
         $totalKategori = Category::count();
 
         return view('home', compact(
             'resepPopuler',
             'resepTerbaru',
-            'chefFeatured',
+            'contributorFeatured',
             'kategoriList',
             'totalResep',
-            'totalChef',
+            'totalContributor',
             'totalMember',
             'totalKategori',
         ));

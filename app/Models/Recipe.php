@@ -16,6 +16,26 @@ class Recipe extends Model
         'porsi',
     ];
 
+    // ===== SALSA20 ENCRYPTION/DECRYPTION =====
+    public function getDeskripsiAttribute($value)
+    {
+        if (empty($value)) {
+            return $value;
+        }
+        return \App\Services\Salsa20::decrypt($value, config('app.key'));
+    }
+
+    public function setDeskripsiAttribute($value)
+    {
+        if (empty($value)) {
+            $this->attributes['deskripsi'] = null;
+        } else {
+            $this->attributes['deskripsi'] = \App\Services\Salsa20::encrypt($value, config('app.key'));
+        }
+    }
+
+    // ===== RELASI =====
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -64,7 +64,7 @@
                         </p>
 
                         {{-- Tombol Edit Profil --}}
-                        <a href="{{ route('chef.profile.edit') }}"
+                        <a href="{{ route('contributor.profile.edit') }}"
                             class="mt-4 block w-full text-center text-sm font-semibold
                               bg-cokelat-700 hover:bg-cokelat-800 text-white
                               py-2 rounded-xl transition-colors">
@@ -87,7 +87,7 @@
 
                 {{-- Aksi Cepat --}}
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    <a href="{{ route('chef.recipes.create') }}"
+                    <a href="{{ route('contributor.recipes.create') }}"
                         class="bg-white border border-cokelat-100 rounded-xl p-4 flex flex-col items-center justify-center
                           hover:-translate-y-0.5 transition-transform shadow-sm text-center">
                         <svg class="w-6 h-6 mb-2 text-cokelat-700" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -95,7 +95,7 @@
                         </svg>
                         <p class="text-cokelat-700 text-sm font-semibold">Tambah Resep</p>
                     </a>
-                    <a href="{{ route('chef.profile.edit') }}"
+                    <a href="{{ route('contributor.profile.edit') }}"
                         class="bg-white border border-cokelat-100 rounded-xl p-4 flex flex-col items-center justify-center
                           hover:-translate-y-0.5 transition-transform shadow-sm text-center">
                         <svg class="w-6 h-6 mb-2 text-cokelat-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -103,7 +103,7 @@
                         </svg>
                         <p class="text-cokelat-700 text-sm font-semibold">Edit Profil</p>
                     </a>
-                    <a href="{{ route('chef.profile', Auth::id()) }}"
+                    <a href="{{ route('contributor.profile', Auth::id()) }}"
                         class="bg-white border border-cokelat-100 rounded-xl p-4 flex flex-col items-center justify-center
                           hover:-translate-y-0.5 transition-transform shadow-sm text-center">
                         <svg class="w-6 h-6 mb-2 text-cokelat-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -119,7 +119,7 @@
                 <div class="bg-white border border-cokelat-100 rounded-2xl shadow-sm overflow-hidden">
                     <div class="flex items-center justify-between px-6 py-4 border-b border-cokelat-50">
                         <h3 class="font-serif text-cokelat-800 font-semibold">Resep Saya</h3>
-                        <a href="{{ route('chef.recipes.create') }}"
+                        <a href="{{ route('contributor.recipes.create') }}"
                             class="text-xs text-cokelat-500 hover:text-cokelat-700">
                             + Tambah baru
                         </a>
@@ -156,12 +156,12 @@
 
                                     {{-- Aksi --}}
                                     <div class="flex items-center gap-2 flex-shrink-0">
-                                        <a href="{{ route('chef.recipes.edit', $resep->id) }}"
+                                        <a href="{{ route('contributor.recipes.edit', $resep->id) }}"
                                             class="text-xs text-cokelat-500 hover:text-cokelat-700 px-2 py-1
                                               border border-cokelat-200 rounded-lg">
                                             Edit
                                         </a>
-                                        <form action="{{ route('chef.recipes.destroy', $resep->id) }}" method="POST"
+                                        <form action="{{ route('contributor.recipes.destroy', $resep->id) }}" method="POST"
                                             onsubmit="return confirm('Hapus resep ini?')">
                                             @csrf
                                             @method('DELETE')

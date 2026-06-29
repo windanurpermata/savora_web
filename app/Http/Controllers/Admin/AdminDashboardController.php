@@ -16,8 +16,8 @@ class AdminDashboardController extends Controller
         return view('admin.dashboard', [
             'totalResep' => Recipe::count(),
             'resepBulanIni' => Recipe::whereMonth('created_at', now()->month)->count(),
-            'totalUser' => User::whereIn('role', ['member', 'chef'])->count(),
-            'totalChef' => User::where('role', 'chef')->count(),
+            'totalUser' => User::whereIn('role', ['member', 'contributor'])->count(),
+            'totalContributor' => User::where('role', 'contributor')->count(),
             'totalMember' => User::where('role', 'member')->count(),
             'totalPesan' => ContactMessage::count(),
             'pesanBelumDibaca' => ContactMessage::where('is_read', false)->count(),

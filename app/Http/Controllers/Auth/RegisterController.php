@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\ChefProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +19,7 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'role' => 'required|in:member,chef',
+            'role' => 'required|in:member,contributor',
             'name' => 'required|string|max:100',
             'email' => 'required|email|unique:users,email',
             'password' => [
@@ -48,9 +47,9 @@ class RegisterController extends Controller
             'role' => $request->role,
         ]);
 
-        // Buat profil chef jika role chef
-        if ($user->role === 'chef') {
-            ChefProfile::create(['user_id' => $user->id]);
+        // Buat profil contributor jika role contributor
+        if ($user->role === 'contributor') {
+            \App\Models\ContributorProfile::create(['user_id' => $user->id]);
         }
 
         // Kirim email verifikasi

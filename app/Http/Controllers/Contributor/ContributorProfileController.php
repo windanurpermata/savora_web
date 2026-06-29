@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Chef;
+namespace App\Http\Controllers\Contributor;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -9,18 +9,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class ChefProfileController extends Controller
+class ContributorProfileController extends Controller
 {
     public function show($id)
     {
-        $chef = User::where('role', 'chef')->findOrFail($id);
-        $reseps = Recipe::where('user_id', $chef->id)->latest()->get();
-        return view('chef.profile', compact('chef', 'reseps'));
+        $contributor = User::whereIn('role', ['contributor', 'chef'])->findOrFail($id);
+        $reseps = Recipe::where('user_id', $contributor->id)->latest()->get();
+        return view('contributor.profile', compact('contributor', 'reseps'));
     }
 
     public function edit()
     {
-        return view('chef.profile-edit');
+        return view('contributor.profile-edit');
     }
 
     public function update(Request $request)
@@ -37,17 +37,17 @@ class ChefProfileController extends Controller
         // Update nama
         $user->update(['name' => $request->name]);
 
-        // Update atau buat chef profile
+        // Update atau buat contributor profile
         $profileData = ['bio' => $request->bio];
 
         if ($request->hasFile('foto')) {
-            if ($user->chefProfile?->foto) {
-                \Storage::disk('public')->delete($user->chefProfile->foto);
+            if ($user->contributorProfile?->foto) {
+                \Storage::disk('public')->delete($user->contributorProfile->foto);
             }
             $profileData['foto'] = $request->file('foto')->store('profil', 'public');
         }
 
-        $user->chefProfile()->updateOrCreate(
+        $user->contributorProfile()->updateOrCreate(
             ['user_id' => $user->id],
             $profileData
         );

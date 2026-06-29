@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Chef;
+namespace App\Http\Controllers\Contributor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Rating;
 use App\Models\Recipe;
 use Illuminate\Support\Facades\Auth;
 
-class ChefDashboardController extends Controller
+class ContributorDashboardController extends Controller
 {
     public function index()
     {
@@ -21,6 +21,6 @@ class ChefDashboardController extends Controller
 
         $avgRating = round($avgRating ?? 0, 1);
 
-        return view('chef.dashboard', compact('reseps', 'totalResep', 'avgRating'));
+        return view('contributor.dashboard', compact('reseps', 'totalResep', 'avgRating'));
     }
 }

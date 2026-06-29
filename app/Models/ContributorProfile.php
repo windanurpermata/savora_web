@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ChefProfile extends Model
+class ContributorProfile extends Model
 {
     protected $fillable = ['user_id', 'bio', 'foto', 'spesialisasi'];
 

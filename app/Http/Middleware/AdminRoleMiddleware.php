@@ -21,22 +21,16 @@ class AdminRoleMiddleware
 
         $user = auth()->user();
 
-        // Hanya role admin yang bisa lewat middleware ini
-        if ($user->role !== 'admin') {
+        // Hanya role admin/superadmin yang bisa lewat middleware ini
+        if (!$user->isAdmin()) {
             abort(403, 'Anda tidak memiliki akses ke halaman ini.');
         }
 
         // Tentukan level admin:
-        // super_admin: emailnya admin@savora.com atau jika kita punya field khusus,
-        // namun karena model User belum diubah, kita bisa cek dengan rule:
         // admin biasa: hanya bisa kelola resep, newsletter, dan balas pesan.
-        // super_admin: bisa akses semuanya termasuk user dan kategori.
+        // super_admin: bisa akses semuanya termasuk user, kategori, dan log audit.
         
-        $isSuperAdmin = (
-            $user->email === 'admin@savora.com' || 
-            $user->email === 'windanur337@gmail.com' ||
-            str_contains(strtolower($user->name), 'super')
-        );
+        $isSuperAdmin = $user->isSuperAdmin();
 
         if ($requiredLevel === 'super' && !$isSuperAdmin) {
             abort(403, 'Akses khusus Super Admin.');

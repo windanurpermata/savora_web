@@ -21,6 +21,7 @@
             <p class="text-xs text-cokelat-400 mt-1">+{{ $resepBulanIni }} bulan ini</p>
         </div>
 
+        @if(auth()->user()->isSuperAdmin())
         <div class="bg-white rounded-xl border border-cokelat-100 p-5">
             <div class="flex items-center justify-between mb-3">
                 <p class="text-xs text-cokelat-400 font-bold uppercase tracking-wider">Total User</p>
@@ -32,8 +33,9 @@
                 </div>
             </div>
             <p class="font-serif text-3xl font-bold text-cokelat-800">{{ $totalUser }}</p>
-            <p class="text-xs text-cokelat-400 mt-1">{{ $totalChef }} chef · {{ $totalMember }} member</p>
+            <p class="text-xs text-cokelat-400 mt-1">{{ $totalContributor }} contributor · {{ $totalMember }} member</p>
         </div>
+        @endif
 
         <div class="bg-white rounded-xl border border-cokelat-100 p-5">
             <div class="flex items-center justify-between mb-3">

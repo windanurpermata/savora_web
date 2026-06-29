@@ -162,8 +162,8 @@
                                     <option value="laporan_masalah"
                                         {{ old('topik') === 'laporan_masalah' ? 'selected' : '' }}>Laporan Masalah
                                     </option>
-                                    <option value="daftar_chef"
-                                        {{ old('topik') === 'daftar_chef' ? 'selected' : '' }}>Daftar sebagai Chef
+                                    <option value="daftar_contributor"
+                                        {{ old('topik') === 'daftar_contributor' ? 'selected' : '' }}>Daftar sebagai Contributor
                                     </option>
                                     <option value="saran_masukan"
                                         {{ old('topik') === 'saran_masukan' ? 'selected' : '' }}>Saran & Masukan

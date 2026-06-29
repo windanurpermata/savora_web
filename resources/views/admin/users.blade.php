@@ -23,7 +23,7 @@
                        text-xs text-cokelat-700 outline-none cursor-pointer">
                 <option value="">Semua Role</option>
                 <option value="member" {{ request('role') === 'member' ? 'selected' : '' }}>Member</option>
-                <option value="chef" {{ request('role') === 'chef' ? 'selected' : '' }}>Chef</option>
+                <option value="contributor" {{ request('role') === 'contributor' ? 'selected' : '' }}>Contributor</option>
                 <option value="admin" {{ request('role') === 'admin' ? 'selected' : '' }}>Admin</option>
             </select>
             <button type="submit" class="bg-cokelat-700 text-white text-xs font-bold px-4 py-2 rounded-lg">
@@ -46,6 +46,9 @@
                     </th>
                     <th class="text-left px-4 py-3 text-xs font-bold text-cokelat-600 uppercase tracking-wider">
                         Role
+                    </th>
+                    <th class="text-left px-4 py-3 text-xs font-bold text-cokelat-600 uppercase tracking-wider">
+                        Nomor Telepon
                     </th>
                     <th class="text-left px-4 py-3 text-xs font-bold text-cokelat-600 uppercase tracking-wider">
                         Status
@@ -77,11 +80,14 @@
                                 class="text-xs px-2.5 py-1 rounded-full font-bold
                             {{ $user->role === 'admin'
                                 ? 'bg-purple-100 text-purple-700'
-                                : ($user->role === 'chef'
+                                : ($user->role === 'contributor'
                                     ? 'bg-cokelat-100 text-cokelat-700'
                                     : 'bg-blue-100 text-blue-700') }}">
                                 {{ ucfirst($user->role) }}
                             </span>
+                        </td>
+                        <td class="px-4 py-3 text-xs text-cokelat-600">
+                            {{ $user->phone_number ?: '-' }}
                         </td>
                         <td class="px-4 py-3">
                             <div class="flex flex-col gap-1 items-start">
@@ -121,7 +127,7 @@
                                                    text-cokelat-700">
                                             <option value="member" {{ $user->role === 'member' ? 'selected' : '' }}>Member
                                             </option>
-                                            <option value="chef" {{ $user->role === 'chef' ? 'selected' : '' }}>Chef
+                                            <option value="contributor" {{ $user->role === 'contributor' ? 'selected' : '' }}>Contributor
                                             </option>
                                             <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin
                                             </option>
